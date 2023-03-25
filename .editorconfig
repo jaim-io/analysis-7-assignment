@@ -369,6 +369,9 @@ dotnet_diagnostic.sa1005.severity = none
 # SA1028: Code should not contain trailing whitespace
 dotnet_diagnostic.SA1028.severity = none
 
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+
 # SA1201: A constructor should not follow a property
 dotnet_diagnostic.SA1201.severity = none
 
@@ -408,11 +411,14 @@ dotnet_diagnostic.SA1600.severity = none
 # SA1602: Enumeration items should be documented
 dotnet_diagnostic.SA1602.severity = none
 
+# SA1633: The file header is missing or not located at the top of the file.
+dotnet_diagnostic.SA1633.severity = none
+
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
 
-[DemoCard.cs]
-# SA1402: File may only contain a single typ
+[DemoCards.cs]
+# SA1402: File may only contain a single type
 dotnet_diagnostic.SA1402.severity = none
 
 # SA1649: File name should match first type name

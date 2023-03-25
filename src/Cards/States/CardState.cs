@@ -1,5 +1,3 @@
-using TheCardGame.Games;
-
 namespace TheCardGame.Cards.States;
 
 public abstract class CardState

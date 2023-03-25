@@ -2,7 +2,11 @@ namespace TheCardGame.Effects;
 
 public class PermanentEffect : Effect
 {
-    public PermanentEffect(Action value) : base(value)
+    public PermanentEffect(
+        Guid id,
+        Action action,
+        string description)
+        : base(id, action, description)
     {
     }
 

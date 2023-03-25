@@ -2,12 +2,14 @@ namespace TheCardGame.Effects.States;
 
 public abstract class EffectState
 {
-    public virtual void onIsTaken() { }
+    public Effect effect { get; set; }
+    public EffectState(Effect effect)
+    {
+        this.effect = effect;
+    }
+    public virtual void OnIsTaken() { }
+    public virtual void Activate() { }
 }
-
-// IsActive
-// HasBeenUsed
-// HasNotBeenUsed
 
 // Card.state(OnTheBoard).TriggerEffects
 // this.card.TriggerEffects

@@ -2,7 +2,11 @@ namespace TheCardGame.Effects;
 
 public class TemporaryEffect : Effect
 {
-    public TemporaryEffect(Action value) : base(value)
+    public TemporaryEffect(
+        Guid id,
+        Action action,
+        string description)
+        : base(id, action, description)
     {
     }
 

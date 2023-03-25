@@ -1,5 +1,5 @@
 namespace TheCardGame.Effects;
 
-public abstract class EffectFactory {
-    
+public abstract class EffectFactory
+{
 }

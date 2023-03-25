@@ -1,15 +1,33 @@
+using TheCardGame.Effects.States;
+
 namespace TheCardGame.Effects;
 
-public abstract class Effect {
-    // State?
-    // Duration?
-    // Dispose
-    public Action Value;
+public abstract class Effect
+{
+    public Guid Id { get; init; }
+    public string Description { get; private set; }
+    public Action Action { get; private set; }
+    public EffectState State { get; private set; }
 
-    public Effect(Action value)
+    public Effect(
+        Guid id,
+        Action action,
+        string description)
     {
-        Value = value;
+        Id = id;
+        Description = description;
+        Action = action;
+        State = new Unused(this);
     }
 
-    public abstract void Activate();
+    public virtual void Activate() => this.State.Activate();
 }
+
+/*
+Fields: 
+    Duration? 
+
+Methods: 
+    Dispose?
+    OnEndTurn
+*/ 

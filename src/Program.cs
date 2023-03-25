@@ -36,19 +36,19 @@ public class Program
         player1.setCards(player1_cards);
         player2.setCards(player2_cards);
 
-        GameBoard gb = new GameBoard();
+        GameBoard gb = GameBoard.GetInstance();
         gb.setPlayers(player1, player2, player1);
     }
 
     public static void setupACurrentSituation()
     {
-        GameBoard gb = new GameBoard();
+        GameBoard gb = GameBoard.GetInstance();
         gb.setupACurrentSituation();
     }
 
     public static void RunADemoGame()
     {
-        GameBoard gb = new GameBoard();
+        GameBoard gb = GameBoard.GetInstance();
 
         //Player 1 - Turn 1                
         if (!gb.newTurn()) { return; }
@@ -68,7 +68,7 @@ public class Program
     {
         setupPlayersAndCards();
         setupACurrentSituation();
-        GameBoard gb = new GameBoard();
+        GameBoard gb = GameBoard.GetInstance();
         gb.logCurrentSituation();
 
         RunADemoGame();

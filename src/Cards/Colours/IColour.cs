@@ -1,4 +1,4 @@
-namespace TheCardGame.Cards;
+namespace TheCardGame.Cards.Colours;
 
 public interface IColour
 {

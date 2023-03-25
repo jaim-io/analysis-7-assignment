@@ -5,9 +5,9 @@ using TheCardGame.Utils;
 
 namespace TheCardGame.Games;
 
-//TODO: remove singleton
 public class GameBoard : PlayerObserver
 {
+    private static GameBoard? _instance;
     private Player player1;
     private Player player2;
     private Player currentTurnPlayer;
@@ -16,7 +16,9 @@ public class GameBoard : PlayerObserver
     private int iTurnCnt;
     private bool gameEnded;
 
-    public GameBoard()
+    public TheStack Stack { get; init; }
+
+    private GameBoard()
     {
         this.player1 = new Player("dummy1", 0);
         this.player2 = new Player("dummy2", 0);
@@ -24,7 +26,19 @@ public class GameBoard : PlayerObserver
         this.opponentPlayer = this.player2;
         this.iTurnCnt = 0;
         this.gameEnded = false;
+        this.Stack = new();
     }
+
+    public static GameBoard GetInstance()
+    {
+        if (_instance is not GameBoard)
+        {
+            _instance = new();
+        }
+        return _instance;
+    }
+
+    public static void StartNew() => _instance = new();
 
     public void setPlayers(Player player1, Player player2, Player currentTurnPlayer)
     {

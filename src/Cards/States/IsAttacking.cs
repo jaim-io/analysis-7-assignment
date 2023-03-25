@@ -24,7 +24,7 @@ public class IsAttacking
         {
             bool defended = false;
             int attackValue = this.card.getInitialAttackValue();
-            GameBoard gb = new GameBoard();
+            GameBoard gb = GameBoard.GetInstance();
             foreach (Card card in gb.getOpponentPlayer().getCards())
             {
                 (bool cardDefended, int attackValueLeft) = card.State.absorbAttack(attackValue);

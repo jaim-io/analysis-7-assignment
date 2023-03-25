@@ -27,7 +27,7 @@ insert_final_newline = false
 # Organize usings
 dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
-file_header_template = unset
+file_header_template = Jamey Schaap 0950044\nVicent de Gans 1003196
 
 # this. and Me. preferences
 dotnet_style_qualification_for_event = false:silent
@@ -410,9 +410,6 @@ dotnet_diagnostic.SA1602.severity = none
 
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
-
-# SA1633: The file header is missing or not located at the top of the file
-dotnet_diagnostic.SA1633.severity = none
 
 [DemoCard.cs]
 # SA1402: File may only contain a single typ

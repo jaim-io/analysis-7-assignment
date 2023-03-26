@@ -8,12 +8,12 @@ public class IsTapped
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
-        return this.card.getEnergyLevel();
+        return this.card.GetEnergyLevel();
     }
 
-    public override void onEndTurn()
+    public override void OnEndTurn()
     {
         this.card.State = new OnTheBoard(this);
     }

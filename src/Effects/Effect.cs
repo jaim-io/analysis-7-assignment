@@ -5,16 +5,18 @@ namespace TheCardGame.Effects;
 public abstract class Effect
 {
     public Guid Id { get; init; }
-    public string Description { get; private set; }
-    public Action Action { get; private set; }
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public Action Action { get; init; }
     public EffectState State { get; private set; }
 
     public Effect(
-        Guid id,
-        Action action,
-        string description)
+        string name,
+        string description,
+        Action action)
     {
-        Id = id;
+        Id = Guid.NewGuid();
+        Name = name;
         Description = description;
         Action = action;
         State = new Unused(this);

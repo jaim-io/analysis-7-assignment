@@ -2,5 +2,5 @@ namespace TheCardGame.Cards.Colours;
 
 public interface IColour
 {
-    public abstract string getName();
+    public abstract string GetName();
 }

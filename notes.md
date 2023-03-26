@@ -20,6 +20,7 @@
 // Card.cs
 public List<Effect> ManuallyTriggerdEffects { get; init; }
 public List<Effect> OnPlayEffects { get; init; }
+public List<Effect> OnEndTurnEffects { get; init; }
 ```
 
 ## Example of CounterSpell demo card
@@ -37,3 +38,4 @@ var counterSpell = new SpellCard(
     effects: new() { counterEffect });
 ...
 ```
+

@@ -11,13 +11,13 @@ public abstract class LandCard
     {
     }
 
-    public override int getEnergyLevel()
+    public override int GetEnergyLevel()
     {
         return this._energyLevel;
     }
 
-    public override void tapEnergy()
+    public override void TapEnergy()
     {
-        this.State.tapEnergy();
+        this.State.TapEnergy();
     }
 }

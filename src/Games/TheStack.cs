@@ -7,8 +7,8 @@ public class TheStack
     private List<Effect> _stack;
     private int _resolveCounter;
     public int Count { get => this._stack.Count; }
-
     public TheStack() => _stack = new();
+
     public TheStack(ICollection<Effect> stack) => _stack = new(stack);
 
     public Effect? Peek() => _stack.Count > 0 ? _stack[_stack.Count - 1] : null;

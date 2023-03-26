@@ -12,16 +12,16 @@ public class PlayerDiedEvent
         this._reason = reason;
     }
 
-    public string getPlayerName()
+    public string GetPlayerName()
     {
         return this._playername;
     }
 
-    public int getHealth()
+    public int GetHealth()
     {
         return this._health;
     }
-    public string getReason()
+    public string GetReason()
     {
         return this._reason;
     }

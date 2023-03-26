@@ -13,17 +13,17 @@ public class InTheDeck
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }
 
-    public override bool isNotYetInTheGame()
+    public override bool IsNotYetInTheGame()
     {
         return true;
     }
 
-    public override bool onIsTaken()
+    public override bool OnIsTaken()
     {
         this.card.State = new InTheHand(this);
         return true;

@@ -2,7 +2,7 @@ namespace TheCardGame.Cards;
 
 public abstract class CardFactory
 {
-    public abstract LandCard createLandCard(string cardId);
-    public abstract SpellCard createSpellCard(string cardId);
-    public abstract CreatureCard createCreatureCard(string cardId);
+    public abstract LandCard CreateLandCard(string cardId);
+    public abstract SpellCard CreateSpellCard(string cardId);
+    public abstract CreatureCard CreateCreatureCard(string cardId);
 }

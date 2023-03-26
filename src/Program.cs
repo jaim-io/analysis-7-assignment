@@ -7,7 +7,7 @@ namespace TheCardGame;
 
 public class Program
 {
-    public static void setupPlayersAndCards()
+    public static void SetupPlayersAndCards()
     {
         // #TODO: remember to change the following script as it is NOT for the assignment.
         // IT is just an example.
@@ -18,32 +18,32 @@ public class Program
         DemoGameFactory factory = new DemoGameFactory();
 
         List<Card> player1_cards = new List<Card>();
-        player1_cards.Add(factory.createSpellCard("sorcery-1"));
-        player1_cards.Add(factory.createSpellCard("sorcery-2"));
-        player1_cards.Add(factory.createSpellCard("sorcery-3"));
-        player1_cards.Add(factory.createLandCard("land-1"));
-        player1_cards.Add(factory.createLandCard("land-2"));
-        player1_cards.Add(factory.createCreatureCard("creature-1"));
+        player1_cards.Add(factory.CreateSpellCard("sorcery-1"));
+        player1_cards.Add(factory.CreateSpellCard("sorcery-2"));
+        player1_cards.Add(factory.CreateSpellCard("sorcery-3"));
+        player1_cards.Add(factory.CreateLandCard("land-1"));
+        player1_cards.Add(factory.CreateLandCard("land-2"));
+        player1_cards.Add(factory.CreateCreatureCard("creature-1"));
 
         List<Card> player2_cards = new List<Card>();
-        player2_cards.Add(factory.createSpellCard("sorcery-4"));
-        player2_cards.Add(factory.createSpellCard("sorcery-5"));
-        player2_cards.Add(factory.createSpellCard("sorcery-6"));
-        player2_cards.Add(factory.createLandCard("land-3"));
-        player2_cards.Add(factory.createLandCard("land-4"));
-        player2_cards.Add(factory.createCreatureCard("creature-3"));
+        player2_cards.Add(factory.CreateSpellCard("sorcery-4"));
+        player2_cards.Add(factory.CreateSpellCard("sorcery-5"));
+        player2_cards.Add(factory.CreateSpellCard("sorcery-6"));
+        player2_cards.Add(factory.CreateLandCard("land-3"));
+        player2_cards.Add(factory.CreateLandCard("land-4"));
+        player2_cards.Add(factory.CreateCreatureCard("creature-3"));
 
-        player1.setCards(player1_cards);
-        player2.setCards(player2_cards);
+        player1.SetCards(player1_cards);
+        player2.SetCards(player2_cards);
 
         GameBoard gb = GameBoard.GetInstance();
-        gb.setPlayers(player1, player2, player1);
+        gb.SetPlayers(player1, player2, player1);
     }
 
-    public static void setupACurrentSituation()
+    public static void SetupACurrentSituation()
     {
         GameBoard gb = GameBoard.GetInstance();
-        gb.setupACurrentSituation();
+        gb.SetupACurrentSituation();
     }
 
     public static void RunADemoGame()
@@ -51,25 +51,25 @@ public class Program
         GameBoard gb = GameBoard.GetInstance();
 
         //Player 1 - Turn 1                
-        if (!gb.newTurn()) { return; }
-        gb.drawCard("land-1");
-        gb.endTurn();
-        gb.logCurrentSituation();
+        if (!gb.NewTurn()) { return; }
+        gb.DrawCard("land-1");
+        gb.EndTurn();
+        gb.LogCurrentSituation();
 
         //Player 2  - Turn 2
-        gb.prepareNewTurn();
-        if (!gb.newTurn()) { return; }
-        gb.drawCard("land-3");
-        gb.endTurn();
-        gb.logCurrentSituation();
+        gb.PrepareNewTurn();
+        if (!gb.NewTurn()) { return; }
+        gb.DrawCard("land-3");
+        gb.EndTurn();
+        gb.LogCurrentSituation();
     }
 
     public static void Main(string[] args)
     {
-        setupPlayersAndCards();
-        setupACurrentSituation();
+        SetupPlayersAndCards();
+        SetupACurrentSituation();
         GameBoard gb = GameBoard.GetInstance();
-        gb.logCurrentSituation();
+        gb.LogCurrentSituation();
 
         RunADemoGame();
     }

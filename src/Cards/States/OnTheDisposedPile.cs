@@ -8,7 +8,7 @@ public class OnTheDisposedPile
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }

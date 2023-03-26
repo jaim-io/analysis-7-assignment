@@ -4,80 +4,74 @@ namespace TheCardGame.Cards;
 
 public abstract class Card
 {
-    private int energyCost = 0; // The amount of energy required to play this card.   
-    private string description;
-    private string cardId; /* The unique id of this card in the game. */
-    private CardState theState;
+    private int _energyCost = 0; // The amount of energy required to play this card.   
+    private string _cardId; /* The unique id of this card in the game. */
+    public string Description { get; init; }
+    public CardState State { get; set; }
 
     public Card(string cardId)
     {
-        this.cardId = cardId;
-        this.description = string.Empty;
-        this.theState = new InTheDeck(this);
+        this._cardId = cardId;
+        this.Description = string.Empty;
+        this.State = new InTheDeck(this);
     }
 
-    public CardState State
+    public string GetId()
     {
-        get { return this.theState; }
-        set { this.theState = value; }
+        return this._cardId;
     }
 
-    public string getId()
+    public int GetEnergyCost()
     {
-        return this.cardId;
+        return this._energyCost;
     }
 
-    public int getEnergyCost()
+    public void SetEnergyCost(int energyCost)
     {
-        return this.energyCost;
+        this._energyCost = energyCost;
     }
 
-    public void setEnergyCost(int energyCost)
+    public virtual int GetDefenseValue() { throw new NotImplementedException(); }
+    public virtual int SubtractDefenseValue(int iAttackValue) { throw new NotImplementedException(); }
+    public virtual int GetInitialAttackValue() { throw new NotImplementedException(); }
+    public virtual int GetActualAttackValue() { throw new NotImplementedException(); }
+    public virtual int GetEnergyLevel() { throw new NotImplementedException(); }
+
+    public virtual bool Dispose()
     {
-        this.energyCost = energyCost;
+        return this.State.Dispose();
     }
 
-    public virtual int getDefenseValue() { throw new NotImplementedException(); }
-    public virtual int subtractDefenseValue(int iAttackValue) { throw new NotImplementedException(); }
-    public virtual int getInitialAttackValue() { throw new NotImplementedException(); }
-    public virtual int getActualAttackValue() { throw new NotImplementedException(); }
-    public virtual int getEnergyLevel() { throw new NotImplementedException(); }
-
-    public virtual bool dispose()
+    public virtual void OnEndTurn()
     {
-        return this.State.dispose();
+        this.State.OnEndTurn();
     }
 
-    public virtual void onEndTurn()
+    public bool OnDraw()
     {
-        this.State.onEndTurn();
+        return this.State.OnDraw();
     }
 
-    public bool onDraw()
+    public bool OnIsTaken()
     {
-        return this.State.onDraw();
+        return this.State.OnIsTaken();
     }
 
-    public bool onIsTaken()
+    public bool IsNotYetInTheGame()
     {
-        return this.State.onIsTaken();
+        return this.State.IsNotYetInTheGame();
     }
 
-    public bool isNotYetInTheGame()
+    public virtual void GoDefending() { }
+
+    public virtual void GoAttacking() { }
+
+    public virtual void PeformAttack() { }
+
+    public virtual void TapEnergy() { }
+
+    public virtual int GivesEnergyLevel()
     {
-        return this.State.isNotYetInTheGame();
-    }
-
-    public virtual void goDefending() { }
-
-    public virtual void goAttacking() { }
-
-    public virtual void peformAttack() { }
-
-    public virtual void tapEnergy() { }
-
-    public virtual int givesEnergyLevel()
-    {
-        return this.State.givesEnergyLevel();
+        return this.State.GivesEnergyLevel();
     }
 }

@@ -3,10 +3,10 @@ namespace TheCardGame.Effects;
 public class TemporaryEffect : Effect
 {
     public TemporaryEffect(
-        Guid id,
-        Action action,
-        string description)
-        : base(id, action, description)
+        string name,
+        string description,
+        Action action)
+        : base(name, description, action)
     {
     }
 

@@ -15,33 +15,33 @@ public abstract class CreatureCard
     {
     }
 
-    public void decreaseActualAttackValue(int iNumber)
+    public void DecreaseActualAttackValue(int iNumber)
     {
         this.actualAttackValue -= iNumber;
     }
 
-    public override void goDefending()
+    public override void GoDefending()
     {
-        this.State.goDefending();
+        this.State.GoDefending();
     }
 
-    public override void peformAttack()
+    public override void PeformAttack()
     {
-        this.State.peformAttack();
+        this.State.PeformAttack();
     }
 
-    public override void goAttacking()
+    public override void GoAttacking()
     {
-        this.State.goAttacking();
+        this.State.GoAttacking();
     }
 
-    public override int subtractDefenseValue(int iAttackValue)
+    public override int SubtractDefenseValue(int iAttackValue)
     {
         this.defenseValue = this.defenseValue - iAttackValue;
         return this.defenseValue;
     }
 
-    public override int getInitialAttackValue() { return this.initialAttackValue; }
-    public override int getActualAttackValue() { return this.actualAttackValue; }
-    public override int getDefenseValue() { return this.defenseValue; }
+    public override int GetInitialAttackValue() { return this.initialAttackValue; }
+    public override int GetActualAttackValue() { return this.actualAttackValue; }
+    public override int GetDefenseValue() { return this.defenseValue; }
 }

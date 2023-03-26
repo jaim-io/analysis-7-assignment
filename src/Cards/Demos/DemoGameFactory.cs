@@ -2,9 +2,9 @@ namespace TheCardGame.Cards.Demos;
 
 public class DemoGameFactory : CardFactory
 {
-    public override LandCard createLandCard(string cardId) => new DemoLandCard(cardId);
+    public override LandCard CreateLandCard(string cardId) => new DemoLandCard(cardId);
 
-    public override SpellCard createSpellCard(string cardId) => new DemoSpellCard(cardId);
+    public override SpellCard CreateSpellCard(string cardId) => new DemoSpellCard(cardId);
 
-    public override CreatureCard createCreatureCard(string cardId) => new DemoCreatureCard(cardId);
+    public override CreatureCard CreateCreatureCard(string cardId) => new DemoCreatureCard(cardId);
 }

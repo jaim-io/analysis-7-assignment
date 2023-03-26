@@ -15,9 +15,9 @@ public abstract class CardState
         set { this.card = value; }
     }
 
-    public virtual bool OnIsTaken() { return false; }
     public virtual bool OnDraw() { return false; }
     public virtual void OnEndTurn() { }
+    public virtual bool OnPlay() => false;
 
     public virtual bool IsNotYetInTheGame() { return false; }
     public virtual bool IsInTheHand() { return false; }

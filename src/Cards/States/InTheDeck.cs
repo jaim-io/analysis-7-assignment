@@ -23,7 +23,7 @@ public class InTheDeck
         return true;
     }
 
-    public override bool OnIsTaken()
+    public override bool OnDraw()
     {
         this.card.State = new InTheHand(this);
         return true;

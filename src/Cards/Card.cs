@@ -1,3 +1,4 @@
+using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
 
 namespace TheCardGame.Cards;
@@ -8,10 +9,12 @@ public abstract class Card
     private string _cardId; /* The unique id of this card in the game. */
     public string Description { get; init; }
     public CardState State { get; set; }
+    public Colour Colour { get; init; }
 
-    public Card(string cardId)
+    public Card(string cardId, Colour colour)
     {
         this._cardId = cardId;
+        this.Colour = colour;
         this.Description = string.Empty;
         this.State = new InTheDeck(this);
     }
@@ -52,9 +55,9 @@ public abstract class Card
         return this.State.OnDraw();
     }
 
-    public bool OnIsTaken()
+    public bool OnPlay()
     {
-        return this.State.OnIsTaken();
+        return this.State.OnPlay();
     }
 
     public bool IsNotYetInTheGame()

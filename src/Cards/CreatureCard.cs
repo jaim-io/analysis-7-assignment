@@ -1,23 +1,30 @@
+using TheCardGame.Cards.Colours;
+
 namespace TheCardGame.Cards;
 
-public abstract class CreatureCard 
+public abstract class CreatureCard
     : Card
 {
     /* Used to attack opponenent (decrease opponent lifePoint) or for defense.
     
     */
-    private int initialAttackValue = 0; /* The attackValue defined on this card*/
-    private int actualAttackValue = 0; /* The attackValue for this attack after defense cards came into action */
-    private int defenseValue = 0;
+    private int _initialAttackValue; /* The attackValue defined on this card*/
+    private int _actualAttackValue; /* The attackValue for this attack after defense cards came into action */
+    private int _initialDefenseValue;
+    private int _actualDefenseValue;
 
-    public CreatureCard(string cardId) 
-        : base(cardId)
+    public CreatureCard(string cardId, Colour colour, int attackValue, int defenseValue)
+        : base(cardId, colour)
     {
+        this._initialAttackValue = attackValue;
+        this._actualAttackValue = attackValue;
+        this._initialDefenseValue = defenseValue;
+        this._actualDefenseValue = defenseValue;
     }
 
     public void DecreaseActualAttackValue(int iNumber)
     {
-        this.actualAttackValue -= iNumber;
+        this._actualAttackValue -= iNumber;
     }
 
     public override void GoDefending()
@@ -37,11 +44,11 @@ public abstract class CreatureCard
 
     public override int SubtractDefenseValue(int iAttackValue)
     {
-        this.defenseValue = this.defenseValue - iAttackValue;
-        return this.defenseValue;
+        this._initialDefenseValue = this._initialDefenseValue - iAttackValue;
+        return this._initialDefenseValue;
     }
 
-    public override int GetInitialAttackValue() { return this.initialAttackValue; }
-    public override int GetActualAttackValue() { return this.actualAttackValue; }
-    public override int GetDefenseValue() { return this.defenseValue; }
+    public override int GetInitialAttackValue() { return this._initialAttackValue; }
+    public override int GetActualAttackValue() { return this._actualAttackValue; }
+    public override int GetDefenseValue() { return this._initialDefenseValue; }
 }

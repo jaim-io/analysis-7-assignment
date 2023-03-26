@@ -24,7 +24,7 @@ public class InTheHand
         return true;
     }
 
-    public override bool OnDraw()
+    public override bool OnPlay()
     {
         this.card.State = new OnTheBoard(this);
         return true;

@@ -8,25 +8,25 @@ public class OnTheBoard
     {
     }
 
-    public override void tapEnergy()
+    public override void TapEnergy()
     {
         this.card.State = new IsTapped(this);
     }
 
-    public override void goDefending()
+    public override void GoDefending()
     {
         this.card.State = new IsDefending(this);
     }
 
-    public override void goAttacking()
+    public override void GoAttacking()
     {
         this.card.State = new IsAttacking(this);
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }
 
-    public override bool canBePlayed() { return true; }
+    public override bool CanBePlayed() { return true; }
 }

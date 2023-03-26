@@ -1,3 +1,5 @@
+using TheCardGame.Cards.Colours;
+
 namespace TheCardGame.Cards;
 
 public abstract class LandCard
@@ -6,18 +8,18 @@ public abstract class LandCard
     /* Provides the energy to play the other cards */
     private int _energyLevel = 0;
 
-    public LandCard(string cardId)
-        : base(cardId)
+    public LandCard(string cardId, Colour colour)
+        : base(cardId, colour)
     {
     }
 
-    public override int getEnergyLevel()
+    public override int GetEnergyLevel()
     {
         return this._energyLevel;
     }
 
-    public override void tapEnergy()
+    public override void TapEnergy()
     {
-        this.State.tapEnergy();
+        this.State.TapEnergy();
     }
 }

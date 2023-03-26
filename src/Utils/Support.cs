@@ -7,7 +7,7 @@ public static class Support
 {
     /*Count the number of cards in the specififed location*/
 
-    public static int countCards<T>(List<Card> cards)
+    public static int CountCards<T>(List<Card> cards)
     {
         int cnt = 0;
         foreach (Card card in cards)
@@ -20,7 +20,7 @@ public static class Support
         return cnt;
     }
 
-    public static bool cardIsIn<T>(Card card)
+    public static bool CardIsIn<T>(Card card)
     {
         return card.State is T;
     }
@@ -32,18 +32,18 @@ public static class Support
         {
             if (card.State is T)
             {
-                cardIds.Add(card.getId());
+                cardIds.Add(card.GetId());
             }
         }
         return string.Join<string>(", ", cardIds);
     }
 
-    public static List<Card> getCardsCanBePlayed(List<Card> cards)
+    public static List<Card> GetCardsCanBePlayed(List<Card> cards)
     {
         List<Card> cardsPlayable = new List<Card>();
         foreach (Card card in cards)
         {
-            if (card.State.canBePlayed())
+            if (card.State.CanBePlayed())
             {
                 cardsPlayable.Add(card);
             }
@@ -52,13 +52,13 @@ public static class Support
     }
 
     /* returns the specified card. Raise CardNotFoundException if card is not there. */
-    public static (Card, int) findCard(List<Card> sourceList, string cardId)
+    public static (Card, int) FindCard(List<Card> sourceList, string cardId)
     {
         int iPos = 0;
         Card? cardFound = null;
         foreach (Card card in sourceList)
         {
-            if (card.getId() == cardId)
+            if (card.GetId() == cardId)
             {
                 cardFound = card;
                 break;

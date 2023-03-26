@@ -1,96 +1,99 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
+using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
 namespace TheCardGame.Players;
 
 public class Player
 {
-    private List<Card> cards;
-    private int healthValue;
-    private string name = string.Empty;
+    private List<Card> _cards;
+    private int _healthValue;
+    private string _name = string.Empty;
+    public Guid Id { get; init; }
 
-    private List<PlayerObserver> observers = new List<PlayerObserver>();
+    private List<PlayerObserver> _observers = new List<PlayerObserver>();
 
     public Player(string name, int initialLife)
     {
-        this.cards = new List<Card>();
-        this.healthValue = initialLife;
-        this.name = name;
+        this.Id = Guid.NewGuid();
+        this._cards = new List<Card>();
+        this._healthValue = initialLife;
+        this._name = name;
     }
 
-    public void addObserver(PlayerObserver po)
+    public void AddObserver(PlayerObserver po)
     {
-        this.observers.Add(po);
+        this._observers.Add(po);
     }
 
-    public void removeObserver(PlayerObserver po)
+    public void RemoveObserver(PlayerObserver po)
     {
-        this.observers.Remove(po);
+        this._observers.Remove(po);
     }
 
-    public void setCards(List<Card> cards)
+    public void SetCards(List<Card> cards)
     {
-        this.cards = cards;
+        this._cards = cards;
     }
 
-    public List<Card> getCards()
+    public List<Card> GetCards()
     {
-        return this.cards;
+        return this._cards;
     }
 
-    public string getName()
+    public string GetName()
     {
-        return this.name;
+        return this._name;
     }
 
-    public void decreaseHealthValue(int iValue)
+    public void DecreaseHealthValue(int iValue)
     {
-        this.healthValue -= iValue;
-        if (this.healthValue <= 0)
+        this._healthValue -= iValue;
+        if (this._healthValue <= 0)
         {
-            PlayerDiedEvent pde = new PlayerDiedEvent(this.getName(), this.getHealthValue(), "Health below or is zero");
-            foreach (PlayerObserver po in this.observers)
+            PlayerDiedEvent pde = new PlayerDiedEvent(this.GetName(), this.GetHealthValue(), "Health below or is zero");
+            foreach (PlayerObserver po in this._observers)
             {
-                po.playerDied(pde);
+                po.PlayerDied(pde);
             }
         }
     }
-    public int getHealthValue()
+    public int GetHealthValue()
     {
-        return this.healthValue;
+        return this._healthValue;
     }
 
     /* Take the first card from his deck and put it in his hand */
-    public Card? takeCard()
+    public Card? DrawCard()
     {
-        foreach (Card card in this.cards)
+        foreach (Card card in this._cards)
         {
-            if (card.isNotYetInTheGame())
+            if (card.IsNotYetInTheGame())
             {
-                if (card.onIsTaken() is true)
+                if (card.OnDraw() is true)
                 {
                     return card;
                 }
             }
         }
 
-        PlayerDiedEvent pde = new PlayerDiedEvent(this.getName(), this.getHealthValue(), "No more cards in deck");
-        foreach (PlayerObserver po in this.observers)
+        PlayerDiedEvent pde = new PlayerDiedEvent(this.GetName(), this.GetHealthValue(), "No more cards in deck");
+        foreach (PlayerObserver po in this._observers)
         {
-            po.playerDied(pde);
+            po.PlayerDied(pde);
         }
         return null;
     }
 
     /* Draw a card from his hand */
-    public Card? drawCard(string cardId)
+    public Card? DrawCard(string cardId)
     {
-        foreach (Card card in this.cards)
+        foreach (Card card in this._cards)
         {
-            if (card.getId() == cardId)
+            if (card.GetId() == cardId)
             {
-                if (card.onDraw() is true)
+                if (card.OnDraw() is true)
                 {
                     return card;
                 }
@@ -99,34 +102,39 @@ public class Player
         return null;
     }
 
-    public void trimCards(int maxCards)
+    public void TrimCards(int maxCards)
     {
-        int cnt = Support.countCards<InTheHand>(this.cards);
+        int cnt = Support.CountCards<InTheHand>(this._cards);
         if (cnt <= maxCards)
         {
-            System.Console.WriteLine($"{this.getName()} trimmed 0 cards into discard pile.");
+            Console.WriteLine($"{this.GetName()} trimmed 0 cards into discard pile.");
             return;
         }
 
         int cntDisposed = 0;
-        foreach (Card card in this.cards)
+        foreach (Card card in this._cards)
         {
-            if (Support.cardIsIn<InTheHand>(card))
+            if (Support.CardIsIn<InTheHand>(card))
             {
-                bool isDisposed = card.dispose();
+                bool isDisposed = card.Dispose();
                 if (isDisposed)
                 {
-                    System.Console.WriteLine($"Card {card.getId()} is disposed.");
+                    Console.WriteLine($"Card {card.GetId()} is disposed.");
                     cntDisposed++;
                 }
             }
 
-            cnt = Support.countCards<InTheHand>(this.cards);
+            cnt = Support.CountCards<InTheHand>(this._cards);
             if (cnt <= maxCards)
             {
                 break;
             }
         }
-        System.Console.WriteLine($"Disposed {cntDisposed} cards");
+        Console.WriteLine($"Disposed {cntDisposed} cards");
+    }
+
+    public bool PlayCard(Card card)
+    {
+        return card.OnPlay();
     }
 }

@@ -8,23 +8,23 @@ public class InTheHand
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }
 
-    public override bool isInTheHand()
+    public override bool IsInTheHand()
     {
         return true;
     }
 
-    public override bool dispose()
+    public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
         return true;
     }
 
-    public override bool onDraw()
+    public override bool OnPlay()
     {
         this.card.State = new OnTheBoard(this);
         return true;

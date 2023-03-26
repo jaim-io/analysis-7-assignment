@@ -8,22 +8,22 @@ public class IsDefending
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }
 
-    public override void onEndTurn()
+    public override void OnEndTurn()
     {
         this.card.State = new OnTheBoard(this);
     }
 
-    public override (bool, int) absorbAttack(int iAttackValue)
+    public override (bool, int) AbsorbAttack(int iAttackValue)
     {
-        int defenseValue = this.card.getDefenseValue();
+        int defenseValue = this.card.GetDefenseValue();
         int attackValueLeft = iAttackValue - defenseValue;
-        int defenseValueLeft = this.card.subtractDefenseValue(iAttackValue);
-        System.Console.WriteLine($"Card '{this.card.getId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");
+        int defenseValueLeft = this.card.SubtractDefenseValue(iAttackValue);
+        Console.WriteLine($"Card '{this.card.GetId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");
         if (defenseValueLeft <= 0)
         {
             this.card.State = new OnTheDisposedPile(this);

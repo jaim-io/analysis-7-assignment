@@ -2,9 +2,9 @@ using TheCardGame.Cards.Colours;
 
 namespace TheCardGame.Cards;
 
-public abstract class SpellCard : Card
+public abstract class ArtefactCard : Card
 {
-    public SpellCard(string cardId, Colour colour)
+    protected ArtefactCard(string cardId, Colour colour)
         : base(cardId, colour)
     {
     }

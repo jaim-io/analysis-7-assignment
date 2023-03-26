@@ -1,76 +1,65 @@
 ﻿using TheCardGame.Cards;
-using TheCardGame.Cards.Demos;
+using TheCardGame.Cards.Colours;
+using TheCardGame.Demos;
 using TheCardGame.Games;
 using TheCardGame.Players;
 
-namespace TheCardGame;
-
-public class Program
+var gb = GameBoard.GetInstance();
 {
-    public static void setupPlayersAndCards()
+    var colourFactory = new DemoColourFactory();
+    var colours = new Dictionary<string, Colour>
     {
-        // #TODO: remember to change the following script as it is NOT for the assignment.
-        // IT is just an example.
+        { "red",  colourFactory.CreateColour("Red") },
+        { "blue",  colourFactory.CreateColour("Blue") },
+        { "red-blue",  colourFactory.CreateDualColour("Red", "Blue") },
+        { "colourless",  colourFactory.CreateColour("Colourless") },
+    };
 
-        Player player1 = new Player("player1", 10);
-        Player player2 = new Player("player2", 10);
+    var player1 = new Player("player1", 10);
+    var player2 = new Player("player2", 10);
 
-        DemoGameFactory factory = new DemoGameFactory();
+    var cardFactory = new DemoCardFactory();
+    player1.SetCards(
+        cards: new() {
+            cardFactory.CreateLandCard("p1-red-land-1", colours["red"]),
+            cardFactory.CreateLandCard("p1-red-land-2", colours["red"]),
+            cardFactory.CreateLandCard("p1-red-land-3", colours["red"]),
+            cardFactory.CreateLandCard("p1-red-land-4", colours["red"]),
+            cardFactory.CreateLandCard("p1-red-land-5", colours["red"]),
+            cardFactory.CreateLandCard("p1-red-land-6", colours["red"]),
+            cardFactory.CreateSpellCard("p1-hidden-danger-1", colours["red"]),
+            cardFactory.CreateSpellCard("p1-red-buff-1", colours["red"]), // Buffs creature for +5/+3
+            cardFactory.CreateCreatureCard("p1-red-creature-1", colours["red"], 2, 2),
+        });
 
-        List<Card> player1_cards = new List<Card>();
-        player1_cards.Add(factory.createSpellCard("sorcery-1"));
-        player1_cards.Add(factory.createSpellCard("sorcery-2"));
-        player1_cards.Add(factory.createSpellCard("sorcery-3"));
-        player1_cards.Add(factory.createLandCard("land-1"));
-        player1_cards.Add(factory.createLandCard("land-2"));
-        player1_cards.Add(factory.createCreatureCard("creature-1"));
+    player2.SetCards(
+        cards: new() {
+            cardFactory.CreateLandCard("p2-red-land-1", colours["red"]),
+            cardFactory.CreateLandCard("p2-red-land-2", colours["red"]),
+            cardFactory.CreateLandCard("p2-blue-land-1", colours["blue"]),
+            cardFactory.CreateLandCard("p2-blue-land-2", colours["blue"]),
+            cardFactory.CreateLandCard("p2-blue-land-3", colours["blue"]),
+            cardFactory.CreateCreatureCard("p2-red-creature-1", colours["red"], 2, 2),
+        });
 
-        List<Card> player2_cards = new List<Card>();
-        player2_cards.Add(factory.createSpellCard("sorcery-4"));
-        player2_cards.Add(factory.createSpellCard("sorcery-5"));
-        player2_cards.Add(factory.createSpellCard("sorcery-6"));
-        player2_cards.Add(factory.createLandCard("land-3"));
-        player2_cards.Add(factory.createLandCard("land-4"));
-        player2_cards.Add(factory.createCreatureCard("creature-3"));
-
-        player1.setCards(player1_cards);
-        player2.setCards(player2_cards);
-
-        GameBoard gb = new GameBoard();
-        gb.setPlayers(player1, player2, player1);
-    }
-
-    public static void setupACurrentSituation()
-    {
-        GameBoard gb = new GameBoard();
-        gb.setupACurrentSituation();
-    }
-
-    public static void RunADemoGame()
-    {
-        GameBoard gb = new GameBoard();
-
-        //Player 1 - Turn 1                
-        if (!gb.newTurn()) { return; }
-        gb.drawCard("land-1");
-        gb.endTurn();
-        gb.logCurrentSituation();
-
-        //Player 2  - Turn 2
-        gb.prepareNewTurn();
-        if (!gb.newTurn()) { return; }
-        gb.drawCard("land-3");
-        gb.endTurn();
-        gb.logCurrentSituation();
-    }
-
-    public static void Main(string[] args)
-    {
-        setupPlayersAndCards();
-        setupACurrentSituation();
-        GameBoard gb = new GameBoard();
-        gb.logCurrentSituation();
-
-        RunADemoGame();
-    }
+    gb.SetPlayers(player1, player2, player1);
 }
+
+gb.SetupADemoSituation();
+gb.LogCurrentSituation();
+
+// ### The demo game ### //
+
+// Player 1 - Turn 1                
+if (!gb.NewTurn()) { return; }
+gb.DrawCard("p1-red-land-1");
+gb.PlayCard("p1-red-land-1");
+gb.EndTurn();
+gb.LogCurrentSituation();
+
+// Player 2  - Turn 2
+gb.PrepareNewTurn();
+if (!gb.NewTurn()) { return; }
+gb.DrawCard("land-3");
+gb.EndTurn();
+gb.LogCurrentSituation();

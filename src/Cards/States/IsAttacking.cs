@@ -10,24 +10,24 @@ public class IsAttacking
     {
     }
 
-    public override int givesEnergyLevel()
+    public override int GivesEnergyLevel()
     {
         return 0;
     }
 
-    public override bool peformAttack()
+    public override bool PeformAttack()
     {
-        System.Console.WriteLine($"{this.card.getId()} Peforms attack.");
+        Console.WriteLine($"{this.card.GetId()} Peforms attack.");
 
         CreatureCard? ccard = this.card as CreatureCard;
         if (ccard is not null)
         {
             bool defended = false;
-            int attackValue = this.card.getInitialAttackValue();
-            GameBoard gb = new GameBoard();
-            foreach (Card card in gb.getOpponentPlayer().getCards())
+            int attackValue = this.card.GetInitialAttackValue();
+            GameBoard gb = GameBoard.GetInstance();
+            foreach (Card card in gb.GetOpponentPlayer().GetCards())
             {
-                (bool cardDefended, int attackValueLeft) = card.State.absorbAttack(attackValue);
+                (bool cardDefended, int attackValueLeft) = card.State.AbsorbAttack(attackValue);
                 if (cardDefended)
                 {
                     defended = true;
@@ -37,7 +37,7 @@ public class IsAttacking
 
             if (!defended)
             {
-                gb.getOpponentPlayer().decreaseHealthValue(attackValue);
+                gb.GetOpponentPlayer().DecreaseHealthValue(attackValue);
             }
 
             return true;
@@ -45,7 +45,7 @@ public class IsAttacking
         return false;
     }
 
-    public override void onEndTurn()
+    public override void OnEndTurn()
     {
         this.card.State = new OnTheBoard(this);
     }

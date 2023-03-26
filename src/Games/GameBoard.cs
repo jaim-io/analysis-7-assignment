@@ -1,6 +1,7 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
 using TheCardGame.Players;
+using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
 namespace TheCardGame.Games;
@@ -12,7 +13,7 @@ public class GameBoard : PlayerObserver
     private Player _player2;
     private Player _currentTurnPlayer;
     private Player _opponentPlayer;
-    private int _turn;
+    private uint _turn;
     private bool _gameEnded;
 
     public TheStack Stack { get; init; }
@@ -64,7 +65,7 @@ public class GameBoard : PlayerObserver
     public bool TakeCard()
     {
         Player currentTurnPlayer = this.GetCurrentTurnPlayer();
-        Card? card = currentTurnPlayer.TakeCard();
+        Card? card = currentTurnPlayer.DrawCard();
         if (card == null)
         {
             Console.WriteLine($"{currentTurnPlayer.GetName()} could not take card.");
@@ -143,10 +144,27 @@ public class GameBoard : PlayerObserver
     {
         return this._opponentPlayer;
     }
-    public int GetCurrentTurn()
+    public uint GetCurrentTurn()
     {
         return this._turn;
     }
+
+    public bool PlayCard(string cardId)
+    {
+        (Card card, int _) = Support.FindCard(this._currentTurnPlayer.GetCards(), cardId);
+        if (card == null || !Support.CardIsIn<InTheHand>(card))
+        {
+            return false;
+        }
+
+        this._currentTurnPlayer.PlayCard(card);
+        return true;
+    }
+
+    // public bool ActivateEffect(string cardId)
+    // {
+
+    // }
 
     public bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
     {
@@ -205,8 +223,8 @@ public class GameBoard : PlayerObserver
 
     public override void PlayerDied(PlayerDiedEvent pde)
     {
-        Console.WriteLine($"Player {pde.GetPlayerName()} died. Health: {pde.GetHealth()}, {pde.GetReason()}");
-        if (pde.GetPlayerName() == this._player1.GetName())
+        Console.WriteLine($"Player {pde.PlayerName} died. Health: {pde.Health}, {pde.Reason}");
+        if (pde.PlayerName == this._player1.GetName())
         {
             Console.WriteLine($"Player {this._player2.GetName()} is the winner!");
         }
@@ -218,15 +236,15 @@ public class GameBoard : PlayerObserver
     }
 
     /* These are methods just for Demo stuff */
-    public void SetupACurrentSituation()
+    public void SetupADemoSituation()
     {
         for (int cnt = 0; cnt < 6; cnt++)
         {
-            this._player1.TakeCard();
+            this._player1.DrawCard();
         }
         for (int cnt = 0; cnt < 6; cnt++)
         {
-            this._player2.TakeCard();
+            this._player2.DrawCard();
         }
     }
 
@@ -251,7 +269,7 @@ public class GameBoard : PlayerObserver
         Console.WriteLine($"Player {this._player2.GetName()} in hand: " + Support.CardIdsHumanFormatted<InTheHand>(cards_player2));
         Console.WriteLine($"Player {this._player2.GetName()} on the discard-pile: " + Support.CardIdsHumanFormatted<OnTheDisposedPile>(cards_player2));
 
-        Console.WriteLine("==== END Current situation");
+        Console.WriteLine("==== END Current situation\n");
     }
 
     private void SwapPlayer()

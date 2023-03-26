@@ -1,5 +1,6 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
+using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
 namespace TheCardGame.Players;
@@ -9,11 +10,13 @@ public class Player
     private List<Card> _cards;
     private int _healthValue;
     private string _name = string.Empty;
+    public Guid Id { get; init; }
 
     private List<PlayerObserver> _observers = new List<PlayerObserver>();
 
     public Player(string name, int initialLife)
     {
+        this.Id = Guid.NewGuid();
         this._cards = new List<Card>();
         this._healthValue = initialLife;
         this._name = name;
@@ -62,13 +65,13 @@ public class Player
     }
 
     /* Take the first card from his deck and put it in his hand */
-    public Card? TakeCard()
+    public Card? DrawCard()
     {
         foreach (Card card in this._cards)
         {
             if (card.IsNotYetInTheGame())
             {
-                if (card.OnIsTaken() is true)
+                if (card.OnDraw() is true)
                 {
                     return card;
                 }
@@ -128,5 +131,10 @@ public class Player
             }
         }
         Console.WriteLine($"Disposed {cntDisposed} cards");
+    }
+
+    public bool PlayCard(Card card)
+    {
+        return card.OnPlay();
     }
 }

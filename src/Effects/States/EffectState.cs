@@ -7,7 +7,6 @@ public abstract class EffectState
     {
         this.effect = effect;
     }
-    public virtual void OnIsTaken() { }
     public virtual void Activate() { }
 }
 

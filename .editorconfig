@@ -417,7 +417,7 @@ dotnet_diagnostic.SA1633.severity = none
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
 
-[DemoCards.cs]
+[Demo*.cs]
 # SA1402: File may only contain a single type
 dotnet_diagnostic.SA1402.severity = none
 

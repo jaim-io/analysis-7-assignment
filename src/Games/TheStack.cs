@@ -30,5 +30,6 @@ public class TheStack
         {
             _stack[i].Activate();
         }
+        this.Clear();
     }
 }

@@ -27,6 +27,7 @@ public class InTheHand
     public override bool OnPlay()
     {
         this.card.State = new OnTheBoard(this);
+        this.card.ActivateEffect();
         return true;
     }
 }

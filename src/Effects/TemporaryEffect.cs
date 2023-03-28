@@ -1,18 +1,19 @@
 namespace TheCardGame.Effects;
 
-public class TemporaryEffect : Effect
+public abstract class TemporaryEffect : Effect
 {
+    /* 
+        _duration contains a condition that is checked every turn
+        if the condition is true, the effect is still active
+        if the condition is false, the effect is reverted
+    */
     public TemporaryEffect(
         string name,
         string description,
-        Action action)
-        : base(name, description, action)
+        Action action,
+        Action revertAction,
+        Func<bool> duration)
+        : base(name, description, action, revertAction, duration)
     {
-    }
-
-    public override void Activate()
-    {
-        throw new NotImplementedException();
     }
 }
-// Observer needed?

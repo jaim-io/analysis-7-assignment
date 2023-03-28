@@ -1,17 +1,14 @@
 namespace TheCardGame.Effects;
 
-public class PermanentEffect : Effect
+public abstract class PermanentEffect : Effect
 {
     public PermanentEffect(
         string name,
         string description,
-        Action action)
-        : base(name, description, action)
+        Action action,
+        Action revertAction,
+        Func<bool> duration) 
+        : base(name, description, action, revertAction, duration)
     {
-    }
-
-    public override void Activate()
-    {
-        throw new NotImplementedException();
     }
 }

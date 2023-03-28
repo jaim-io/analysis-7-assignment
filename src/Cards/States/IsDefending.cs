@@ -1,3 +1,5 @@
+using TheCardGame.Cards.Events;
+
 namespace TheCardGame.Cards.States;
 
 public class IsDefending
@@ -26,6 +28,11 @@ public class IsDefending
         Console.WriteLine($"Card '{this.card.GetId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");
         if (defenseValueLeft <= 0)
         {
+            var disposedEvent = new CardDisposedEvent();
+            foreach (var obs in this.card.Observers)
+            {
+                obs.CardDisposed(disposedEvent);
+            };
             this.card.State = new OnTheDisposedPile(this);
         }
         return (true, attackValueLeft);

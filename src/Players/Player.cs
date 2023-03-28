@@ -12,7 +12,7 @@ public class Player
     private string _name = string.Empty;
     public Guid Id { get; init; }
 
-    private List<PlayerObserver> _observers = new List<PlayerObserver>();
+    private List<IPlayerObserver> _observers = new List<IPlayerObserver>();
 
     public Player(string name, int initialLife)
     {
@@ -22,12 +22,12 @@ public class Player
         this._name = name;
     }
 
-    public void AddObserver(PlayerObserver po)
+    public void AddObserver(IPlayerObserver po)
     {
         this._observers.Add(po);
     }
 
-    public void RemoveObserver(PlayerObserver po)
+    public void RemoveObserver(IPlayerObserver po)
     {
         this._observers.Remove(po);
     }
@@ -53,7 +53,7 @@ public class Player
         if (this._healthValue <= 0)
         {
             PlayerDiedEvent pde = new PlayerDiedEvent(this.GetName(), this.GetHealthValue(), "Health below or is zero");
-            foreach (PlayerObserver po in this._observers)
+            foreach (IPlayerObserver po in this._observers)
             {
                 po.PlayerDied(pde);
             }
@@ -79,7 +79,7 @@ public class Player
         }
 
         PlayerDiedEvent pde = new PlayerDiedEvent(this.GetName(), this.GetHealthValue(), "No more cards in deck");
-        foreach (PlayerObserver po in this._observers)
+        foreach (IPlayerObserver po in this._observers)
         {
             po.PlayerDied(pde);
         }

@@ -6,4 +6,9 @@ public class Used : EffectState
         : base(effect)
     {
     }
+
+    public Used(EffectState state)
+        : base(state.effect)
+    {
+    }
 }

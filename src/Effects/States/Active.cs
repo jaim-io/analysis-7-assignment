@@ -6,4 +6,18 @@ public class Active : EffectState
         : base(effect)
     {
     }
+
+    public Active(EffectState state)
+        : base(state.effect)
+    {
+    }
+
+    public override void Dispose()
+    {
+        if (this.effect.Condition is not null)
+        {
+            this.effect.Revert();
+        }
+        this.effect.State = new Used(this);
+    }
 }

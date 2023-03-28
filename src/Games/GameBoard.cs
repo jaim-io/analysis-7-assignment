@@ -6,7 +6,7 @@ using TheCardGame.Utils;
 
 namespace TheCardGame.Games;
 
-public class GameBoard : PlayerObserver
+public class GameBoard : IPlayerObserver
 {
     private static GameBoard? _instance;
     private Player _player1;
@@ -99,8 +99,7 @@ public class GameBoard : PlayerObserver
             return false;
         }
         this._turn++;
-        this.TakeCard();
-        return true;
+        return this.TakeCard();
     }
 
     public void EndTurn()
@@ -221,7 +220,7 @@ public class GameBoard : PlayerObserver
         return iSumEnergy;
     }
 
-    public override void PlayerDied(PlayerDiedEvent pde)
+    public void PlayerDied(PlayerDiedEvent pde)
     {
         Console.WriteLine($"Player {pde.PlayerName} died. Health: {pde.Health}, {pde.Reason}");
         if (pde.PlayerName == this._player1.GetName())
@@ -250,7 +249,7 @@ public class GameBoard : PlayerObserver
 
     public void LogCurrentSituation()
     {
-        Console.WriteLine("==== Current situation");
+        Console.WriteLine("\n==== Current situation");
         Console.WriteLine($"Current turn-player: {this._currentTurnPlayer.GetName()}, Turn: {this._turn}");
         Console.WriteLine($"Player {this._player1.GetName()}: Health: {this._player1.GetHealthValue()}");
         Console.WriteLine($"Player {this._player2.GetName()}: Health: {this._player2.GetHealthValue()}");

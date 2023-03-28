@@ -7,7 +7,14 @@ public abstract class EffectState
     {
         this.effect = effect;
     }
+
+    protected EffectState(EffectState state)
+    {
+        this.effect = state.effect;
+    }
     public virtual void Activate() { }
+    public virtual void Trigger() { }
+    public virtual void Dispose() { }
 }
 
 // Card.state(OnTheBoard).TriggerEffects

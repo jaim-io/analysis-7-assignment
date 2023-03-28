@@ -50,16 +50,18 @@ gb.LogCurrentSituation();
 
 // ### The demo game ### //
 
-// Player 1 - Turn 1                
-if (!gb.NewTurn()) { return; }
-gb.DrawCard("p1-red-land-1");
+// Turn 1A            
+if (!gb.NewTurn()) { goto End; }
 gb.PlayCard("p1-red-land-1");
 gb.EndTurn();
 gb.LogCurrentSituation();
 
-// Player 2  - Turn 2
+// Turn 1B
 gb.PrepareNewTurn();
-if (!gb.NewTurn()) { return; }
-gb.DrawCard("land-3");
+if (!gb.NewTurn()) { goto End; }
+// gb.DrawCard("land-3");
 gb.EndTurn();
 gb.LogCurrentSituation();
+
+End:
+Console.WriteLine("==== End of demo");

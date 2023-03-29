@@ -2,7 +2,7 @@ using System.Xml.Serialization;
 
 using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
-using TheCardGame.Common;
+using TheCardGame.Common.Models;
 using TheCardGame.Effects.States;
 using TheCardGame.Games;
 using TheCardGame.Games.Events;

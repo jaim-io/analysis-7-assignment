@@ -1,6 +1,6 @@
 using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
-using TheCardGame.Common;
+using TheCardGame.Common.Models;
 using TheCardGame.Effects;
 
 namespace TheCardGame.Cards;

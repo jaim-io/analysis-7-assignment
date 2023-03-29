@@ -1,6 +1,6 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
-using TheCardGame.Common;
+using TheCardGame.Common.Models;
 using TheCardGame.Players;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;

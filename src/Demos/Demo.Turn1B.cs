@@ -1,7 +1,8 @@
 using TheCardGame.Games;
-using TheCardGame.Players;
 
-partial class Turns
+namespace TheCardGame.Demos;
+
+public partial class Demo
 {
     public static bool Turn1B()
     {

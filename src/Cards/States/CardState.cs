@@ -1,4 +1,4 @@
-using TheCardGame.Common;
+using TheCardGame.Common.Models;
 
 namespace TheCardGame.Cards.States;
 

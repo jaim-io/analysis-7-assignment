@@ -1,9 +1,11 @@
+using TheCardGame.Common;
+
 namespace TheCardGame.Cards.States;
 
-public class OnTheBoard
+public class OnTheBoardFaceUp
     : CardState
 {
-    public OnTheBoard(CardState state)
+    public OnTheBoardFaceUp(CardState state)
         : base(state.Card)
     {
     }
@@ -31,9 +33,14 @@ public class OnTheBoard
     public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
-        this.card.Effect?.Dispose();
+        this.card.OnRevealEffect?.Dispose();
         return true;
     }
 
     public override bool CanBePlayed() { return true; }
+
+    public override void ActivateEffect(List<Entity>? targets)
+    {
+        this.card.OnRevealEffect?.Activate(targets);
+    }
 }

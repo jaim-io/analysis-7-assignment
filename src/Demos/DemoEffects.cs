@@ -1,16 +1,15 @@
 using TheCardGame.Effects;
+using TheCardGame.Effects.ConcreteEffects;
 
 namespace TheCardGame.Demos;
 
-public class DemoEffect : Effect
+public class DemoCounterEffect : CounterEffect
 {
-    public DemoEffect(
+    public DemoCounterEffect(
         string name,
         string description,
-        Action action,
-        Action? revertAction = null,
-        Func<bool>? condition = null)
-        : base(name, description, action, revertAction, condition)
+        Func<bool>? condition = null) 
+        : base(name, description, condition)
     {
     }
 }

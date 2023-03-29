@@ -14,7 +14,7 @@ public class Active : EffectState
 
     public override void Dispose()
     {
-        if (this.effect.Condition is not null)
+        if (this.effect.Duration is not null)
         {
             this.effect.Revert();
         }

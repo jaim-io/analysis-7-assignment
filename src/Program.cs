@@ -4,6 +4,8 @@ using TheCardGame.Demos;
 using TheCardGame.Games;
 using TheCardGame.Players;
 
+var player1 = new Player("player1", 10);
+var player2 = new Player("player2", 10);
 var gb = GameBoard.GetInstance();
 {
     var colourFactory = new DemoColourFactory();
@@ -16,14 +18,7 @@ var gb = GameBoard.GetInstance();
     };
 
     var effectFactory = new DemoEffectFactory();
-    var dealDamageDispose = effectFactory.CreateEffect("Sleight of Hand", "Reveal this card at the beginning of the opponent's next turn.", () =>
-    {
-    });
-    // var card = createCard(....., onRevealEffect: dealDamageDispose, preRevealEffect: ...);
-    // dealDamageDispose.AddAction(() => { >deal 4 damage<,; card.Dipose() })
-
-    var player1 = new Player("player1", 10);
-    var player2 = new Player("player2", 10);
+    var counterEffect = effectFactory.CreateCounterEffect("cf1", string.Empty);
 
     var cardFactory = new DemoCardFactory();
     player1.SetCards(
@@ -31,6 +26,7 @@ var gb = GameBoard.GetInstance();
             cardFactory.CreateLandCard("p1-red-land-1", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-2", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-3", colours["red"]),
+            cardFactory.CreateSpellCard("COUNTER-EFFECT", colours["red"], counterEffect),
             cardFactory.CreateLandCard("p1-red-land-4", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-5", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-6", colours["red"]),
@@ -41,6 +37,7 @@ var gb = GameBoard.GetInstance();
 
     player2.SetCards(
         cards: new() {
+            cardFactory.CreateSpellCard("TEST", colours["red"], effectFactory.CreateCounterEffect("cf1", string.Empty)),
             cardFactory.CreateLandCard("p2-red-land-1", colours["red"]),
             cardFactory.CreateLandCard("p2-red-land-2", colours["red"]),
             cardFactory.CreateLandCard("p2-blue-land-1", colours["blue"]),
@@ -59,7 +56,17 @@ gb.LogCurrentSituation();
 
 // Turn 1A            
 if (!gb.NewTurn()) { goto End; }
-gb.PlayCard("p1-red-land-1");
+gb.PlayCard(player1.Id, "p1-red-land-1");
+
+// Some arbitrary spell/effect
+gb.PlayCard(player2.Id, "TEST");
+gb.ActivateEffect(player2.Id, "TEST"); // => adds the effect to the stack
+
+gb.PlayCard(player1.Id, "COUNTER-EFFECT");
+gb.ActivateEffect(player1.Id, "COUNTER-EFFECT");
+
+gb.Stack.Resolve(); // resolves the stack LIFO
+
 gb.EndTurn();
 gb.LogCurrentSituation();
 

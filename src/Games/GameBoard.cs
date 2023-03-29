@@ -1,12 +1,13 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
+using TheCardGame.Common;
 using TheCardGame.Players;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
 namespace TheCardGame.Games;
 
-public class GameBoard : IPlayerObserver
+public class GameBoard : Entity, IPlayerObserver
 {
     private static GameBoard? _instance;
     private Player _player1;
@@ -148,22 +149,39 @@ public class GameBoard : IPlayerObserver
         return this._turn;
     }
 
-    public bool PlayCard(string cardId)
+    // public bool PlayCard(string cardId)
+    // {
+    //     (Card card, int _) = Support.FindCard(this._currentTurnPlayer.GetCards(), cardId);
+    //     if (card == null || !Support.CardIsIn<InTheHand>(card))
+    //     {
+    //         return false;
+    //     }
+
+    //     this._currentTurnPlayer.PlayCard(card);
+    //     return true;
+    // }
+
+    public bool PlayCard(Guid playerId, string cardId)
     {
-        (Card card, int _) = Support.FindCard(this._currentTurnPlayer.GetCards(), cardId);
+        var player = GetPlayerById(playerId);
+
+        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
         if (card == null || !Support.CardIsIn<InTheHand>(card))
         {
             return false;
         }
 
-        this._currentTurnPlayer.PlayCard(card);
+        player.PlayCard(card);
         return true;
     }
 
-    // public bool ActivateEffect(string cardId)
-    // {
+    public void ActivateEffect(Guid playerId, string cardId, List<Entity>? targets = null)
+    {
+        var player = GetPlayerById(playerId);
 
-    // }
+        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
+        card?.ActivateEffect(targets);
+    }
 
     public bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
     {
@@ -255,15 +273,15 @@ public class GameBoard : IPlayerObserver
         Console.WriteLine($"Player {this._player2.GetName()}: Health: {this._player2.GetHealthValue()}");
 
         List<Card> cards_player1 = this._player1.GetCards();
-        Console.WriteLine($"Player {this._player1.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoard>(cards_player1)}/{Support.CountCards<InTheDeck>(cards_player1)}/{Support.CountCards<InTheHand>(cards_player1)}/{Support.CountCards<OnTheDisposedPile>(cards_player1)}");
-        Console.WriteLine($"Player {this._player1.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoard>(cards_player1));
+        Console.WriteLine($"Player {this._player1.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player1)}/{Support.CountCards<InTheDeck>(cards_player1)}/{Support.CountCards<InTheHand>(cards_player1)}/{Support.CountCards<OnTheDisposedPile>(cards_player1)}");
+        Console.WriteLine($"Player {this._player1.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player1));
         Console.WriteLine($"Player {this._player1.GetName()} in deck: " + Support.CardIdsHumanFormatted<InTheDeck>(cards_player1));
         Console.WriteLine($"Player {this._player1.GetName()} in hand: " + Support.CardIdsHumanFormatted<InTheHand>(cards_player1));
         Console.WriteLine($"Player {this._player1.GetName()} on the discard-pile: " + Support.CardIdsHumanFormatted<OnTheDisposedPile>(cards_player1));
 
         List<Card> cards_player2 = this._player2.GetCards();
-        Console.WriteLine($"Player {this._player2.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoard>(cards_player2)}/{Support.CountCards<InTheDeck>(cards_player2)}/{Support.CountCards<InTheHand>(cards_player2)}/{Support.CountCards<OnTheDisposedPile>(cards_player2)}");
-        Console.WriteLine($"Player {this._player2.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoard>(cards_player2));
+        Console.WriteLine($"Player {this._player2.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player2)}/{Support.CountCards<InTheDeck>(cards_player2)}/{Support.CountCards<InTheHand>(cards_player2)}/{Support.CountCards<OnTheDisposedPile>(cards_player2)}");
+        Console.WriteLine($"Player {this._player2.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player2));
         Console.WriteLine($"Player {this._player2.GetName()} in deck: " + Support.CardIdsHumanFormatted<InTheDeck>(cards_player2));
         Console.WriteLine($"Player {this._player2.GetName()} in hand: " + Support.CardIdsHumanFormatted<InTheHand>(cards_player2));
         Console.WriteLine($"Player {this._player2.GetName()} on the discard-pile: " + Support.CardIdsHumanFormatted<OnTheDisposedPile>(cards_player2));
@@ -283,5 +301,14 @@ public class GameBoard : IPlayerObserver
             this._currentTurnPlayer = this._player1;
             this._opponentPlayer = this._player2;
         }
+    }
+    
+    private Player GetPlayerById(Guid playerId)
+    {
+        return playerId == this._player1.Id
+            ? _player1
+            : playerId == this._player2.Id
+            ? _player2
+            : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
     }
 }

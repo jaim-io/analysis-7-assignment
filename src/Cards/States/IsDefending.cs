@@ -17,7 +17,7 @@ public class IsDefending
 
     public override void OnEndTurn()
     {
-        this.card.State = new OnTheBoard(this);
+        this.card.State = new OnTheBoardFaceUp(this);
     }
 
     public override (bool, int) AbsorbAttack(int iAttackValue)

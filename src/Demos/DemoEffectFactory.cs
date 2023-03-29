@@ -1,18 +1,15 @@
 using TheCardGame.Effects;
+using TheCardGame.Effects.ConcreteEffects;
 
 namespace TheCardGame.Demos;
 
-public class DemoEffectFactory
+public class DemoEffectFactory : EffectFactory
 {
-    public Effect CreateEffect(
+    public override CounterEffect CreateCounterEffect(
         string name,
         string description,
-        Action action,
-        Action? revertAction = null,
-        Func<bool>? condition = null) => new DemoEffect(
-                                    name,
-                                    description,
-                                    action,
-                                    revertAction,
-                                    condition);
+        Func<bool>? condition = null)
+    {
+        return new DemoCounterEffect(name, description, condition);
+    }
 }

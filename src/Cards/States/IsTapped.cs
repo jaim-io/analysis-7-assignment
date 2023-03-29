@@ -15,6 +15,6 @@ public class IsTapped
 
     public override void OnEndTurn()
     {
-        this.card.State = new OnTheBoard(this);
+        this.card.State = new OnTheBoardFaceUp(this);
     }
 }

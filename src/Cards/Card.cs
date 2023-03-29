@@ -1,19 +1,18 @@
 using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
+using TheCardGame.Common;
 using TheCardGame.Effects;
 
 namespace TheCardGame.Cards;
 
-public abstract class Card
+public abstract class Card : Entity
 {
-    // private Action preRevealEffect
-    // private Action onRevealEffect
-    // private Action onDisposeEffect
-    public Effect? Effect { get; init; }
     private int _energyCost = 0; // The amount of energy required to play this card.   
     private string _cardId; /* The unique id of this card in the game. */
     private List<ICardObserver> _observers = new();
     public IReadOnlyList<ICardObserver> Observers => _observers;
+    public Effect? PreRevealEffect { get; init; }
+    public Effect? OnRevealEffect { get; init; }
     public string Description { get; init; }
     public CardState State { get; set; }
     public Colour Colour { get; init; }
@@ -21,13 +20,15 @@ public abstract class Card
     public Card(
         string cardId,
         Colour colour,
-        Effect? effect = null)
+        Effect? onRevealEffect = null,
+        Effect? preRevealEffect = null)
     {
         this._cardId = cardId;
         this.Colour = colour;
         this.Description = string.Empty;
         this.State = new InTheDeck(this);
-        Effect = effect;
+        OnRevealEffect = onRevealEffect;
+        PreRevealEffect = preRevealEffect;
     }
 
     public string GetId()
@@ -91,11 +92,5 @@ public abstract class Card
 
     public void AddObserver(ICardObserver observer) => this._observers.Add(observer);
     public void RemoveObserver(ICardObserver observer) => this._observers.Remove(observer);
-    public void ActivateEffect()
-    {
-        if (this.Effect is not null)
-        {
-            this.Effect.Activate();
-        }
-    }
+    public void ActivateEffect(List<Entity>? targets) => this.State.ActivateEffect(targets);
 }

@@ -1,5 +1,6 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
+using TheCardGame.Common;
 using TheCardGame.Effects.States;
 using TheCardGame.Games;
 using TheCardGame.Games.Events;
@@ -8,15 +9,10 @@ using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 
-public abstract class Effect : IPlayerObserver, ICardObserver, IGameBoardObserver
+public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoardObserver
 {
-    // protected Action preRevealStage
-    // protected Action onRevealStage
-    // protected Action onDisposeStage
-    protected Action _action;
-    protected Action? _revertAction;
-    // Condition null example => deal 4 damage to opponent
-    public Func<bool>? Condition { get; init; }
+    protected List<Entity> _targets = new();
+    public Func<bool>? Duration { get; init; }
     public Guid Id { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
@@ -25,62 +21,27 @@ public abstract class Effect : IPlayerObserver, ICardObserver, IGameBoardObserve
     public Effect(
         string name,
         string description,
-        Action action,
-        Action? revertAction = null,
-        Func<bool>? condition = null)
+        Func<bool>? duration = null)
     {
         Id = Guid.NewGuid();
         Name = name;
         Description = description;
         State = new Unused(this);
-        _action = action;
-        _revertAction = revertAction;
-        Condition = condition;
+        Duration = duration;
     }
 
-    public virtual void Activate() => this.State.Activate();
-    public void Revert()
+    public abstract void Trigger();
+
+    public void Activate(List<Entity>? targets = null)
     {
-        if (this._revertAction is not null)
-        {
-            this._revertAction();
-        }
+        this._targets = targets ?? new();
+        this.State.Activate();
     }
-    public void Trigger() => this._action();
     public void Dispose() => this.State.Dispose();
 
-    public void PlayerDied(PlayerDiedEvent eventInfo)
-    {
-        // Game over, no action needed.
-    }
-
-    public void CardDisposed(CardDisposedEvent eventInfo)
-    {
-        if (Condition != null)
-        {
-            if (Condition() is false)
-            {
-                this.Dispose();
-            }
-        }
-    }
-
-    public void StartOfTurn(StartOfTurnEvent eventInfo)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void EndOfTurn(EndOfTurnEvent eventInfo)
-    {
-        throw new NotImplementedException();
-    }
+    public virtual void Revert() { }
+    public virtual void PlayerDied(PlayerDiedEvent eventInfo) { }
+    public virtual void CardDisposed(CardDisposedEvent eventInfo) { }
+    public virtual void StartOfTurn(StartOfTurnEvent eventInfo) { }
+    public virtual void EndOfTurn(EndOfTurnEvent eventInfo) { }
 }
-
-/*
-Fields: 
-    Duration? 
-
-Methods: 
-    Dispose?
-    OnEndTurn
-*/ 

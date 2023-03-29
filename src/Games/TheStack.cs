@@ -28,7 +28,7 @@ public class TheStack
         this._resolveCounter = _stack.Count - 1;
         for (int i = _resolveCounter; i >= 0; i--)
         {
-            _stack[i].Activate();
+            _stack[i].Trigger();
         }
         this.Clear();
     }

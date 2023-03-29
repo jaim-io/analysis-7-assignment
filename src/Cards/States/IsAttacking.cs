@@ -47,6 +47,6 @@ public class IsAttacking
 
     public override void OnEndTurn()
     {
-        this.card.State = new OnTheBoard(this);
+        this.card.State = new OnTheBoardFaceUp(this);
     }
 }

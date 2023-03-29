@@ -1,4 +1,5 @@
 using TheCardGame.Cards.Colours;
+using TheCardGame.Effects;
 
 namespace TheCardGame.Cards;
 
@@ -13,8 +14,14 @@ public abstract class CreatureCard
     private int _initialDefenseValue;
     private int _actualDefenseValue;
 
-    public CreatureCard(string cardId, Colour colour, int attackValue, int defenseValue)
-        : base(cardId, colour)
+    public CreatureCard(
+        string cardId,
+        Colour colour,
+        int attackValue,
+        int defenseValue,
+        Effect? onRevealEffect = null,
+        Effect? preRevealEffect = null)
+        : base(cardId, colour, onRevealEffect, preRevealEffect)
     {
         this._initialAttackValue = attackValue;
         this._actualAttackValue = attackValue;

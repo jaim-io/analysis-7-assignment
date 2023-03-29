@@ -15,6 +15,13 @@ var gb = GameBoard.GetInstance();
         { "colourless",  colourFactory.CreateColour("Colourless") },
     };
 
+    var effectFactory = new DemoEffectFactory();
+    var dealDamageDispose = effectFactory.CreateEffect("Sleight of Hand", "Reveal this card at the beginning of the opponent's next turn.", () =>
+    {
+    });
+    // var card = createCard(....., onRevealEffect: dealDamageDispose, preRevealEffect: ...);
+    // dealDamageDispose.AddAction(() => { >deal 4 damage<,; card.Dipose() })
+
     var player1 = new Player("player1", 10);
     var player2 = new Player("player2", 10);
 

@@ -27,7 +27,12 @@ public class InTheHand
     public override bool OnPlay()
     {
         this.card.State = new OnTheBoard(this);
-        this.card.ActivateEffect();
+        this.card.ActivateEffect(); // => Sleight of hand change state here?
+        // ^^^^^ => this.card.ActivatePreRevealEffect() => card.State = new OnTheBoardFaceDown(this);
+        // conditional = () => ...
+        // if this.card.State is OnTheBoard? => FaceUp
+        // else we can assume the effect changed it
+        // OnTheBoardFaceDown => OnTheBoardFaceUp
         return true;
     }
 }

@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-
 using TheCardGame.Cards.Colours;
-using TheCardGame.Cards.Events;
 using TheCardGame.Cards.States;
 using TheCardGame.Effects;
 
@@ -9,7 +6,10 @@ namespace TheCardGame.Cards;
 
 public abstract class Card
 {
-    private Effect? _effect { get; init; }
+    // private Action preRevealEffect
+    // private Action onRevealEffect
+    // private Action onDisposeEffect
+    public Effect? Effect { get; init; }
     private int _energyCost = 0; // The amount of energy required to play this card.   
     private string _cardId; /* The unique id of this card in the game. */
     private List<ICardObserver> _observers = new();
@@ -27,7 +27,7 @@ public abstract class Card
         this.Colour = colour;
         this.Description = string.Empty;
         this.State = new InTheDeck(this);
-        _effect = effect;
+        Effect = effect;
     }
 
     public string GetId()
@@ -93,9 +93,9 @@ public abstract class Card
     public void RemoveObserver(ICardObserver observer) => this._observers.Remove(observer);
     public void ActivateEffect()
     {
-        if (this._effect is not null)
+        if (this.Effect is not null)
         {
-            this._effect.Activate();
+            this.Effect.Activate();
         }
     }
 }

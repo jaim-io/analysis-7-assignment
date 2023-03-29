@@ -1,13 +1,18 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
 using TheCardGame.Effects.States;
+using TheCardGame.Games;
+using TheCardGame.Games.Events;
 using TheCardGame.Players;
 using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 
-public abstract class Effect : IPlayerObserver, ICardObserver
+public abstract class Effect : IPlayerObserver, ICardObserver, IGameBoardObserver
 {
+    // protected Action preRevealStage
+    // protected Action onRevealStage
+    // protected Action onDisposeStage
     protected Action _action;
     protected Action? _revertAction;
     // Condition null example => deal 4 damage to opponent
@@ -58,6 +63,16 @@ public abstract class Effect : IPlayerObserver, ICardObserver
                 this.Dispose();
             }
         }
+    }
+
+    public void StartOfTurn(StartOfTurnEvent eventInfo)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void EndOfTurn(EndOfTurnEvent eventInfo)
+    {
+        throw new NotImplementedException();
     }
 }
 

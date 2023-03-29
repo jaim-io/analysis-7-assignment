@@ -4,8 +4,8 @@
 
 - [x] Singleton &rarr; GameBoard
 - [x] Factory &rarr; EffectFactory
-- [ ] Observer &rarr; regarding TemporaryEffect or (EffectObserver - CardObserver)
-- [ ] State &rarr; EffectState?
+- [x] Observer &rarr; regarding TemporaryEffect or (EffectObserver - CardObserver)
+- [x] State &rarr; EffectState?
 
 ## Effects
 
@@ -48,3 +48,8 @@ var counterSpell = new SpellCard(
 
 ## Dual colours
 
+
+## Facing
+Card face up-down - states?
+
+## Game Phases

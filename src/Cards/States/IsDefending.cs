@@ -32,7 +32,7 @@ public class IsDefending
             foreach (var obs in this.card.Observers)
             {
                 obs.CardDisposed(disposedEvent);
-            };
+            }
             this.card.State = new OnTheDisposedPile(this);
         }
         return (true, attackValueLeft);

@@ -137,4 +137,9 @@ public class Player
     {
         return card.OnPlay();
     }
+
+    public void TurnCardFaceUp(Card card)
+    {
+        card.State.TurnFaceUp();
+    }
 }

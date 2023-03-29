@@ -149,17 +149,19 @@ public class GameBoard : Entity, IPlayerObserver
         return this._turn;
     }
 
-    // public bool PlayCard(string cardId)
-    // {
-    //     (Card card, int _) = Support.FindCard(this._currentTurnPlayer.GetCards(), cardId);
-    //     if (card == null || !Support.CardIsIn<InTheHand>(card))
-    //     {
-    //         return false;
-    //     }
+    public bool TurnCardFaceUp(Guid playerId, string cardId)
+    {
+        var player = GetPlayerById(playerId);
 
-    //     this._currentTurnPlayer.PlayCard(card);
-    //     return true;
-    // }
+        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
+        if (card == null || !Support.CardIsIn<OnTheBoardFaceDown>(card))
+        {
+            return false;
+        }
+
+        player.TurnCardFaceUp(card);
+        return true;
+    }
 
     public bool PlayCard(Guid playerId, string cardId)
     {

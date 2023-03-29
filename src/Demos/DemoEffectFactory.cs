@@ -12,4 +12,12 @@ public class DemoEffectFactory : EffectFactory
     {
         return new DemoCounterEffect(name, description, condition);
     }
+
+    public override SleightOfHandEffect CreateSleightOfHandEffect(
+        string name,
+        string description,
+        Func<bool>? condition = null)
+    {
+        return new DemoSleightOfHandEffect(name, description, condition);
+    }
 }

@@ -1,3 +1,5 @@
+using System.Xml.Serialization;
+
 using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
 using TheCardGame.Common;
@@ -9,11 +11,12 @@ using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 
+[Serializable]
 public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoardObserver
 {
+    public Card? Owner { get; set; } = null;
     protected List<Entity> _targets = new();
     public Func<bool>? Duration { get; init; }
-    public Guid Id { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
     public EffectState State { get; set; }
@@ -23,7 +26,6 @@ public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoar
         string description,
         Func<bool>? duration = null)
     {
-        Id = Guid.NewGuid();
         Name = name;
         Description = description;
         State = new Unused(this);

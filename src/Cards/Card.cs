@@ -11,8 +11,8 @@ public abstract class Card : Entity
     private string _cardId; /* The unique id of this card in the game. */
     private List<ICardObserver> _observers = new();
     public IReadOnlyList<ICardObserver> Observers => _observers;
-    public Effect? PreRevealEffect { get; init; }
-    public Effect? OnRevealEffect { get; init; }
+    public Effect? PreRevealEffect { get; set; }
+    public Effect? OnRevealEffect { get; set; }
     public string Description { get; init; }
     public CardState State { get; set; }
     public Colour Colour { get; init; }
@@ -29,6 +29,26 @@ public abstract class Card : Entity
         this.State = new InTheDeck(this);
         OnRevealEffect = onRevealEffect;
         PreRevealEffect = preRevealEffect;
+    }
+
+    public Card BindOnRevealEffect(Effect effect)
+    {
+        if (effect is not null)
+        {
+            effect.Owner = this;
+            this.OnRevealEffect = effect;
+        }
+        return this;
+    }
+
+    public Card BindPreRevealEffect(Effect effect)
+    {
+        if (effect is not null)
+        {
+            effect.Owner = this;
+            this.PreRevealEffect = effect;
+        }
+        return this;
     }
 
     public string GetId()

@@ -1,6 +1,7 @@
 ﻿using TheCardGame.Cards;
 using TheCardGame.Cards.Colours;
 using TheCardGame.Demos;
+using TheCardGame.Effects;
 using TheCardGame.Games;
 using TheCardGame.Players;
 
@@ -18,26 +19,38 @@ var gb = GameBoard.GetInstance();
     };
 
     var effectFactory = new DemoEffectFactory();
-    var counterEffect = effectFactory.CreateCounterEffect("cf1", string.Empty);
-
     var cardFactory = new DemoCardFactory();
+
+    var p1_cs = cardFactory.CreateSpellCard("COUNTER-EFFECT", colours["red"]);
+    var counterEffect = effectFactory.CreateCounterEffect("p1-ce", string.Empty);
+    p1_cs.BindOnRevealEffect(counterEffect);
+
+    var p1_hd = cardFactory.CreateSpellCard("HIDDEN-DANGER", colours["red"]);
+    var sohEffect = effectFactory.CreateSleightOfHandEffect("soh1", string.Empty);
+    p1_hd.BindOnRevealEffect(sohEffect);
+
     player1.SetCards(
         cards: new() {
+            p1_cs, 
+            p1_hd,
             cardFactory.CreateLandCard("p1-red-land-1", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-2", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-3", colours["red"]),
-            cardFactory.CreateSpellCard("COUNTER-EFFECT", colours["red"], counterEffect),
             cardFactory.CreateLandCard("p1-red-land-4", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-5", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-6", colours["red"]),
-            cardFactory.CreateSpellCard("p1-hidden-danger-1", colours["red"]),
             cardFactory.CreateSpellCard("p1-red-buff-1", colours["red"]), // Buffs creature for +5/+3
             cardFactory.CreateCreatureCard("p1-red-creature-1", colours["red"], 2, 2),
         });
 
+    var p2_cs = cardFactory.CreateSpellCard("COUNTER-EFFECT", colours["red"]);
+    var p2_cs_effect = effectFactory.CreateCounterEffect("p2-cs", string.Empty);
+    p2_cs.BindOnRevealEffect(p2_cs_effect);
+
     player2.SetCards(
         cards: new() {
-            cardFactory.CreateSpellCard("TEST", colours["red"], effectFactory.CreateCounterEffect("cf1", string.Empty)),
+            p2_cs,
+            cardFactory.CreateSpellCard("TEST", colours["red"]),
             cardFactory.CreateLandCard("p2-red-land-1", colours["red"]),
             cardFactory.CreateLandCard("p2-red-land-2", colours["red"]),
             cardFactory.CreateLandCard("p2-blue-land-1", colours["blue"]),
@@ -58,6 +71,10 @@ gb.LogCurrentSituation();
 if (!gb.NewTurn()) { goto End; }
 gb.PlayCard(player1.Id, "p1-red-land-1");
 
+gb.PlayCard(player1.Id, "HIDDEN-DANGER");
+gb.ActivateEffect(player1.Id, "HIDDEN-DANGER"); // => Will activate PreRevealEffect
+gb.Stack.Resolve(); // Manual resolve to resolve the PreRevealEffect
+
 // Some arbitrary spell/effect
 gb.PlayCard(player2.Id, "TEST");
 gb.ActivateEffect(player2.Id, "TEST"); // => adds the effect to the stack
@@ -73,7 +90,13 @@ gb.LogCurrentSituation();
 // Turn 1B
 gb.PrepareNewTurn();
 if (!gb.NewTurn()) { goto End; }
-// gb.DrawCard("land-3");
+
+gb.TurnCardFaceUp(player1.Id, "HIDDEN-DANGER");
+gb.ActivateEffect(player1.Id, "HIDDEN-DANGER"); // => Will activate ONRevealEffect
+gb.Stack.Resolve(); // Manual resolve to resolve the OnRevealEffect
+
+// blablabal
+
 gb.EndTurn();
 gb.LogCurrentSituation();
 

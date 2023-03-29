@@ -427,3 +427,14 @@ dotnet_diagnostic.SA1649.severity = none
 [Program.cs]
 # SA1501: Statement should not be on a single line
 dotnet_diagnostic.SA1501.severity = none
+
+[Turns.*.cs]
+# SA1205: Partial elements should declare an access modifier
+dotnet_diagnostic.SA1205.severity = none
+
+# SA1501: Statement should not be on a single line
+dotnet_diagnostic.SA1501.severity = none
+
+# SA1601: Partial elements should be documented 
+dotnet_diagnostic.SA1601.severity = none
+

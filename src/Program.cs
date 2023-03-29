@@ -31,7 +31,7 @@ var gb = GameBoard.GetInstance();
 
     player1.SetCards(
         cards: new() {
-            p1_cs, 
+            p1_cs,
             p1_hd,
             cardFactory.CreateLandCard("p1-red-land-1", colours["red"]),
             cardFactory.CreateLandCard("p1-red-land-2", colours["red"]),
@@ -66,39 +66,8 @@ gb.SetupADemoSituation();
 gb.LogCurrentSituation();
 
 // ### The demo game ### //
-
-// Turn 1A            
-if (!gb.NewTurn()) { goto End; }
-gb.PlayCard(player1.Id, "p1-red-land-1");
-
-gb.PlayCard(player1.Id, "HIDDEN-DANGER");
-gb.ActivateEffect(player1.Id, "HIDDEN-DANGER"); // => Will activate PreRevealEffect
-gb.Stack.Resolve(); // Manual resolve to resolve the PreRevealEffect
-
-// Some arbitrary spell/effect
-gb.PlayCard(player2.Id, "TEST");
-gb.ActivateEffect(player2.Id, "TEST"); // => adds the effect to the stack
-
-gb.PlayCard(player1.Id, "COUNTER-EFFECT");
-gb.ActivateEffect(player1.Id, "COUNTER-EFFECT");
-
-gb.Stack.Resolve(); // resolves the stack LIFO
-
-gb.EndTurn();
-gb.LogCurrentSituation();
-
-// Turn 1B
-gb.PrepareNewTurn();
-if (!gb.NewTurn()) { goto End; }
-
-gb.TurnCardFaceUp(player1.Id, "HIDDEN-DANGER");
-gb.ActivateEffect(player1.Id, "HIDDEN-DANGER"); // => Will activate ONRevealEffect
-gb.Stack.Resolve(); // Manual resolve to resolve the OnRevealEffect
-
-// blablabal
-
-gb.EndTurn();
-gb.LogCurrentSituation();
+if (Turns.Turn1A()) { goto End; }
+if (Turns.Turn1B()) { goto End; }
 
 End:
 Console.WriteLine("==== End of demo");

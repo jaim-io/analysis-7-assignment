@@ -1,13 +1,14 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
+using TheCardGame.Common.Models;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
 namespace TheCardGame.Players;
 
-public class Player
+public class Player : Entity
 {
-    private List<Card> _cards;
+    public List<Card> Cards { get; private set; }
     private int _healthValue;
     private string _name = string.Empty;
     public Guid Id { get; init; }
@@ -17,7 +18,7 @@ public class Player
     public Player(string name, int initialLife)
     {
         this.Id = Guid.NewGuid();
-        this._cards = new List<Card>();
+        this.Cards = new List<Card>();
         this._healthValue = initialLife;
         this._name = name;
     }
@@ -34,12 +35,12 @@ public class Player
 
     public void SetCards(List<Card> cards)
     {
-        this._cards = cards;
+        this.Cards = cards;
     }
 
     public List<Card> GetCards()
     {
-        return this._cards;
+        return this.Cards;
     }
 
     public string GetName()
@@ -67,7 +68,7 @@ public class Player
     /* Take the first card from his deck and put it in his hand */
     public Card? DrawCard()
     {
-        foreach (Card card in this._cards)
+        foreach (Card card in this.Cards)
         {
             if (card.IsNotYetInTheGame())
             {
@@ -89,7 +90,7 @@ public class Player
     /* Draw a card from his hand */
     public Card? DrawCard(string cardId)
     {
-        foreach (Card card in this._cards)
+        foreach (Card card in this.Cards)
         {
             if (card.GetId() == cardId)
             {
@@ -104,7 +105,7 @@ public class Player
 
     public void TrimCards(int maxCards)
     {
-        int cnt = Support.CountCards<InTheHand>(this._cards);
+        int cnt = Support.CountCards<InTheHand>(this.Cards);
         if (cnt <= maxCards)
         {
             Console.WriteLine($"{this.GetName()} trimmed 0 cards into discard pile.");
@@ -112,7 +113,7 @@ public class Player
         }
 
         int cntDisposed = 0;
-        foreach (Card card in this._cards)
+        foreach (Card card in this.Cards)
         {
             if (Support.CardIsIn<InTheHand>(card))
             {
@@ -124,7 +125,7 @@ public class Player
                 }
             }
 
-            cnt = Support.CountCards<InTheHand>(this._cards);
+            cnt = Support.CountCards<InTheHand>(this.Cards);
             if (cnt <= maxCards)
             {
                 break;

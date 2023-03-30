@@ -19,9 +19,8 @@ public class DemoSpellCard
     public DemoSpellCard(
         string cardId,
         Colour colour,
-        Effect? onRevealEffect = null,
-        Effect? preRevealEffect = null)
-        : base(cardId, colour, onRevealEffect, preRevealEffect)
+        List<Effect>? effects = null)
+        : base(cardId, colour, effects)
     {
     }
 }
@@ -34,9 +33,8 @@ public class DemoCreatureCard
         Colour colour,
         int attackValue,
         int defenseValue,
-        Effect? onRevealEffect = null,
-        Effect? preRevealEffect = null)
-        : base(cardId, colour, attackValue, defenseValue, onRevealEffect, preRevealEffect)
+        List<Effect>? effects = null)
+        : base(cardId, colour, attackValue, defenseValue, effects)
     {
     }
 }

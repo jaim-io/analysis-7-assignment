@@ -8,9 +8,8 @@ public abstract class SpellCard : Card
     public SpellCard(
         string cardId,
         Colour colour,
-        Effect? onRevealEffect = null,
-        Effect? preRevealEffect = null)
-        : base(cardId, colour, onRevealEffect, preRevealEffect)
+        List<Effect>? effects)
+        : base(cardId, colour, effects)
     {
     }
 }

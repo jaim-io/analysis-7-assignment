@@ -14,7 +14,7 @@ public partial class Demo
         if (!gb.NewTurn()) { return false; }
 
         gb.TurnCardFaceUp(player1, "HIDDEN-DANGER");
-        gb.ActivateEffect(player1, "HIDDEN-DANGER"); // => Will activate ONRevealEffect
+        gb.ActivateEffect(player1, "HIDDEN-DANGER", "DEAL-DAMAMGE-ALL-CARDS");
         gb.Stack.Resolve(); // Manual resolve to resolve the OnRevealEffect
 
         gb.EndTurn();

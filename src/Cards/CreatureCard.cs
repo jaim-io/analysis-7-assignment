@@ -19,9 +19,8 @@ public abstract class CreatureCard
         Colour colour,
         int attackValue,
         int defenseValue,
-        Effect? onRevealEffect = null,
-        Effect? preRevealEffect = null)
-        : base(cardId, colour, onRevealEffect, preRevealEffect)
+        List<Effect>? effects = null)
+        : base(cardId, colour, effects)
     {
         this._initialAttackValue = attackValue;
         this._actualAttackValue = attackValue;

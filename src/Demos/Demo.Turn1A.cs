@@ -13,18 +13,17 @@ public partial class Demo
         if (!gb.NewTurn()) { return false; }
         gb.PlayCard(player1, "p1-red-land-1");
 
-        gb.PlayCard(player1, "HIDDEN-DANGER");
-        gb.ActivateEffect(player1, "HIDDEN-DANGER"); // => Will activate PreRevealEffect
-        gb.Stack.Resolve(); // Manual resolve to resolve the PreRevealEffect
+        gb.PlayCard(player1, "HIDDEN-DANGER-CARD");
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SLEIGHT-OF-HAND");
+        gb.Stack.Resolve(); 
 
-        // Some arbitrary spell/effect
-        gb.PlayCard(player2, "TEST");
-        gb.ActivateEffect(player2, "TEST"); // => adds the effect to the stack
+        gb.PlayCard(player2, "COUNTER-CARD");
+        gb.ActivateEffect(player2, "COUNTER-CARD", "COUNTER-EFFECT"); 
 
-        gb.PlayCard(player1, "COUNTER-EFFECT");
-        gb.ActivateEffect(player1, "COUNTER-EFFECT");
+        gb.PlayCard(player1, "COUNTER-CARD");
+        gb.ActivateEffect(player1, "COUNTER-CARD", "COUNTER-EFFECT");
 
-        gb.Stack.Resolve(); // resolves the stack LIFO
+        gb.Stack.Resolve(); 
 
         gb.EndTurn();
         gb.LogCurrentSituation();

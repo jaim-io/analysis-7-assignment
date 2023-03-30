@@ -17,7 +17,7 @@ public class OnTheBoardFaceDown
     public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
-        this.card.OnRevealEffect?.Dispose();
+        // this.card.OnRevealEffect?.Dispose();
         return true;
     }
 }

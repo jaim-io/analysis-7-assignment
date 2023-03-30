@@ -1,4 +1,6 @@
 using TheCardGame.Cards.Colours;
+using TheCardGame.Common.Models;
+using TheCardGame.Games;
 using TheCardGame.Players;
 
 namespace TheCardGame.Demos;
@@ -12,26 +14,48 @@ public partial class Demo
         var effectFactory = new DemoEffectFactory();
         var cardFactory = new DemoCardFactory();
 
-        var p1_cs = cardFactory.CreateSpellCard("COUNTER-EFFECT", getColour["red"]());
-        var counterEffect = effectFactory.CreateCounterEffect("p1-ce", string.Empty);
-        p1_cs.BindOnRevealEffect(counterEffect);
+        var counterSpell = cardFactory.CreateSpellCard("COUNTER-CARD", getColour["red"]());
+        var counterEffect = effectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
+        counterSpell.BindEffect(counterEffect);
 
-        var p1_hd = cardFactory.CreateSpellCard("HIDDEN-DANGER", getColour["red"]());
-        var sohEffect = effectFactory.CreateSleightOfHandEffect("soh1", string.Empty);
-        p1_hd.BindOnRevealEffect(sohEffect);
+        var hiddenDanger = cardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", getColour["red"]());
+        var sleightOfHandEffect = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var dealDamageEffect = effectFactory.CreateDealDamageEffect(
+            name: "DEAL-DAMAGE-ALL-CARDS", 
+            description: string.Empty, 
+            damage: 4,
+            getPreDeterminedTargets: () => {
+                    var entities = new List<Entity>();
+                    entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards);
+                    entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards);
+                    return entities;
+                });
+        hiddenDanger
+            .BindEffect(sleightOfHandEffect)
+            .BindEffect(dealDamageEffect);
+
+        /*
+            Known Game
+                getPreDeterminedTargets: () => {
+                    var entities = new List<Entity>();
+                    entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards.Select(c => c.State is Attacking))
+                    entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards.Select(c => c.State is Attacking))
+                    return entities;
+                }
+        */
 
         player.SetCards(
             cards: new() {
-            p1_cs,
-            p1_hd,
-            cardFactory.CreateLandCard("p1-red-land-1", getColour["red"]()),
-            cardFactory.CreateLandCard("p1-red-land-2", getColour["red"]()),
-            cardFactory.CreateLandCard("p1-red-land-3", getColour["red"]()),
-            cardFactory.CreateLandCard("p1-red-land-4", getColour["red"]()),
-            cardFactory.CreateLandCard("p1-red-land-5", getColour["red"]()),
-            cardFactory.CreateLandCard("p1-red-land-6", getColour["red"]()),
-            cardFactory.CreateSpellCard("p1-red-buff-1", getColour["red"]()), // Buffs creature for +5/+3
-            cardFactory.CreateCreatureCard("p1-red-creature-1", getColour["red"](), 2, 2),
+                counterSpell,
+                hiddenDanger,
+                cardFactory.CreateLandCard("p1-red-land-1", getColour["red"]()),
+                cardFactory.CreateLandCard("p1-red-land-2", getColour["red"]()),
+                cardFactory.CreateLandCard("p1-red-land-3", getColour["red"]()),
+                cardFactory.CreateLandCard("p1-red-land-4", getColour["red"]()),
+                cardFactory.CreateLandCard("p1-red-land-5", getColour["red"]()),
+                cardFactory.CreateLandCard("p1-red-land-6", getColour["red"]()),
+                cardFactory.CreateSpellCard("p1-red-buff-1", getColour["red"]()), // Buffs creature for +5/+3
+                cardFactory.CreateCreatureCard("p1-red-creature-1", getColour["red"](), 2, 2),
             });
 
         return player;

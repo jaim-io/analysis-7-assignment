@@ -9,7 +9,7 @@ public abstract class SleightOfHandEffect : Effect
         string name,
         string description,
         Func<bool>? duration = null)
-        : base(name, description, duration)
+        : base(name, description, null, duration)
     {
     }
 

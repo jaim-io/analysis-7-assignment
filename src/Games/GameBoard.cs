@@ -10,8 +10,8 @@ namespace TheCardGame.Games;
 public class GameBoard : Entity, IPlayerObserver
 {
     private static GameBoard? _instance;
-    private Player _currentTurnPlayer;
-    private Player _opponentPlayer;
+    public Player CurrentPlayer { get; private set; }
+    public Player OpponentPlayer { get; private set; }
     public Player Player1 { get; private set; }
     public Player Player2 { get; private set; }
     private uint _turn;
@@ -23,8 +23,8 @@ public class GameBoard : Entity, IPlayerObserver
     {
         this.Player1 = new Player("dummy1", 0);
         this.Player2 = new Player("dummy2", 0);
-        this._currentTurnPlayer = this.Player1;
-        this._opponentPlayer = this.Player2;
+        this.CurrentPlayer = this.Player1;
+        this.OpponentPlayer = this.Player2;
         this._turn = 0;
         this._gameEnded = false;
         this.Stack = new();
@@ -49,14 +49,14 @@ public class GameBoard : Entity, IPlayerObserver
         {
             throw new System.InvalidOperationException("The two players should have a unique name.");
         }
-        this._currentTurnPlayer = currentTurnPlayer;
+        this.CurrentPlayer = currentTurnPlayer;
         if (currentTurnPlayer.GetName() == player1.GetName())
         {
-            this._opponentPlayer = this.Player2;
+            this.OpponentPlayer = this.Player2;
         }
         else
         {
-            this._opponentPlayer = this.Player1;
+            this.OpponentPlayer = this.Player1;
         }
 
         this.Player1.AddObserver(this);
@@ -95,6 +95,10 @@ public class GameBoard : Entity, IPlayerObserver
 
     public bool NewTurn()
     {
+        if (this._turn == 0)
+        {
+            this.DrawInitialCards();
+        }
         if (this._gameEnded)
         {
             return false;
@@ -105,11 +109,11 @@ public class GameBoard : Entity, IPlayerObserver
 
     public void EndTurn()
     {
-        foreach (Card card in this._currentTurnPlayer.GetCards())
+        foreach (Card card in this.CurrentPlayer.GetCards())
         {
             card.OnEndTurn();
         }
-        foreach (Card card in this._opponentPlayer.GetCards())
+        foreach (Card card in this.OpponentPlayer.GetCards())
         {
             card.OnEndTurn();
         }
@@ -117,7 +121,7 @@ public class GameBoard : Entity, IPlayerObserver
 
     public void PrepareNewTurn()
     {
-        this._currentTurnPlayer.TrimCards(5);
+        this.CurrentPlayer.TrimCards(5);
         this.SwapPlayer();
     }
 
@@ -126,23 +130,23 @@ public class GameBoard : Entity, IPlayerObserver
     {
         List<Card> cards = new List<Card>();
 
-        if (player.GetName() == this._opponentPlayer.GetName())
+        if (player.GetName() == this.OpponentPlayer.GetName())
         {
-            return Support.GetCardsCanBePlayed(this._opponentPlayer.GetCards());
+            return Support.GetCardsCanBePlayed(this.OpponentPlayer.GetCards());
         }
         else
         {
-            return Support.GetCardsCanBePlayed(this._currentTurnPlayer.GetCards());
+            return Support.GetCardsCanBePlayed(this.CurrentPlayer.GetCards());
         }
     }
 
     public Player GetCurrentTurnPlayer()
     {
-        return this._currentTurnPlayer;
+        return this.CurrentPlayer;
     }
     public Player GetOpponentPlayer()
     {
-        return this._opponentPlayer;
+        return this.OpponentPlayer;
     }
     public uint GetCurrentTurn()
     {
@@ -177,17 +181,18 @@ public class GameBoard : Entity, IPlayerObserver
         return true;
     }
 
-    public void ActivateEffect(Guid playerId, string cardId, List<Entity>? targets = null)
+    public void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null)
     {
+        // targets => cardIds, playerIds, gameBoard
         var player = GetPlayerById(playerId);
 
         (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
-        card?.ActivateEffect(targets);
+        card?.ActivateEffect(effectName, targets);
     }
 
     public bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
     {
-        foreach (Card oCard in this._opponentPlayer.GetCards())
+        foreach (Card oCard in this.OpponentPlayer.GetCards())
         {
             foreach (string defenseCardId in opponentDefenseCardIds)
             {
@@ -198,7 +203,7 @@ public class GameBoard : Entity, IPlayerObserver
             }
         }
 
-        (Card card, int iPos) = Support.FindCard(this._currentTurnPlayer.GetCards(), cardId);
+        (Card card, int iPos) = Support.FindCard(this.CurrentPlayer.GetCards(), cardId);
         CreatureCard? attackCard = card as CreatureCard;
         if (attackCard is not null)
         {
@@ -216,7 +221,7 @@ public class GameBoard : Entity, IPlayerObserver
     Returns the energy-level tapped.*/
     public void TapFromCard(string cardId)
     {
-        foreach (Card card in this._currentTurnPlayer.GetCards())
+        foreach (Card card in this.CurrentPlayer.GetCards())
         {
             if (card.GetId() == cardId)
             {
@@ -228,7 +233,7 @@ public class GameBoard : Entity, IPlayerObserver
     public int EnergyTapped()
     {
         int iSumEnergy = 0;
-        foreach (Card card in this._currentTurnPlayer.GetCards())
+        foreach (Card card in this.CurrentPlayer.GetCards())
         {
             LandCard? landCard = card as LandCard;
             if (landCard is not null)
@@ -254,23 +259,10 @@ public class GameBoard : Entity, IPlayerObserver
         this._gameEnded = true;
     }
 
-    /* These are methods just for Demo stuff */
-    public void SetupADemoSituation()
-    {
-        for (int cnt = 0; cnt < 6; cnt++)
-        {
-            this.Player1.DrawCard();
-        }
-        for (int cnt = 0; cnt < 6; cnt++)
-        {
-            this.Player2.DrawCard();
-        }
-    }
-
     public void LogCurrentSituation()
     {
         Console.WriteLine("\n==== Current situation");
-        Console.WriteLine($"Current turn-player: {this._currentTurnPlayer.GetName()}, Turn: {this._turn}");
+        Console.WriteLine($"Current turn-player: {this.CurrentPlayer.GetName()}, Turn: {this._turn}");
         Console.WriteLine($"Player {this.Player1.GetName()}: Health: {this.Player1.GetHealthValue()}");
         Console.WriteLine($"Player {this.Player2.GetName()}: Health: {this.Player2.GetHealthValue()}");
 
@@ -293,15 +285,15 @@ public class GameBoard : Entity, IPlayerObserver
 
     private void SwapPlayer()
     {
-        if (this._currentTurnPlayer.GetName() == this.Player1.GetName())
+        if (this.CurrentPlayer.GetName() == this.Player1.GetName())
         {
-            this._currentTurnPlayer = this.Player2;
-            this._opponentPlayer = this.Player1;
+            this.CurrentPlayer = this.Player2;
+            this.OpponentPlayer = this.Player1;
         }
         else
         {
-            this._currentTurnPlayer = this.Player1;
-            this._opponentPlayer = this.Player2;
+            this.CurrentPlayer = this.Player1;
+            this.OpponentPlayer = this.Player2;
         }
     }
 
@@ -312,5 +304,19 @@ public class GameBoard : Entity, IPlayerObserver
             : playerId == this.Player2.Id
             ? Player2
             : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
+    }
+
+    private void DrawInitialCards()
+    {
+        for (int cnt = 0; cnt < 6; cnt++)
+        {
+            this.Player1.DrawCard();
+        }
+        for (int cnt = 0; cnt < 6; cnt++)
+        {
+            this.Player2.DrawCard();
+        }
+
+        this.LogCurrentSituation();
     }
 }

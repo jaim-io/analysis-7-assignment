@@ -30,7 +30,7 @@ public abstract class CardState
     public virtual void GoDefending() { }
     public virtual void GoAttacking() { }
     public virtual void TurnFaceUp() { }
-    public virtual void ActivateEffect(List<Entity>? targets) { }
+    public virtual void ActivateEffect(string name, List<Entity>? targets) { }
     public virtual bool PeformAttack() { return false; }
     public virtual (bool, int) AbsorbAttack(int iAttackValue) { return (false, 0); }
     public virtual bool Dispose() { return false; }

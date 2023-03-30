@@ -12,20 +12,20 @@ public partial class Demo
         var effectFactory = new DemoEffectFactory();
         var cardFactory = new DemoCardFactory();
 
-        var p2_cs = cardFactory.CreateSpellCard("COUNTER-EFFECT", getColour["red"]());
-        var p2_cs_effect = effectFactory.CreateCounterEffect("p2-cs", string.Empty);
-        p2_cs.BindOnRevealEffect(p2_cs_effect);
+        var p2_cs = cardFactory.CreateSpellCard("COUNTER-CARD", getColour["red"]());
+        var p2_cs_effect = effectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
+        p2_cs.BindEffect(p2_cs_effect);
 
         player.SetCards(
             cards: new() {
-            p2_cs,
-            cardFactory.CreateSpellCard("TEST", getColour["red"]()),
-            cardFactory.CreateLandCard("p2-red-land-1", getColour["red"]()),
-            cardFactory.CreateLandCard("p2-red-land-2", getColour["red"]()),
-            cardFactory.CreateLandCard("p2-blue-land-1", getColour["blue"]()),
-            cardFactory.CreateLandCard("p2-blue-land-2", getColour["blue"]()),
-            cardFactory.CreateLandCard("p2-blue-land-3", getColour["blue"]()),
-            cardFactory.CreateCreatureCard("p2-red-creature-1", getColour["red"](), 2, 2),
+                p2_cs,
+                cardFactory.CreateSpellCard("TEST", getColour["red"]()),
+                cardFactory.CreateLandCard("p2-red-land-1", getColour["red"]()),
+                cardFactory.CreateLandCard("p2-red-land-2", getColour["red"]()),
+                cardFactory.CreateLandCard("p2-blue-land-1", getColour["blue"]()),
+                cardFactory.CreateLandCard("p2-blue-land-2", getColour["blue"]()),
+                cardFactory.CreateLandCard("p2-blue-land-3", getColour["blue"]()),
+                cardFactory.CreateCreatureCard("p2-red-creature-1", getColour["red"](), 2, 2),
             });
 
         return player;

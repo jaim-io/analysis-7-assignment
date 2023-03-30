@@ -19,8 +19,7 @@ var gb = GameBoard.GetInstance();
     gb.SetPlayers(player1, player2, player1);
 }
 
-gb.SetupADemoSituation();
-gb.LogCurrentSituation();
+Console.WriteLine("==== Start of demo");
 if (Demo.Turn1A()) { goto End; }
 if (Demo.Turn1B()) { goto End; }
 

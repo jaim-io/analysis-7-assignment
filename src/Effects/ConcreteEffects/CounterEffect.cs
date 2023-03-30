@@ -8,7 +8,7 @@ public abstract class CounterEffect : Effect
         string name,
         string description,
         Func<bool>? condition = null)
-        : base(name, description, condition)
+        : base(name, description, null, condition)
     {
     }
 

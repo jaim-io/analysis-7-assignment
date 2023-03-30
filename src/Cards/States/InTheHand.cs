@@ -26,11 +26,9 @@ public class InTheHand
 
     public override bool OnPlay()
     {
-        this.card.PreRevealEffect?.Activate(); // Only catch is now that PreRevealEffect cannot have targets
         if (this.card.State is InTheHand)
         {
             this.card.State = new OnTheBoardFaceUp(this);
-            // Manually activate effect from program.cs
         }
         return true;
     }

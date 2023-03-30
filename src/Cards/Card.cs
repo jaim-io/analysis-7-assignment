@@ -11,8 +11,7 @@ public abstract class Card : Entity
     private string _cardId; /* The unique id of this card in the game. */
     private List<ICardObserver> _observers = new();
     public IReadOnlyList<ICardObserver> Observers => _observers;
-    public Effect? PreRevealEffect { get; set; }
-    public Effect? OnRevealEffect { get; set; }
+    public List<Effect> Effects { get; init; } = new();
     public string Description { get; init; }
     public CardState State { get; set; }
     public Colour Colour { get; init; }
@@ -20,34 +19,26 @@ public abstract class Card : Entity
     public Card(
         string cardId,
         Colour colour,
-        Effect? onRevealEffect = null,
-        Effect? preRevealEffect = null)
+        List<Effect>? effects = null)
     {
         this._cardId = cardId;
         this.Colour = colour;
         this.Description = string.Empty;
         this.State = new InTheDeck(this);
-        OnRevealEffect = onRevealEffect;
-        PreRevealEffect = preRevealEffect;
+        this.Effects = effects ?? this.Effects;
     }
 
-    public Card BindOnRevealEffect(Effect effect)
+    public Card BindEffect(Effect effect)
     {
-        if (effect is not null)
+        if (effect.Owner is not null)
         {
-            effect.Owner = this;
-            this.OnRevealEffect = effect;
+            throw new Exception($"Effect can only be bound once. Given Effect with ID: {effect.Id}");
         }
-        return this;
-    }
 
-    public Card BindPreRevealEffect(Effect effect)
-    {
-        if (effect is not null)
-        {
-            effect.Owner = this;
-            this.PreRevealEffect = effect;
-        }
+        effect.Owner = this;
+        this.Effects.Add(effect);
+        this.AddObserver(effect);
+
         return this;
     }
 
@@ -112,5 +103,5 @@ public abstract class Card : Entity
 
     public void AddObserver(ICardObserver observer) => this._observers.Add(observer);
     public void RemoveObserver(ICardObserver observer) => this._observers.Remove(observer);
-    public void ActivateEffect(List<Entity>? targets) => this.State.ActivateEffect(targets);
+    public void ActivateEffect(string name, List<Entity>? targets = null) => this.State.ActivateEffect(name, targets);
 }

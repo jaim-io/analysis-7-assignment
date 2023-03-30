@@ -33,14 +33,15 @@ public class OnTheBoardFaceUp
     public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
-        this.card.OnRevealEffect?.Dispose();
+        // this.card.OnRevealEffect?.Dispose(); => check
         return true;
     }
 
     public override bool CanBePlayed() { return true; }
 
-    public override void ActivateEffect(List<Entity>? targets)
+    public override void ActivateEffect(string name, List<Entity>? targets)
     {
-        this.card.OnRevealEffect?.Activate(targets);
+        var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
+        effect?.Activate(targets);
     }
 }

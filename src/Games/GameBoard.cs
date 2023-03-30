@@ -14,9 +14,9 @@ public class GameBoard : Entity, IPlayerObserver
     public Player OpponentPlayer { get; private set; }
     public Player Player1 { get; private set; }
     public Player Player2 { get; private set; }
+    public GameState State { get; set; }
     private uint _turn;
     private bool _gameEnded;
-
     public TheStack Stack { get; init; }
 
     private GameBoard()
@@ -25,6 +25,7 @@ public class GameBoard : Entity, IPlayerObserver
         this.Player2 = new Player("dummy2", 0);
         this.CurrentPlayer = this.Player1;
         this.OpponentPlayer = this.Player2;
+        this.State = new PreperationPhase(this);
         this._turn = 0;
         this._gameEnded = false;
         this.Stack = new();
@@ -65,32 +66,12 @@ public class GameBoard : Entity, IPlayerObserver
 
     public bool TakeCard()
     {
-        Player currentTurnPlayer = this.GetCurrentTurnPlayer();
-        Card? card = currentTurnPlayer.DrawCard();
-        if (card == null)
-        {
-            Console.WriteLine($"{currentTurnPlayer.GetName()} could not take card.");
-            return false;
-        }
-        else
-        {
-            Console.WriteLine($"{currentTurnPlayer.GetName()} took card {card.GetId()} from deck into hand.");
-            return true;
-        }
+        return this.State.TakeCard();
     }
 
     public bool DrawCard(string cardId)
     {
-        Player currentTurnPlayer = this.GetCurrentTurnPlayer();
-        Card? card = currentTurnPlayer.DrawCard(cardId);
-        if (card is null)
-        {
-            Console.WriteLine($"{currentTurnPlayer.GetName()} Didn't draw card {cardId}: Not in his hand.");
-            return false;
-        }
-
-        Console.WriteLine($"{currentTurnPlayer.GetName()} draw card {card.GetId()}.");
-        return true;
+        return this.State.DrawCard(cardId);
     }
 
     public bool NewTurn()
@@ -104,7 +85,7 @@ public class GameBoard : Entity, IPlayerObserver
             return false;
         }
         this._turn++;
-        return this.TakeCard();
+        return this.State.TakeCard();
     }
 
     public void EndTurn()

@@ -1,4 +1,5 @@
 using TheCardGame.Cards.Colours;
+using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
 using TheCardGame.Players;
@@ -21,28 +22,37 @@ public partial class Demo
         var hiddenDanger = cardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", getColour["red"]());
         var sleightOfHandEffect = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
         var dealDamageEffect = effectFactory.CreateDealDamageEffect(
-            name: "DEAL-DAMAGE-ALL-CARDS", 
-            description: string.Empty, 
+            name: "DEAL-DAMAGE-ALL-CARDS",
+            description: string.Empty,
             damage: 4,
-            getPreDeterminedTargets: () => {
-                    var entities = new List<Entity>();
-                    entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards);
-                    entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards);
-                    return entities;
-                });
+            getPreDeterminedTargets: () =>
+            {
+                var entities = new List<Entity>();
+                entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards);
+                entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards);
+                return entities;
+            });
         hiddenDanger
             .BindEffect(sleightOfHandEffect)
             .BindEffect(dealDamageEffect);
 
-        /*
-            Known Game
-                getPreDeterminedTargets: () => {
-                    var entities = new List<Entity>();
-                    entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards.Select(c => c.State is Attacking))
-                    entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards.Select(c => c.State is Attacking))
-                    return entities;
-                }
-        */
+
+        var knownGame = cardFactory.CreateSpellCard("KNOWN-GAME-CARD", getColour["red"]());
+        var sleightOfHandEffect2 = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var dealDamageEffect2 = effectFactory.CreateDealDamageEffect(
+            name: "DEAL-DAMAGE-ALL-CARDS",
+            description: string.Empty,
+            damage: 4,
+            getPreDeterminedTargets: () =>
+            {
+                var entities = new List<Entity>();
+                entities.AddRange(GameBoard.GetInstance().CurrentPlayer.Cards.FindAll(c => c.State is IsAttacking));
+                entities.AddRange(GameBoard.GetInstance().OpponentPlayer.Cards.FindAll(c => c.State is IsAttacking));
+                return entities;
+            });
+        knownGame
+            .BindEffect(sleightOfHandEffect)
+            .BindEffect(dealDamageEffect);
 
         player.SetCards(
             cards: new() {

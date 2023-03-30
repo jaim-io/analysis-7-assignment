@@ -1,5 +1,3 @@
-using System.Xml.Serialization;
-
 using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
 using TheCardGame.Common.Models;
@@ -11,7 +9,6 @@ using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 
-[Serializable]
 public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoardObserver
 {
     protected List<Entity> _userInvokedTargets = new();

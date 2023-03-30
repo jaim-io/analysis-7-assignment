@@ -363,6 +363,9 @@ dotnet_naming_style.s_camelcase.word_separator =
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 [*.cs]
+# SA1507: Code should not contain multiple blank lines in a row
+dotnet_diagnostic.SA1507.severity = none
+
 # SA1005: Single line comment should begin with a space
 dotnet_diagnostic.sa1005.severity = none
 

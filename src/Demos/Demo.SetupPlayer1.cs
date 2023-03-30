@@ -36,7 +36,6 @@ public partial class Demo
             .BindEffect(sleightOfHandEffect)
             .BindEffect(dealDamageEffect);
 
-
         var knownGame = cardFactory.CreateSpellCard("KNOWN-GAME-CARD", getColour["red"]());
         var sleightOfHandEffect2 = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
         var dealDamageEffect2 = effectFactory.CreateDealDamageEffect(

@@ -15,31 +15,31 @@ public class DrawingPhase : GameState
 
     public override bool TakeCard()
     {
-        Player currentTurnPlayer = this.game.GetCurrentTurnPlayer();
-        var card = this.game.CurrentTurnPlayer.DrawCard();
+        Player currentPlayer = this.game.CurrentPlayer;
+        var card = this.game.CurrentPlayer.DrawCard();
         if (card == null)
         {
-            Console.WriteLine($"{this.game.CurrentTurnPlayer.GetName()} could not take card.");
+            Console.WriteLine($"{currentPlayer.GetName()} could not take card.");
             return false;
         }
         else
         {
-            Console.WriteLine($"{game.CurrentTurnPlayer.GetName()} took card {card.GetId()} from deck into hand.");
+            Console.WriteLine($"{currentPlayer.GetName()} took card {card.GetId()} from deck into hand.");
             return true;
         }
     }
 
     public override bool DrawCard(string cardId)
     {
-        Player currentTurnPlayer = this.game.GetCurrentTurnPlayer();
-        var card = this.game.CurrentTurnPlayer.DrawCard(cardId);
+        Player currentPlayer = this.game.CurrentPlayer;
+        var card = this.game.CurrentPlayer.DrawCard(cardId);
         if (card is null)
         {
-            Console.WriteLine($"{this.game.CurrentTurnPlayer.GetName()} Didn't draw card {cardId}: Not in his hand.");
+            Console.WriteLine($"{currentPlayer.GetName()} Didn't draw card {cardId}: Not in his hand.");
             return false;
         }
 
-        Console.WriteLine($"{this.game.CurrentTurnPlayer.GetName()} draw card {card.GetId()}.");
+        Console.WriteLine($"{currentPlayer.GetName()} draw card {card.GetId()}.");
         return true;
     }
 }

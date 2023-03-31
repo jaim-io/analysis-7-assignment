@@ -26,10 +26,13 @@ public class TheStack
     public void Resolve()
     {
         this._resolveCounter = _stack.Count - 1;
-        for (int i = _resolveCounter; i >= 0; i--)
+        while (_resolveCounter >= 0)
         {
-            _stack[i].Trigger();
+            Console.WriteLine($"Resolving effect: {_stack[_resolveCounter].Name}");
+            _stack[_resolveCounter].Trigger();
+            _resolveCounter--;
         }
+
         this.Clear();
     }
 }

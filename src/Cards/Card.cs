@@ -2,10 +2,12 @@ using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Effects;
+using TheCardGame.Games;
+using TheCardGame.Games.Events;
 
 namespace TheCardGame.Cards;
 
-public abstract class Card : Entity
+public abstract class Card : Entity, IGameBoardObserver
 {
     private int _energyCost = 0; // The amount of energy required to play this card.   
     private string _cardId; /* The unique id of this card in the game. */
@@ -104,4 +106,7 @@ public abstract class Card : Entity
     public void AddObserver(ICardObserver observer) => this._observers.Add(observer);
     public void RemoveObserver(ICardObserver observer) => this._observers.Remove(observer);
     public void ActivateEffect(string name, List<Entity>? targets = null) => this.State.ActivateEffect(name, targets);
+
+    public void StartOfTurn(StartOfTurnEvent eventInfo) => this.State.OnStartTurn();
+    public void EndOfTurn(EndOfTurnEvent eventInfo) => this.State.OnEndTurn();
 }

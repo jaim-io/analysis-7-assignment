@@ -1,3 +1,5 @@
+using TheCardGame.Games;
+
 namespace TheCardGame.Cards.States;
 
 public class OnTheBoardFaceDown
@@ -11,12 +13,12 @@ public class OnTheBoardFaceDown
     public override void TurnFaceUp()
     {
         this.card.State = new OnTheBoardFaceUp(this);
-        // Manually activate effect from program.cs
     }
 
     public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
+        GameBoard.GetInstance().RemoveObserver(this.card);
         // this.card.OnRevealEffect?.Dispose();
         return true;
     }

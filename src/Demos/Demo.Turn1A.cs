@@ -13,9 +13,9 @@ public partial class Demo
         if (!gb.NewTurn()) { return false; }
         gb.PlayCard(player1, "p1-red-land-1");
 
-        gb.PlayCard(player1, "HIDDEN-DANGER-CARD");
         gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SLEIGHT-OF-HAND");
         gb.Stack.Resolve(); 
+        gb.PlayCard(player1, "HIDDEN-DANGER-CARD");
 
         gb.PlayCard(player2, "COUNTER-CARD");
         gb.ActivateEffect(player2, "COUNTER-CARD", "COUNTER-EFFECT"); 

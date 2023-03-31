@@ -19,6 +19,7 @@ public abstract class CardState
 
     public virtual bool OnDraw() { return false; }
     public virtual void OnEndTurn() { }
+    public virtual void OnStartTurn() { }
     public virtual bool OnPlay() => false;
 
     public virtual bool IsNotYetInTheGame() { return false; }

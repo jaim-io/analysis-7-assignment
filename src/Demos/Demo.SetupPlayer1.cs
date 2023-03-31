@@ -50,8 +50,8 @@ public partial class Demo
                 return entities;
             });
         knownGame
-            .BindEffect(sleightOfHandEffect)
-            .BindEffect(dealDamageEffect);
+            .BindEffect(sleightOfHandEffect2)
+            .BindEffect(dealDamageEffect2);
 
         player.SetCards(
             cards: new() {

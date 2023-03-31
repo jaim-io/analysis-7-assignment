@@ -1,4 +1,5 @@
 using TheCardGame.Cards.Events;
+using TheCardGame.Games;
 
 namespace TheCardGame.Cards.States;
 
@@ -33,6 +34,7 @@ public class IsDefending
             {
                 obs.CardDisposed(disposedEvent);
             }
+            GameBoard.GetInstance().RemoveObserver(this.card);
             this.card.State = new OnTheDisposedPile(this);
         }
         return (true, attackValueLeft);

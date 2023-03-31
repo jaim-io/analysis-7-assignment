@@ -13,7 +13,7 @@ public class IsTapped
         return this.card.GetEnergyLevel();
     }
 
-    public override void OnEndTurn()
+    public override void OnStartTurn()
     {
         this.card.State = new OnTheBoardFaceUp(this);
     }

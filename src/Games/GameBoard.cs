@@ -1,6 +1,7 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
+using TheCardGame.Games.Events;
 using TheCardGame.Players;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;
@@ -18,6 +19,7 @@ public class GameBoard : Entity, IPlayerObserver
     private uint _turn;
     private bool _gameEnded;
     public TheStack Stack { get; init; }
+    private List<IGameBoardObserver> _observers = new();
 
     private GameBoard()
     {
@@ -41,6 +43,9 @@ public class GameBoard : Entity, IPlayerObserver
     }
 
     public static void StartNew() => _instance = new();
+    public void AddObserver(IGameBoardObserver observer) => this._observers.Add(observer);
+    public void RemoveObserver(IGameBoardObserver observer) => this._observers.Remove(observer);
+
 
     public void SetPlayers(Player player1, Player player2, Player currentTurnPlayer)
     {
@@ -76,13 +81,24 @@ public class GameBoard : Entity, IPlayerObserver
 
     public bool NewTurn()
     {
-        if (this._turn == 0)
-        {
-            this.DrawInitialCards();
-        }
         if (this._gameEnded)
         {
             return false;
+        }
+
+        this.State = new PreperationPhase(this);
+
+        var startOfTurnEvent = new StartOfTurnEvent(_turn);
+        foreach (var obs in _observers)
+        {
+            obs.StartOfTurn(startOfTurnEvent);
+        }
+
+        this.State.NextState();
+
+        if (this._turn == 0)
+        {
+            this.DrawInitialCards();
         }
         this._turn++;
         return this.State.TakeCard();
@@ -90,13 +106,11 @@ public class GameBoard : Entity, IPlayerObserver
 
     public void EndTurn()
     {
-        foreach (Card card in this.CurrentPlayer.GetCards())
+        this.State.NextState();
+        var endOfTurnEvent = new EndOfTurnEvent(_turn);
+        foreach (var obs in _observers)
         {
-            card.OnEndTurn();
-        }
-        foreach (Card card in this.OpponentPlayer.GetCards())
-        {
-            card.OnEndTurn();
+            obs.EndOfTurn(endOfTurnEvent);
         }
     }
 

@@ -10,7 +10,9 @@ public partial class Demo
         var player1 = gb.Player1.Id;
         var player2 = gb.Player2.Id;
 
-        if (!gb.NewTurn()) { return false; }
+        if (!gb.NewTurn()) { return false; } 
+        
+        gb.ToMainPhase();
         gb.PlayCard(player1, "p1-red-land-1");
 
         gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SLEIGHT-OF-HAND");

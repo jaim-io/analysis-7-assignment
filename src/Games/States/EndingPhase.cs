@@ -7,7 +7,7 @@ public class EndingPhase : GameState
     {
     }
 
-    public override void NextState()
+    public override void ToPrepPhase()
     {
         this.game.State = new PreperationPhase(this.game);
     }

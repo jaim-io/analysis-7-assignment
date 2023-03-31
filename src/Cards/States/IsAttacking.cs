@@ -25,7 +25,7 @@ public class IsAttacking
             bool defended = false;
             int attackValue = this.card.GetInitialAttackValue();
             GameBoard gb = GameBoard.GetInstance();
-            foreach (Card card in gb.GetOpponentPlayer().GetCards())
+            foreach (Card card in gb.OpponentPlayer.GetCards())
             {
                 (bool cardDefended, int attackValueLeft) = card.State.AbsorbAttack(attackValue);
                 if (cardDefended)
@@ -37,7 +37,7 @@ public class IsAttacking
 
             if (!defended)
             {
-                gb.GetOpponentPlayer().DecreaseHealthValue(attackValue);
+                gb.OpponentPlayer.DecreaseHealthValue(attackValue);
             }
 
             return true;

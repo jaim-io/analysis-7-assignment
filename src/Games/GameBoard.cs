@@ -45,8 +45,6 @@ public class GameBoard : Entity, IPlayerObserver
     public static void StartNew() => _instance = new();
     public void AddObserver(IGameBoardObserver observer) => this._observers.Add(observer);
     public void RemoveObserver(IGameBoardObserver observer) => this._observers.Remove(observer);
-
-
     public void SetPlayers(Player player1, Player player2, Player currentTurnPlayer)
     {
         this.Player1 = player1;
@@ -79,6 +77,7 @@ public class GameBoard : Entity, IPlayerObserver
         return this.State.DrawCard(cardId);
     }
 
+    public void ToMainPhase() => this.State.ToMainPhase();
     public bool NewTurn()
     {
         if (this._gameEnded)
@@ -94,7 +93,7 @@ public class GameBoard : Entity, IPlayerObserver
             obs.StartOfTurn(startOfTurnEvent);
         }
 
-        this.State.NextState();
+        this.State.ToDrawingPhase();
 
         if (this._turn == 0)
         {
@@ -106,7 +105,7 @@ public class GameBoard : Entity, IPlayerObserver
 
     public void EndTurn()
     {
-        this.State.NextState();
+        this.State.ToEndPhase();
         var endOfTurnEvent = new EndOfTurnEvent(_turn);
         foreach (var obs in _observers)
         {
@@ -135,109 +134,36 @@ public class GameBoard : Entity, IPlayerObserver
         }
     }
 
-    public Player GetCurrentTurnPlayer()
-    {
-        return this.CurrentPlayer;
-    }
-    public Player GetOpponentPlayer()
-    {
-        return this.OpponentPlayer;
-    }
-    public uint GetCurrentTurn()
-    {
-        return this._turn;
-    }
-
     public bool TurnCardFaceUp(Guid playerId, string cardId)
     {
-        var player = GetPlayerById(playerId);
-
-        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
-        if (card == null || !Support.CardIsIn<OnTheBoardFaceDown>(card))
-        {
-            return false;
-        }
-
-        player.TurnCardFaceUp(card);
-        return true;
+        return this.State.TurnCardFaceUp(playerId, cardId);
     }
 
     public bool PlayCard(Guid playerId, string cardId)
     {
-        var player = GetPlayerById(playerId);
-
-        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
-        if (card == null || !Support.CardIsIn<InTheHand>(card))
-        {
-            return false;
-        }
-
-        player.PlayCard(card);
-        return true;
+        return this.State.PlayCard(playerId, cardId);
     }
 
     public void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null)
     {
-        // targets => cardIds, playerIds, gameBoard
-        var player = GetPlayerById(playerId);
-
-        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
-        card?.ActivateEffect(effectName, targets);
+        this.State.ActivateEffect(playerId, cardId, effectName, targets);
     }
 
     public bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
     {
-        foreach (Card oCard in this.OpponentPlayer.GetCards())
-        {
-            foreach (string defenseCardId in opponentDefenseCardIds)
-            {
-                if (oCard.GetId() == defenseCardId)
-                {
-                    oCard.GoDefending();
-                }
-            }
-        }
-
-        (Card card, int iPos) = Support.FindCard(this.CurrentPlayer.GetCards(), cardId);
-        CreatureCard? attackCard = card as CreatureCard;
-        if (attackCard is not null)
-        {
-            attackCard.GoAttacking();
-            if (this.EnergyTapped() >= attackCard.GetEnergyCost())
-            {
-                attackCard.PeformAttack();
-                return true;
-            }
-        }
-        return false;
+        return this.State.PeformAttack(cardId, opponentDefenseCardIds);
     }
 
     /* Tap Energry from a land-card currently on the board 
     Returns the energy-level tapped.*/
     public void TapFromCard(string cardId)
     {
-        foreach (Card card in this.CurrentPlayer.GetCards())
-        {
-            if (card.GetId() == cardId)
-            {
-                card.TapEnergy();
-            }
-        }
+        this.State.TapFromCard(cardId);
     }
 
     public int EnergyTapped()
     {
-        int iSumEnergy = 0;
-        foreach (Card card in this.CurrentPlayer.GetCards())
-        {
-            LandCard? landCard = card as LandCard;
-            if (landCard is not null)
-            {
-                iSumEnergy += landCard.GivesEnergyLevel();
-            }
-        }
-        Console.WriteLine($"Energy-tapped: {iSumEnergy}");
-        return iSumEnergy;
+        return this.State.EnergyTapped();
     }
 
     public void PlayerDied(PlayerDiedEvent pde)
@@ -277,7 +203,15 @@ public class GameBoard : Entity, IPlayerObserver
 
         Console.WriteLine("==== END Current situation\n");
     }
-
+    public Player GetPlayerById(Guid playerId)
+    {
+        return playerId == this.Player1.Id
+            ? Player1
+            : playerId == this.Player2.Id
+            ? Player2
+            : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
+    }
+    
     private void SwapPlayer()
     {
         if (this.CurrentPlayer.GetName() == this.Player1.GetName())
@@ -290,15 +224,6 @@ public class GameBoard : Entity, IPlayerObserver
             this.CurrentPlayer = this.Player1;
             this.OpponentPlayer = this.Player2;
         }
-    }
-
-    private Player GetPlayerById(Guid playerId)
-    {
-        return playerId == this.Player1.Id
-            ? Player1
-            : playerId == this.Player2.Id
-            ? Player2
-            : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
     }
 
     private void DrawInitialCards()

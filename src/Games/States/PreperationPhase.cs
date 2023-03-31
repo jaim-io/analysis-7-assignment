@@ -7,7 +7,7 @@ public class PreperationPhase : GameState
     {       
     }
 
-    public override void NextState()
+    public override void ToDrawingPhase()
     {
         this.game.State = new DrawingPhase(this.game);
     }

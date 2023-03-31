@@ -8,7 +8,7 @@ public class DrawingPhase : GameState
     {
     }
 
-    public override void NextState()
+    public override void ToMainPhase()
     {
         this.game.State = new MainPhase(this.game);
     }

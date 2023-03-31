@@ -16,11 +16,11 @@ public abstract class CreatureCard
 
     public CreatureCard(
         string cardId,
-        Colour colour,
+        ICollection<Colour> colours,
         int attackValue,
         int defenseValue,
         List<Effect>? effects = null)
-        : base(cardId, colour, effects)
+        : base(cardId, colours, effects)
     {
         this._initialAttackValue = attackValue;
         this._actualAttackValue = attackValue;

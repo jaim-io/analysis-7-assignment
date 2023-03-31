@@ -1,4 +1,5 @@
 using TheCardGame.Cards;
+using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
@@ -68,8 +69,9 @@ public class MainPhase : GameState
         if (attackCard is not null)
         {
             attackCard.GoAttacking();
-            if (this.EnergyTapped() >= attackCard.GetEnergyCost())
+            if (this.EnergyTapped(attackCard.Colours) >= attackCard.GetEnergyCost())
             {
+                // perform attack   
                 attackCard.PeformAttack();
                 return true;
             }
@@ -78,25 +80,23 @@ public class MainPhase : GameState
     }
     public override void TapFromCard(string cardId)
     {
-        foreach (Card card in game.CurrentPlayer.GetCards())
-        {
-            if (card.GetId() == cardId)
-            {
-                card.TapEnergy();
-            }
-        }
+        game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-    public override int EnergyTapped()
+    public override int EnergyTapped(ICollection<Colour> color)
     {
         int iSumEnergy = 0;
-        foreach (Card card in game.CurrentPlayer.GetCards())
-        {
-            LandCard? landCard = card as LandCard;
-            if (landCard is not null)
+        game.CurrentPlayer.GetCards().ForEach(c => {
+            if (c is LandCard landCard 
+                && color.Any(c => landCard.Colours.Contains(c)) 
+                && landCard.State is not IsTapped 
+                && landCard.State is OnTheBoardFaceUp)
             {
-                iSumEnergy += landCard.GivesEnergyLevel();
+                iSumEnergy += landCard.GetEnergyLevel();
             }
-        }
+        });
+
+        
+        
         Console.WriteLine($"Energy-tapped: {iSumEnergy}");
         return iSumEnergy;
     }

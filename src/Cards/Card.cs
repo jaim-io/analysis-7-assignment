@@ -16,15 +16,15 @@ public abstract class Card : Entity, IGameBoardObserver
     public List<Effect> Effects { get; init; } = new();
     public string Description { get; init; }
     public CardState State { get; set; }
-    public Colour Colour { get; init; }
+    public List<Colour> Colours { get; init; }
 
     public Card(
         string cardId,
-        Colour colour,
+        ICollection<Colour> colour,
         List<Effect>? effects = null)
     {
         this._cardId = cardId;
-        this.Colour = colour;
+        Colours = colour.ToList();
         this.Description = string.Empty;
         this.State = new InTheDeck(this);
         this.Effects = effects ?? this.Effects;

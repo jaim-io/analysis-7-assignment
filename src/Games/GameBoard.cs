@@ -161,11 +161,6 @@ public class GameBoard : Entity, IPlayerObserver
         this.State.TapFromCard(cardId);
     }
 
-    public int EnergyTapped()
-    {
-        return this.State.EnergyTapped();
-    }
-
     public void PlayerDied(PlayerDiedEvent pde)
     {
         Console.WriteLine($"Player {pde.PlayerName} died. Health: {pde.Health}, {pde.Reason}");

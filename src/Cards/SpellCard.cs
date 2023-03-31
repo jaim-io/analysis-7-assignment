@@ -7,9 +7,9 @@ public abstract class SpellCard : Card
 {
     public SpellCard(
         string cardId,
-        Colour colour,
+        ICollection<Colour> colours,
         List<Effect>? effects)
-        : base(cardId, colour, effects)
+        : base(cardId, colours, effects)
     {
     }
 }

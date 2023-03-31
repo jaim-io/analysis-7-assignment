@@ -4,8 +4,8 @@ namespace TheCardGame.Cards;
 
 public abstract class ArtefactCard : Card
 {
-    protected ArtefactCard(string cardId, Colour colour)
-        : base(cardId, colour)
+    protected ArtefactCard(string cardId, ICollection<Colour> colours)
+        : base(cardId, colours)
     {
     }
 }

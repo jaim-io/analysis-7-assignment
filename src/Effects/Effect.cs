@@ -2,6 +2,7 @@ using TheCardGame.Cards;
 using TheCardGame.Cards.Events;
 using TheCardGame.Common.Models;
 using TheCardGame.Effects.States;
+using TheCardGame.Effects.Types;
 using TheCardGame.Games;
 using TheCardGame.Games.Events;
 using TheCardGame.Players;
@@ -18,15 +19,18 @@ public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoar
     public Func<bool>? Duration { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
+    public EffectType Type { get; init; }
     public EffectState State { get; set; }
 
     public Effect(
+        EffectType type,
         string name,
         string description,
         Func<List<Entity>>? getPreDeterminedTargets = null,
         Func<bool>? duration = null)
     {
         Id = Guid.NewGuid();
+        Type = type;
         Name = name;
         Description = description;
         State = new Unused(this);

@@ -1,3 +1,4 @@
+using TheCardGame.Effects.Types;
 using TheCardGame.Games;
 
 namespace TheCardGame.Effects.ConcreteEffects;
@@ -8,7 +9,7 @@ public abstract class CounterEffect : Effect
         string name,
         string description,
         Func<bool>? condition = null)
-        : base(name, description, null, condition)
+        : base(new OnRevealEffect(), name, description, null, condition)
     {
     }
 
@@ -19,7 +20,7 @@ public abstract class CounterEffect : Effect
 }
 
 /*
- He plays “Hidden danger” and leaves it on the ground as a covered
+He plays “Hidden danger” and leaves it on the ground as a covered
 card (Effect: sleight of hand—> reveal this card at the beginning of the
 next opponent's turn. 4 damages are dealt to all creatures on the board.
 The opponent will skip the drawing phase. Discard this card after the

@@ -1,3 +1,7 @@
+using TheCardGame.Common.Models;
+using TheCardGame.Effects.Types;
+using TheCardGame.Games;
+
 namespace TheCardGame.Cards.States;
 
 public class InTheHand
@@ -24,10 +28,21 @@ public class InTheHand
         return true;
     }
 
+
+    public override void ActivateEffect(string name, List<Entity>? targets)
+    {
+        var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
+        if (effect?.Type is PreRevealEffect)
+        {
+            effect.Activate(targets);
+        }
+    }
+
     public override bool OnPlay()
     {
         if (this.card.State is InTheHand)
         {
+            GameBoard.GetInstance().AddObserver(this.card);
             this.card.State = new OnTheBoardFaceUp(this);
         }
         return true;

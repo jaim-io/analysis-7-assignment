@@ -1,4 +1,6 @@
 using TheCardGame.Common.Models;
+using TheCardGame.Effects.Types;
+using TheCardGame.Games;
 
 namespace TheCardGame.Cards.States;
 
@@ -33,6 +35,7 @@ public class OnTheBoardFaceUp
     public override bool Dispose()
     {
         this.card.State = new OnTheDisposedPile(this);
+        GameBoard.GetInstance().RemoveObserver(this.card);
         // this.card.OnRevealEffect?.Dispose(); => check
         return true;
     }
@@ -42,6 +45,9 @@ public class OnTheBoardFaceUp
     public override void ActivateEffect(string name, List<Entity>? targets)
     {
         var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
-        effect?.Activate(targets);
+        if (effect?.Type is OnRevealEffect)
+        {
+            effect.Activate(targets);
+        }
     }
 }

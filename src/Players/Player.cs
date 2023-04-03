@@ -138,9 +138,4 @@ public class Player : Entity
     {
         return card.OnPlay();
     }
-
-    public void TurnCardFaceUp(Card card)
-    {
-        card.State.TurnFaceUp();
-    }
 }

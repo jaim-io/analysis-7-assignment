@@ -16,20 +16,6 @@ public class MainPhase : GameState
         this.game.State = new EndingPhase(this.game);
     }
 
-
-    public override bool TurnCardFaceUp(Guid playerId, string cardId)
-    {
-        var player = GameBoard.GetInstance().GetPlayerById(playerId);
-
-        (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
-        if (card == null || !Support.CardIsIn<OnTheBoardFaceDown>(card))
-        {
-            return false;
-        }
-
-        player.TurnCardFaceUp(card);
-        return true;
-    }
     public override bool PlayCard(Guid playerId, string cardId)
     {
         var player = GameBoard.GetInstance().GetPlayerById(playerId);

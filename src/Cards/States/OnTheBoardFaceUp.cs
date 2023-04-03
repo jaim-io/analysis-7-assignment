@@ -1,3 +1,4 @@
+using TheCardGame.Cards.Events;
 using TheCardGame.Common.Models;
 using TheCardGame.Effects.Types;
 using TheCardGame.Games;
@@ -34,9 +35,18 @@ public class OnTheBoardFaceUp
 
     public override bool Dispose()
     {
-        this.card.State = new OnTheDisposedPile(this);
+        var disposedEvent = new CardDisposedEvent(this.card);
+        foreach (var obs in this.card.Observers)
+        {
+            obs.CardDisposed(disposedEvent);
+        }
+
+        this.card.Effects.ForEach(e => e.Dispose());
+
         GameBoard.GetInstance().RemoveObserver(this.card);
-        // this.card.OnRevealEffect?.Dispose(); => check
+
+        this.card.State = new OnTheDisposedPile(this);
+
         return true;
     }
 
@@ -45,7 +55,13 @@ public class OnTheBoardFaceUp
     public override void ActivateEffect(string name, List<Entity>? targets)
     {
         var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
-        if (effect?.Type is OnRevealEffect)
+
+        if (effect == null)
+        {
+            throw new ArgumentException($"Effect with name {name} does not exist on card {this.card.GetId()}");
+        }
+
+        if (effect.Type is OnRevealEffect)
         {
             effect.Activate(targets);
         }

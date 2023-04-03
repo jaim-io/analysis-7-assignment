@@ -1,3 +1,3 @@
 namespace TheCardGame.Cards.Events;
 
-public record CardDisposedEvent() : CardEvent;
+public record CardDisposedEvent(Card Card) : CardEvent;

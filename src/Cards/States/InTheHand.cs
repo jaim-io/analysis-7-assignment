@@ -1,3 +1,4 @@
+using TheCardGame.Cards.Events;
 using TheCardGame.Common.Models;
 using TheCardGame.Effects.Types;
 using TheCardGame.Games;
@@ -24,6 +25,11 @@ public class InTheHand
 
     public override bool Dispose()
     {
+        var disposedEvent = new CardDisposedEvent(this.card);
+        foreach (var obs in this.card.Observers)
+        {
+            obs.CardDisposed(disposedEvent);
+        }
         this.card.State = new OnTheDisposedPile(this);
         return true;
     }
@@ -32,7 +38,13 @@ public class InTheHand
     public override void ActivateEffect(string name, List<Entity>? targets)
     {
         var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
-        if (effect?.Type is PreRevealEffect)
+        
+        if (effect == null)
+        {
+            throw new ArgumentException($"Effect with name {name} does not exist on card {this.card.GetId()}");
+        }
+
+        if (effect.Type is PreRevealEffect)
         {
             effect.Activate(targets);
         }

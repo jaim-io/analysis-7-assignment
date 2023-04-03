@@ -23,18 +23,22 @@ public class IsDefending
 
     public override (bool, int) AbsorbAttack(int iAttackValue)
     {
-        int defenseValue = this.card.GetDefenseValue();
+        int defenseValue = this.card.GetInitialDefenseValue();
         int attackValueLeft = iAttackValue - defenseValue;
         int defenseValueLeft = this.card.SubtractDefenseValue(iAttackValue);
         Console.WriteLine($"Card '{this.card.GetId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");
         if (defenseValueLeft <= 0)
         {
-            var disposedEvent = new CardDisposedEvent();
+            var disposedEvent = new CardDisposedEvent(this.card);
             foreach (var obs in this.card.Observers)
             {
                 obs.CardDisposed(disposedEvent);
             }
+
+            this.card.Effects.ForEach(e => e.Dispose());
+
             GameBoard.GetInstance().RemoveObserver(this.card);
+            
             this.card.State = new OnTheDisposedPile(this);
         }
         return (true, attackValueLeft);

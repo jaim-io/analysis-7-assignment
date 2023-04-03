@@ -9,7 +9,7 @@ var gb = GameBoard.GetInstance();
     {
         { "red",  () => colourFactory.CreateColour("Red") },
         { "blue",  () => colourFactory.CreateColour("Blue") },
-        { "red-blue", () => colourFactory.CreateDualColour("Red", "Blue") },
+        { "red-blue", () => colourFactory.CreateColour(new List<string>{"Red", "Blue"}) },
         { "colourless",  () => colourFactory.CreateColour("Colourless") },
     };
 

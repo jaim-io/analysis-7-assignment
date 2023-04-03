@@ -8,12 +8,9 @@ public class DemoColour : Colour
         : base(name)
     {
     }
-}
 
-public class DemoDualColour : DualColour
-{
-    public DemoDualColour(string firstName, string secondName)
-        : base(firstName, secondName)
+    public DemoColour(ICollection<string> names)
+        : base(names)
     {
     }
 }

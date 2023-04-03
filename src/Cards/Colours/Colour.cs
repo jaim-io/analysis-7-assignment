@@ -2,9 +2,14 @@ namespace TheCardGame.Cards.Colours;
 
 public abstract class Colour
 {
-    public string Name { get; init; }
+    public List<string> Names { get; init; } = new();
     public Colour(string name)
     {
-        Name = name;
+        Names.Append(name);
+    }
+
+    public Colour(ICollection<string> names)
+    {
+        Names = names.ToList();
     }
 }

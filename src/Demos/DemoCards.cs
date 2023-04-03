@@ -7,8 +7,8 @@ namespace TheCardGame.Demos;
 public class DemoLandCard
     : LandCard
 {
-    public DemoLandCard(string cardId, Colour colour)
-        : base(cardId, colour)
+    public DemoLandCard(string cardId, ICollection<Colour> colours)
+        : base(cardId, colours)
     {
     }
 }
@@ -18,9 +18,9 @@ public class DemoSpellCard
 {
     public DemoSpellCard(
         string cardId,
-        Colour colour,
+        ICollection<Colour> colours,
         List<Effect>? effects = null)
-        : base(cardId, colour, effects)
+        : base(cardId, colours, effects)
     {
     }
 }
@@ -30,11 +30,11 @@ public class DemoCreatureCard
 {
     public DemoCreatureCard(
         string cardId,
-        Colour colour,
+        ICollection<Colour> colours,
         int attackValue,
         int defenseValue,
         List<Effect>? effects = null)
-        : base(cardId, colour, attackValue, defenseValue, effects)
+        : base(cardId, colours, attackValue, defenseValue, effects)
     {
     }
 }

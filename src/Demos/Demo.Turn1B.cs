@@ -13,9 +13,10 @@ public partial class Demo
         gb.PrepareNewTurn();
         if (!gb.NewTurn()) { return false; }
 
-        gb.TurnCardFaceUp(player1, "HIDDEN-DANGER");
-        gb.ActivateEffect(player1, "HIDDEN-DANGER", "DEAL-DAMAMGE-ALL-CARDS");
-        gb.Stack.Resolve(); // Manual resolve to resolve the OnRevealEffect
+        gb.ToMainPhase();
+
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "DEAL-DAMAGE-ALL-CARDS");
+        gb.Stack.Resolve();
 
         gb.EndTurn();
         gb.LogCurrentSituation();

@@ -19,9 +19,8 @@ public class DemoSleightOfHandEffect : SleightOfHandEffect
 {
     public DemoSleightOfHandEffect(
         string name,
-        string description,
-        Func<bool>? condition = null)
-        : base(name, description, condition)
+        string description)
+        : base(name, description)
     {
     }
 }

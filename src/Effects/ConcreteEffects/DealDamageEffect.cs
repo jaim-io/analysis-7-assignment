@@ -35,5 +35,7 @@ public class DealDamageEffect : Effect
                 player.DecreaseHealthValue((int)this.Damage);
             }
         }
+
+        this.Owner!.Dispose();
     }
 }

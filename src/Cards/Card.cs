@@ -59,10 +59,11 @@ public abstract class Card : Entity, IGameBoardObserver
         this._energyCost = energyCost;
     }
 
-    public virtual int GetDefenseValue() { throw new NotImplementedException(); }
-    public virtual int SubtractDefenseValue(int iAttackValue) { throw new NotImplementedException(); }
+    public virtual int GetInitialDefenseValue() { throw new NotImplementedException(); }
     public virtual int GetInitialAttackValue() { throw new NotImplementedException(); }
-    public virtual int GetActualAttackValue() { throw new NotImplementedException(); }
+    public virtual int GetAttackValue() { throw new NotImplementedException(); }
+    public virtual int SubtractDefenseValue(int value) { throw new NotImplementedException(); }
+
     public virtual int GetEnergyLevel() { throw new NotImplementedException(); }
 
     public virtual bool Dispose()

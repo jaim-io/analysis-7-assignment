@@ -28,11 +28,6 @@ public abstract class CreatureCard
         this._actualDefenseValue = defenseValue;
     }
 
-    public void DecreaseActualAttackValue(int iNumber)
-    {
-        this._actualAttackValue -= iNumber;
-    }
-
     public override void GoDefending()
     {
         this.State.GoDefending();
@@ -48,13 +43,13 @@ public abstract class CreatureCard
         this.State.GoAttacking();
     }
 
-    public override int SubtractDefenseValue(int iAttackValue)
+    public override int SubtractDefenseValue(int value)
     {
-        this._initialDefenseValue = this._initialDefenseValue - iAttackValue;
+        this._initialDefenseValue = this._initialDefenseValue - value;
         return this._initialDefenseValue;
     }
 
     public override int GetInitialAttackValue() { return this._initialAttackValue; }
-    public override int GetActualAttackValue() { return this._actualAttackValue; }
-    public override int GetDefenseValue() { return this._initialDefenseValue; }
+    public override int GetAttackValue() { return this._actualAttackValue; }
+    public override int GetInitialDefenseValue() { return this._initialDefenseValue; }
 }

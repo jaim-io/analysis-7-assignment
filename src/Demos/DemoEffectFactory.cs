@@ -26,9 +26,8 @@ public class DemoEffectFactory : EffectFactory
 
     public override SleightOfHandEffect CreateSleightOfHandEffect(
         string name,
-        string description,
-        Func<bool>? condition = null)
+        string description)
     {
-        return new DemoSleightOfHandEffect(name, description, condition);
+        return new DemoSleightOfHandEffect(name, description);
     }
 }

@@ -16,7 +16,7 @@ public class GameBoard : Entity, IPlayerObserver
     public Player Player1 { get; private set; }
     public Player Player2 { get; private set; }
     public GameState State { get; set; }
-    private uint _turn;
+    public uint Turn { get; private set; }
     private bool _gameEnded;
     public TheStack Stack { get; init; }
     private List<IGameBoardObserver> _observers = new();
@@ -28,7 +28,7 @@ public class GameBoard : Entity, IPlayerObserver
         this.CurrentPlayer = this.Player1;
         this.OpponentPlayer = this.Player2;
         this.State = new PreperationPhase(this);
-        this._turn = 0;
+        this.Turn = 0;
         this._gameEnded = false;
         this.Stack = new();
     }
@@ -85,32 +85,33 @@ public class GameBoard : Entity, IPlayerObserver
             return false;
         }
 
+        this.Turn++;
+
         this.State = new PreperationPhase(this);
 
-        var startOfTurnEvent = new StartOfTurnEvent(_turn);
-        foreach (var obs in _observers)
-        {
-            obs.StartOfTurn(startOfTurnEvent);
-        }
+        var startOfTurnEvent = new StartOfTurnEvent(Turn);
+        // Deep clone _observers so observers are able to remove themself safely from the _observer list.
+        _observers
+            .ConvertAll(o => o)
+            .ForEach(o => o.StartOfTurn(startOfTurnEvent));
 
         this.State.ToDrawingPhase();
 
-        if (this._turn == 0)
+        if (this.Turn == 1)
         {
             this.DrawInitialCards();
         }
-        this._turn++;
         return this.State.TakeCard();
     }
 
     public void EndTurn()
     {
         this.State.ToEndPhase();
-        var endOfTurnEvent = new EndOfTurnEvent(_turn);
-        foreach (var obs in _observers)
-        {
-            obs.EndOfTurn(endOfTurnEvent);
-        }
+        var endOfTurnEvent = new EndOfTurnEvent(Turn);
+        // Deep clone _observers so observers are able to remove themself safely from the _observer list.
+        _observers
+            .ConvertAll(o => o)
+            .ForEach(o => o.EndOfTurn(endOfTurnEvent));
     }
 
     public void PrepareNewTurn()
@@ -132,11 +133,6 @@ public class GameBoard : Entity, IPlayerObserver
         {
             return Support.GetCardsCanBePlayed(this.CurrentPlayer.GetCards());
         }
-    }
-
-    public bool TurnCardFaceUp(Guid playerId, string cardId)
-    {
-        return this.State.TurnCardFaceUp(playerId, cardId);
     }
 
     public bool PlayCard(Guid playerId, string cardId)
@@ -183,7 +179,7 @@ public class GameBoard : Entity, IPlayerObserver
     public void LogCurrentSituation()
     {
         Console.WriteLine("\n==== Current situation");
-        Console.WriteLine($"Current turn-player: {this.CurrentPlayer.GetName()}, Turn: {this._turn}");
+        Console.WriteLine($"Current turn-player: {this.CurrentPlayer.GetName()}, Turn: {this.Turn}");
         Console.WriteLine($"Player {this.Player1.GetName()}: Health: {this.Player1.GetHealthValue()}");
         Console.WriteLine($"Player {this.Player2.GetName()}: Health: {this.Player2.GetHealthValue()}");
 
@@ -211,7 +207,7 @@ public class GameBoard : Entity, IPlayerObserver
             ? Player2
             : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
     }
-    
+
     private void SwapPlayer()
     {
         if (this.CurrentPlayer.GetName() == this.Player1.GetName())

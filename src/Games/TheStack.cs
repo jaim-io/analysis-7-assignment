@@ -1,4 +1,5 @@
 using TheCardGame.Effects;
+using TheCardGame.Effects.States;
 
 namespace TheCardGame.Games;
 
@@ -19,7 +20,17 @@ public class TheStack
         return effect;
     }
     public void Push(Effect effect) => _stack.Add(effect);
-    public void Clear() => _stack.RemoveAll(_ => true);
+    public void Clear()
+    {
+        _stack.ForEach(e =>
+        {
+            if (e.State is OnTheStack)
+            {
+                e.Dispose();
+            }
+        });
+        _stack.RemoveAll(_ => true);
+    }
 
     public void Skip(uint offset) => this._resolveCounter -= (int)offset;
 
@@ -28,7 +39,7 @@ public class TheStack
         this._resolveCounter = _stack.Count - 1;
         while (_resolveCounter >= 0)
         {
-            Console.WriteLine($"Resolving effect: {_stack[_resolveCounter].Name}");
+            Console.WriteLine($"[STACK] Resolving effect: {_stack[_resolveCounter].Name}");
             _stack[_resolveCounter].Trigger();
             _resolveCounter--;
         }

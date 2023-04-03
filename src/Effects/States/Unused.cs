@@ -19,4 +19,9 @@ public class Unused : EffectState
         GameBoard.GetInstance().Stack.Push(this.effect);
         this.effect.State = new OnTheStack(this.effect);
     }
+
+    public override void Dispose()
+    {
+        this.effect.State = new Used(this);
+    }
 }

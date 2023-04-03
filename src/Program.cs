@@ -20,8 +20,8 @@ var gb = GameBoard.GetInstance();
 }
 
 Console.WriteLine("==== Start of demo");
-if (Demo.Turn1A()) { goto End; }
-if (Demo.Turn1B()) { goto End; }
+if (!Demo.Turn1A()) { goto End; }
+if (!Demo.Turn1B()) { goto End; }
 
 End:
 Console.WriteLine("==== End of demo");

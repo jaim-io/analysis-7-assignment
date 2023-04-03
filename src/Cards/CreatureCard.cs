@@ -16,7 +16,7 @@ public abstract class CreatureCard
 
     public CreatureCard(
         string cardId,
-        ICollection<Colour> colours,
+        List<Colour> colours,
         int attackValue,
         int defenseValue,
         List<Effect>? effects = null)

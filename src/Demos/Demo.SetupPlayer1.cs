@@ -8,20 +8,17 @@ namespace TheCardGame.Demos;
 
 public partial class Demo
 {
-    public static Player SetupPlayer1(Dictionary<string, Func<Colour>> getColour)
+    public static Player SetupPlayer1()
     {
         var player = new Player("player1", 10);
 
-        var effectFactory = new DemoEffectFactory();
-        var cardFactory = new DemoCardFactory();
-
-        var counterSpell = cardFactory.CreateSpellCard("COUNTER-CARD", new List<Colour> { getColour["red"]() });
-        var counterEffect = effectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
+        var counterSpell = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
+        var counterEffect = EffectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
         counterSpell.BindEffect(counterEffect);
 
-        var hiddenDanger = cardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new List<Colour> { getColour["red"]() });
-        var sleightOfHandEffect = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
-        var dealDamageEffect = effectFactory.CreateDealDamageEffect(
+        var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed() });
+        var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
             name: "DEAL-DAMAGE-ALL-CARDS",
             description: string.Empty,
             damage: 4,
@@ -36,9 +33,9 @@ public partial class Demo
             .BindEffect(sleightOfHandEffect)
             .BindEffect(dealDamageEffect);
 
-        var knownGame = cardFactory.CreateSpellCard("KNOWN-GAME-CARD", new List<Colour> { getColour["red"]() });
-        var sleightOfHandEffect2 = effectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
-        var dealDamageEffect2 = effectFactory.CreateDealDamageEffect(
+        var knownGame = CardFactory.CreateSpellCard("KNOWN-GAME-CARD", new() { ColourFactory.CreateRed() });
+        var sleightOfHandEffect2 = EffectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var dealDamageEffect2 = EffectFactory.CreateDealDamageEffect(
             name: "DEAL-DAMAGE-ALL-CARDS",
             description: string.Empty,
             damage: 4,
@@ -57,14 +54,14 @@ public partial class Demo
             cards: new() {
                 counterSpell,
                 hiddenDanger,
-                cardFactory.CreateLandCard("p1-red-land-1", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateLandCard("p1-red-land-2", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateLandCard("p1-red-land-3", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateLandCard("p1-red-land-4", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateLandCard("p1-red-land-5", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateLandCard("p1-red-land-6", new List<Colour> { getColour["red"]() }),
-                cardFactory.CreateSpellCard("p1-red-buff-1", new List<Colour> { getColour["red"]() }), // Buffs creature for +5/+3
-                cardFactory.CreateCreatureCard("p1-red-creature-1", new List<Colour> { getColour["red"]() }, 2, 2),
+                CardFactory.CreateLandCard("p1-red-land-1", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p1-red-land-2", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p1-red-land-3", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p1-red-land-4", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p1-red-land-5", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p1-red-land-6", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateSpellCard("p1-red-buff-1", new() { ColourFactory.CreateRed() }), // Buffs creature for +5/+3
+                CardFactory.CreateCreatureCard("p1-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
             });
 
         return player;

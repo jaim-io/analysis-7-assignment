@@ -8,7 +8,7 @@ public abstract class LandCard
     /* Provides the energy to play the other cards */
     private int _energyLevel = 0;
 
-    public LandCard(string cardId, ICollection<Colour> colours)
+    public LandCard(string cardId, List<Colour> colours)
         : base(cardId, colours)
     {
     }

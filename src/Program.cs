@@ -4,17 +4,8 @@ using TheCardGame.Games;
 
 var gb = GameBoard.GetInstance();
 {
-    var colourFactory = new DemoColourFactory();
-    var colours = new Dictionary<string, Func<Colour>>
-    {
-        { "red",  () => colourFactory.CreateColour("Red") },
-        { "blue",  () => colourFactory.CreateColour("Blue") },
-        { "red-blue", () => colourFactory.CreateColour(new List<string> { "Red", "Blue" }) },
-        { "colourless",  () => colourFactory.CreateColour("Colourless") },
-    };
-
-    var player1 = Demo.SetupPlayer1(colours);
-    var player2 = Demo.SetupPlayer2(colours);
+    var player1 = Demo.SetupPlayer1();
+    var player2 = Demo.SetupPlayer2();
 
     gb.SetPlayers(player1, player2, player1);
 }

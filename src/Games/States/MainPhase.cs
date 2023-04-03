@@ -68,7 +68,7 @@ public class MainPhase : GameState
     {
         game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-    public override int EnergyTapped(ICollection<Colour> color)
+    public override int EnergyTapped(List<Colour> color)
     {
         int iSumEnergy = 0;
         game.CurrentPlayer.GetCards().ForEach(c => {

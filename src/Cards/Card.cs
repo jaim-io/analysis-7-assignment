@@ -20,7 +20,7 @@ public abstract class Card : Entity, IGameBoardObserver
 
     public Card(
         string cardId,
-        ICollection<Colour> colour,
+        List<Colour> colour,
         List<Effect>? effects = null)
     {
         this._cardId = cardId;

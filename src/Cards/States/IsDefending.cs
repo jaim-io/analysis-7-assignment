@@ -23,7 +23,7 @@ public class IsDefending
 
     public override (bool, int) AbsorbAttack(int iAttackValue)
     {
-        int defenseValue = this.card.GetInitialDefenseValue();
+        int defenseValue = this.card.GetDefenseValue();
         int attackValueLeft = iAttackValue - defenseValue;
         int defenseValueLeft = this.card.SubtractDefenseValue(iAttackValue);
         Console.WriteLine($"Card '{this.card.GetId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");

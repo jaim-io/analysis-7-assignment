@@ -19,11 +19,10 @@ public class IsAttacking
     {
         Console.WriteLine($"{this.card.GetId()} Peforms attack.");
 
-        CreatureCard? ccard = this.card as CreatureCard;
-        if (ccard is not null)
+        if (this.card is CreatureCard creature)
         {
             bool defended = false;
-            int attackValue = this.card.GetInitialAttackValue();
+            int attackValue = creature.GetAttackValue();
             GameBoard gb = GameBoard.GetInstance();
             foreach (Card card in gb.OpponentPlayer.GetCards())
             {

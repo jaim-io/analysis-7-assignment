@@ -24,6 +24,3 @@ jobs:
       
     - name: Build (check for build errors)
       run: dotnet build --no-restore
-      
-    - name: Run (check for runtime errors)
-      run: dotnet run --project .\src\

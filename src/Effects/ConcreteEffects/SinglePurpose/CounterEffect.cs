@@ -1,15 +1,17 @@
 using TheCardGame.Effects.Types;
 using TheCardGame.Games;
 
-namespace TheCardGame.Effects.ConcreteEffects;
+namespace TheCardGame.Effects.ConcreteEffects.SinglePurpose;
 
 public abstract class CounterEffect : Effect
 {
-    public CounterEffect(
-        string name,
-        string description,
-        Func<bool>? condition = null)
-        : base(new OnRevealEffect(), name, description, null, condition)
+    public CounterEffect()
+        : base(
+            new OnRevealEffect(), 
+            "Counter", 
+            "Counters an effect the opponent triggered.", 
+            null, 
+            null)
     {
     }
 

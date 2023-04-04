@@ -3,7 +3,7 @@ using TheCardGame.Common.Models;
 using TheCardGame.Effects.Types;
 using TheCardGame.Players;
 
-namespace TheCardGame.Effects.ConcreteEffects;
+namespace TheCardGame.Effects.ConcreteEffects.MultiPurpose;
 
 public class DealDamageEffect : Effect
 {
@@ -12,9 +12,8 @@ public class DealDamageEffect : Effect
         string name,
         string description,
         uint damage,
-        Func<List<Entity>>? getPreDeterminedTargets = null,
-        Func<bool>? duration = null) 
-        : base(new OnRevealEffect(), name, description, getPreDeterminedTargets, duration)
+        Func<List<Entity>>? getPreDeterminedTargets = null) 
+        : base(new OnRevealEffect(), name, description, getPreDeterminedTargets, null)
     {
         this.Damage = damage;
     }

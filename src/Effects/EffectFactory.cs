@@ -1,11 +1,13 @@
 using TheCardGame.Common.Models;
-using TheCardGame.Effects.ConcreteEffects;
+using TheCardGame.Effects.ConcreteEffects.MultiPurpose;
+using TheCardGame.Effects.ConcreteEffects.SinglePurpose;
 
 namespace TheCardGame.Effects;
 
 public abstract class EffectFactory
 {
-    public abstract CounterEffect CreateCounterEffect(string name, string description, Func<bool>? condition = null);
-    public abstract SleightOfHandEffect CreateSleightOfHandEffect(string name, string description);
-    public abstract DealDamageEffect CreateDealDamageEffect(string name, string description, uint damage, Func<List<Entity>>? getPreDeterminedTargets, Func<bool>? duration);
+    public abstract CounterEffect CreateCounterEffect();
+    public abstract SleightOfHandEffect CreateSleightOfHandEffect(uint amountOfTurns);
+    public abstract DealDamageEffect CreateDealDamageEffect(string name, string description, uint damage, Func<List<Entity>>? getPreDeterminedTargets);
+    public abstract BuffCreatureEffect CreateBuffCreatureEffect(string name, string description, int attackOffset, int defenseOffset, uint amountOfTurns);
 }

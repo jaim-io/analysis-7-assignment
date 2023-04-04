@@ -15,7 +15,7 @@ public partial class Demo
 
         gb.ToMainPhase();
 
-        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "DEAL-DAMAGE-ALL-CARDS");
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "DealDamageToAllCards");
         gb.Stack.Resolve();
 
         gb.EndTurn();

@@ -15,15 +15,15 @@ public partial class Demo
         gb.ToMainPhase();
         gb.PlayCard(player1, "p1-red-land-1");
 
-        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SLEIGHT-OF-HAND");
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SleightOfHand");
         gb.Stack.Resolve(); 
         gb.PlayCard(player1, "HIDDEN-DANGER-CARD");
 
         gb.PlayCard(player2, "COUNTER-CARD");
-        gb.ActivateEffect(player2, "COUNTER-CARD", "COUNTER-EFFECT"); 
+        gb.ActivateEffect(player2, "COUNTER-CARD", "Counter"); 
 
         gb.PlayCard(player1, "COUNTER-CARD");
-        gb.ActivateEffect(player1, "COUNTER-CARD", "COUNTER-EFFECT");
+        gb.ActivateEffect(player1, "COUNTER-CARD", "Counter");
 
         gb.Stack.Resolve(); 
 

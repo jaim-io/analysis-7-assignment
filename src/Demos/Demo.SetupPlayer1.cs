@@ -13,13 +13,13 @@ public partial class Demo
         var player = new Player("player1", 10);
 
         var counterSpell = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
-        var counterEffect = EffectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
+        var counterEffect = EffectFactory.CreateCounterEffect();
         counterSpell.BindEffect(counterEffect);
 
         var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed() });
-        var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
         var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
-            name: "DEAL-DAMAGE-ALL-CARDS",
+            name: "DealDamageToAllCards",
             description: string.Empty,
             damage: 4,
             getPreDeterminedTargets: () =>
@@ -34,9 +34,9 @@ public partial class Demo
             .BindEffect(dealDamageEffect);
 
         var knownGame = CardFactory.CreateSpellCard("KNOWN-GAME-CARD", new() { ColourFactory.CreateRed() });
-        var sleightOfHandEffect2 = EffectFactory.CreateSleightOfHandEffect("SLEIGHT-OF-HAND", string.Empty);
+        var sleightOfHandEffect2 = EffectFactory.CreateSleightOfHandEffect(1);
         var dealDamageEffect2 = EffectFactory.CreateDealDamageEffect(
-            name: "DEAL-DAMAGE-ALL-CARDS",
+            name: "DealDamageToAllCards",
             description: string.Empty,
             damage: 4,
             getPreDeterminedTargets: () =>

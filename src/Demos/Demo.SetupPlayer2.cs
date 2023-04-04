@@ -10,7 +10,7 @@ public partial class Demo
         var player = new Player("player2", 10);
 
         var p2_cs = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
-        var p2_cs_effect = EffectFactory.CreateCounterEffect("COUNTER-EFFECT", string.Empty);
+        var p2_cs_effect = EffectFactory.CreateCounterEffect();
         p2_cs.BindEffect(p2_cs_effect);
 
         player.SetCards(

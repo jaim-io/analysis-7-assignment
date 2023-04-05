@@ -50,18 +50,23 @@ public partial class Demo
             .BindEffect(sleightOfHandEffect2)
             .BindEffect(dealDamageEffect2);
 
+        var buffCreatureCard = CardFactory.CreateSpellCard("BUFF-CREATURE-CARD", new() { ColourFactory.CreateRed() });
+        var buffCreatureEffect = EffectFactory.CreateBuffCreatureEffect("BuffCreatureOneTurn", string.Empty, 5, 3, 1);
+        buffCreatureCard.BindEffect(buffCreatureEffect);
+
         player.SetCards(
             cards: new() {
                 counterSpell,
                 hiddenDanger,
+                buffCreatureCard,
                 CardFactory.CreateLandCard("p1-red-land-1", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p1-red-land-2", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateCreatureCard("p1-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
                 CardFactory.CreateLandCard("p1-red-land-3", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p1-red-land-4", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p1-red-land-5", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p1-red-land-6", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateSpellCard("p1-red-buff-1", new() { ColourFactory.CreateRed() }), // Buffs creature for +5/+3
-                CardFactory.CreateCreatureCard("p1-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
             });
 
         return player;

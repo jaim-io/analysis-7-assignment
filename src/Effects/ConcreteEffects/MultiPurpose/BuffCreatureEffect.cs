@@ -23,7 +23,7 @@ public class BuffCreatureEffect : Effect
     {
         this._attackOffset = attackOffset;
         this._defenseOffset = defenseOffset;
-        this._amountOfTurns = amountOfTurns;
+        this._amountOfTurns = amountOfTurns - 1;
     }
 
     public override void Trigger()
@@ -43,7 +43,7 @@ public class BuffCreatureEffect : Effect
         });
     }
 
-    public override void StartOfTurn(StartOfTurnEvent eventInfo)
+    public override void EndOfTurn(EndOfTurnEvent eventInfo)
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {
@@ -60,6 +60,7 @@ public class BuffCreatureEffect : Effect
             });
         }
     }
+
     public override void CardDisposed(CardDisposedEvent eventInfo)
     {
         this.State = new Used(this);

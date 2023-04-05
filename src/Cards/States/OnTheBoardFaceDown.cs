@@ -28,6 +28,7 @@ public class OnTheBoardFaceDown
         this.card.Effects.ForEach(e => e.Dispose());
 
         GameBoard.GetInstance().RemoveObserver(this.card);
+        this.card.RemoveAllObservers();
 
         this.card.State = new OnTheDisposedPile(this);
 

@@ -111,6 +111,9 @@ public abstract class Card : Entity, IGameBoardObserver
 
     public void AddObserver(ICardObserver observer) => this._observers.Add(observer);
     public void RemoveObserver(ICardObserver observer) => this._observers.Remove(observer);
+    public void RemoveAllObservers() => this._observers.RemoveAll(_ => true);
+
+
     public void ActivateEffect(string name, List<Entity>? targets = null) => this.State.ActivateEffect(name, targets);
 
     public void StartOfTurn(StartOfTurnEvent eventInfo) => this.State.OnStartTurn();

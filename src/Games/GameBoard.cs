@@ -78,7 +78,7 @@ public class GameBoard : Entity, IPlayerObserver
     }
 
     public void ToMainPhase() => this.State.ToMainPhase();
-    public bool NewTurn()
+    public bool StartTurn()
     {
         if (this._gameEnded)
         {
@@ -94,7 +94,11 @@ public class GameBoard : Entity, IPlayerObserver
         _observers
             .ConvertAll(o => o)
             .ForEach(o => o.StartOfTurn(startOfTurnEvent));
+        return true;
+    }
 
+    public bool ToDrawingPhase()
+    {
         this.State.ToDrawingPhase();
 
         if (this.Turn == 1)

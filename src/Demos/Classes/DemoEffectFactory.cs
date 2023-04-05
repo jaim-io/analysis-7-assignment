@@ -40,6 +40,11 @@ public class DemoEffectFactory : EffectFactory
             getPreDeterminedTargets);
     }
 
+    public override SkipDrawingPhaseEffect CreateSkipDrawingPhaseEffect()
+    {
+        return new DemoSkipDrawingPhaseEffect();
+    }
+
     public override SleightOfHandEffect CreateSleightOfHandEffect(uint amountOfTurns)
     {
         return new DemoSleightOfHandEffect(amountOfTurns);

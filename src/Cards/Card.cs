@@ -118,4 +118,6 @@ public abstract class Card : Entity, IGameBoardObserver
 
     public void StartOfTurn(StartOfTurnEvent eventInfo) => this.State.OnStartTurn();
     public void EndOfTurn(EndOfTurnEvent eventInfo) => this.State.OnEndTurn();
+
+    public void TurnFaceUp() => this.State.TurnFaceUp();
 }

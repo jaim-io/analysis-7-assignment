@@ -9,8 +9,8 @@ public class OnTheStack : EffectState
 
     public override void Trigger()
     {
-        this.effect.Trigger();
         this.effect.State = new Active(this);
+        this.effect.Trigger();
     }
 
     public override void Dispose()

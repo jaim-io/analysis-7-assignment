@@ -18,6 +18,7 @@ public partial class Demo
 
         var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed() });
         var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
+        var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect();
         var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
             name: "DealDamageToAllCards",
             description: string.Empty,
@@ -31,12 +32,13 @@ public partial class Demo
             });
         hiddenDanger
             .BindEffect(sleightOfHandEffect)
+            .BindEffect(skipDrawingPhaseEffect)
             .BindEffect(dealDamageEffect);
 
         var knownGame = CardFactory.CreateSpellCard("KNOWN-GAME-CARD", new() { ColourFactory.CreateRed() });
         var sleightOfHandEffect2 = EffectFactory.CreateSleightOfHandEffect(1);
         var dealDamageEffect2 = EffectFactory.CreateDealDamageEffect(
-            name: "DealDamageToAllCards",
+            name: "DealDamageToAllAttackingCards",
             description: string.Empty,
             damage: 4,
             getPreDeterminedTargets: () =>

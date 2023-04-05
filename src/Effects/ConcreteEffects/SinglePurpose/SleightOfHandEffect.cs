@@ -25,7 +25,6 @@ public abstract class SleightOfHandEffect : Effect
 
     public override void Trigger()
     {
-        this.State = new Active(this);
         this._startingTurn = GameBoard.GetInstance().Turn;
         GameBoard.GetInstance().AddObserver(this);
         this.Owner!.State = new OnTheBoardFaceDown(Owner.State);
@@ -36,9 +35,9 @@ public abstract class SleightOfHandEffect : Effect
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {
-            this.State = new Used(this);
+            this.Owner!.TurnFaceUp();
             GameBoard.GetInstance().RemoveObserver(this);
-            this.Owner!.State = new OnTheBoardFaceUp(Owner.State);
+            this.Dispose();
             Console.WriteLine($"[Sleight of Hand] turned {this.Owner!.GetId()} face up.");
         }
     }

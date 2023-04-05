@@ -9,13 +9,15 @@ public partial class Demo
     {
         var player = new Player("player2", 10);
 
-        var p2_cs = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
-        var p2_cs_effect = EffectFactory.CreateCounterEffect();
-        p2_cs.BindEffect(p2_cs_effect);
+        var counterCard = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
+        {
+            var counterEffect = EffectFactory.CreateCounterEffect();
+            counterCard.BindEffect(counterEffect);
+        }
 
         player.SetCards(
             cards: new() {
-                p2_cs,
+                counterCard,
                 CardFactory.CreateSpellCard("TEST", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p2-red-land-1", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("p2-red-land-2", new() { ColourFactory.CreateRed() }),

@@ -1,16 +1,12 @@
 # Todo
 
-## Colourless
-
 ## Artefacts
 
-Artefacts are colourless
+Implement artefacts
 
-## Dual colours
+## Finish enegery tapping system (lands)
 
-Lands can only have 1 colour
-Maybe change colour.List<string> -> List<Colour>
+## Create dispose effect?
 
-## Creature stats -> Buffing, attacking & defending
-
-Refactor 'initial' and 'actual' properties.
+dipose effect
+with manual trigger

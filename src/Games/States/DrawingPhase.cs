@@ -1,5 +1,6 @@
 using TheCardGame.Games;
 using TheCardGame.Players;
+using TheCardGame.Players.Constraints;
 
 public class DrawingPhase : GameState
 {
@@ -16,6 +17,14 @@ public class DrawingPhase : GameState
     public override bool TakeCard()
     {
         Player currentPlayer = this.game.CurrentPlayer;
+        var skipDrawing = currentPlayer.Constraints.Any(c => c is SkipDrawing);
+
+        if (skipDrawing)
+        {
+            Console.WriteLine($"{currentPlayer.GetName()} skipped their drawing phase.");
+            return true;
+        }
+
         var card = this.game.CurrentPlayer.DrawCard();
         if (card == null)
         {

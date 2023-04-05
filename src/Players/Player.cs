@@ -1,6 +1,7 @@
 using TheCardGame.Cards;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
+using TheCardGame.Players.Constraints;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;
 
@@ -12,6 +13,7 @@ public class Player : Entity
     private int _healthValue;
     private string _name = string.Empty;
     public Guid Id { get; init; }
+    public List<Constraint> Constraints { get; private set; }
 
     private List<IPlayerObserver> _observers = new List<IPlayerObserver>();
 
@@ -21,6 +23,7 @@ public class Player : Entity
         this.Cards = new List<Card>();
         this._healthValue = initialLife;
         this._name = name;
+        this.Constraints = new();
     }
 
     public void AddObserver(IPlayerObserver po)

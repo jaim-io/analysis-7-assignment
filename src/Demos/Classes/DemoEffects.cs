@@ -43,3 +43,11 @@ public class DemoBuffCreatureEffect : BuffCreatureEffect
     {
     }
 }
+
+public class DemoSkipDrawingPhaseEffect : SkipDrawingPhaseEffect
+{
+    public DemoSkipDrawingPhaseEffect(uint amountOfTurns)
+        : base(amountOfTurns)
+    {
+    }
+}

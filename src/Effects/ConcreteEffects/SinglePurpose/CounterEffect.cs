@@ -18,6 +18,8 @@ public abstract class CounterEffect : Effect
     public override void Trigger()
     {
         GameBoard.GetInstance().Stack.Skip(1);
+        this.Dispose();
+        this.Owner!.Dispose();
     }
 }
 

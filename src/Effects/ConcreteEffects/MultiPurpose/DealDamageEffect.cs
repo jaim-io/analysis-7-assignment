@@ -36,5 +36,6 @@ public class DealDamageEffect : Effect
         }
 
         this.Owner!.Dispose();
+        this.Dispose();
     }
 }

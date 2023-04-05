@@ -28,7 +28,6 @@ public class BuffCreatureEffect : Effect
 
     public override void Trigger()
     {
-        this.State = new Active(this);
         GameBoard.GetInstance().AddObserver(this);
         this._startingTurn = GameBoard.GetInstance().Turn;
 
@@ -47,7 +46,6 @@ public class BuffCreatureEffect : Effect
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {
-            this.State = new Used(this);
             GameBoard.GetInstance().RemoveObserver(this);
             _userInvokedTargets.ForEach(entity =>
             {
@@ -58,12 +56,12 @@ public class BuffCreatureEffect : Effect
                     creature.ResetDefenceValue();
                 }
             });
+            this.Dispose();
         }
     }
 
     public override void CardDisposed(CardDisposedEvent eventInfo)
     {
-        this.State = new Used(this);
         GameBoard.GetInstance().RemoveObserver(this);
         _userInvokedTargets.ForEach(entity =>
         {
@@ -74,5 +72,6 @@ public class BuffCreatureEffect : Effect
                 creature.ResetDefenceValue();
             }
         });
+        this.Dispose();
     }
 }

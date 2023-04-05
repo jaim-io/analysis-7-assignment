@@ -11,11 +11,15 @@ public partial class Demo
         var player2 = gb.Player2.Id;
 
         gb.PrepareNewTurn();
-        if (!gb.NewTurn()) { return false; }
 
+        if (!gb.StartTurn()) { return false; }
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "DealDamageToAllCards");
+        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SkipDrawingPhase", new() { gb.Player2 });
+        gb.Stack.Resolve();
+
+        if (!gb.ToDrawingPhase()) { return false; }
         gb.ToMainPhase();
 
-        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "DealDamageToAllCards");
         gb.Stack.Resolve();
 
         gb.EndTurn();

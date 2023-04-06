@@ -39,7 +39,7 @@ public class TheStack
         this._resolveCounter = _stack.Count - 1;
         while (_resolveCounter >= 0)
         {
-            Console.WriteLine($"[STACK] Resolving effect: {_stack[_resolveCounter].Name}");
+            Console.WriteLine($"[Stack] Resolving effect: {_stack[_resolveCounter].Name}");
             _stack[_resolveCounter].Trigger();
             _resolveCounter--;
         }

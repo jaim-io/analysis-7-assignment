@@ -4,16 +4,16 @@ namespace TheCardGame.Demos;
 
 public class Red : Colour
 {
-    public Red()
-        : base(nameof(Red))
+    public Red(int cost)
+        : base(nameof(Red), cost)
     {
     }
 }
 
 public class Blue : Colour
 {
-    public Blue()
-        : base(nameof(Blue))
+    public Blue(int cost)
+        : base(nameof(Blue), cost)
     {
     }
 }

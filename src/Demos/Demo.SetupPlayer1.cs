@@ -21,7 +21,7 @@ public partial class Demo
                 .BindEffect(disposeEffect);
         }
 
-        var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed() });
+        var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed(4), ColourFactory.CreateColourless(2) });
         {
             var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
             var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect(1);

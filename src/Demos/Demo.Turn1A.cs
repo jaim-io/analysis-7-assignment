@@ -25,12 +25,12 @@ public partial class Demo
         {
             // Arnold is able to play the card and is prompted to turn the land with the given colours
             Console.WriteLine("Arnold was able to play Hidden Danger");
-            gb.TapFromCard(player1, "red-land-1");
-            gb.TapFromCard(player1, "red-land-2");
-            gb.TapFromCard(player1, "red-land-3");
-            gb.TapFromCard(player1, "red-land-4");
-            gb.TapFromCard(player1, "blue-land-1");
-            gb.TapFromCard(player1, "blue-land-2");
+            gb.TapFromCard("red-land-1");
+            gb.TapFromCard("red-land-2");
+            gb.TapFromCard("red-land-3");
+            gb.TapFromCard("red-land-4");
+            gb.TapFromCard("blue-land-1");
+            gb.TapFromCard("blue-land-2");
         }
 
         gb.EndTurn();

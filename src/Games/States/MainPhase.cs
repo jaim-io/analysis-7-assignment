@@ -102,12 +102,10 @@ public class MainPhase : GameState
         }
         return false;
     }
-    public override void TapFromCard(Guid playerId, string cardId)
+    public override void TapFromCard(string cardId)
     {
-        var player = GameBoard.GetInstance().GetPlayerById(playerId);
-        player.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
+        game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-
     public override Dictionary<Type, int> EnergyTapped(Card card)
     {
         Dictionary<Type, int> dictEnergy = new();

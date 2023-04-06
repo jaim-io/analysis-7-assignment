@@ -15,7 +15,7 @@ public class OnTheBoardFaceUp
 
     public override void TapEnergy()
     {
-        Console.WriteLine($"[System] {this.card.GetId()} has been tapped.");
+        Console.WriteLine($"[System] {this.card.GetId()} has been turned.");
         this.card.State = new IsTapped(this);
     }
 

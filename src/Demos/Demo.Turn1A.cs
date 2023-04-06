@@ -21,16 +21,17 @@ public partial class Demo
         gb.PlayCard(player1, "blue-land-1");
         gb.PlayCard(player1, "blue-land-2");
 
-        gb.TapFromCard("red-land-1");
-        gb.TapFromCard("red-land-2");
-        gb.TapFromCard("red-land-3");
-        gb.TapFromCard("red-land-4");
-        gb.TapFromCard("blue-land-1");
-        gb.TapFromCard("blue-land-2");
-
-        gb.ActivateEffect(player1, "hidden-danger", "SleightOfHand");
-        gb.Stack.Resolve();
-        gb.PlayCard(player1, "hidden-danger");
+        if (gb.PlayCard(player1, "hidden-danger")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
+        {
+            // Arnold is able to play the card and is prompted to turn the land with the given colours
+            Console.WriteLine("Arnold was able to play Hidden Danger");
+            gb.TapFromCard("red-land-1");
+            gb.TapFromCard("red-land-2");
+            gb.TapFromCard("red-land-3");
+            gb.TapFromCard("red-land-4");
+            gb.TapFromCard("blue-land-1");
+            gb.TapFromCard("blue-land-2");
+        }
 
         gb.EndTurn();
         Console.WriteLine("=== Turn 1A [END]");
@@ -40,33 +41,6 @@ public partial class Demo
     }
 }
 
-
-
-// var gb = GameBoard.GetInstance();
-// var player1 = gb.Player1.Id;
-// var player2 = gb.Player2.Id;
-
-// Console.WriteLine("=== Turn 1A [Start]");
-// if (!gb.StartTurn()) { return false; }
-
-
-// if (!gb.ToDrawingPhase()) { return false; }
-
-// gb.ToMainPhase();
-
-// gb.ActivateEffect(player1, "hidden-danger", "SleightOfHand");
-// gb.Stack.Resolve();
-// gb.PlayCard(player1, "hidden-danger");
-
-// gb.PlayCard(player2, "counter-spell");
-// gb.ActivateEffect(player2, "counter-spell", "Counter");
-
-// gb.PlayCard(player1, "counter-spell");
-// gb.ActivateEffect(player1, "counter-spell", "Counter");
-// gb.TapFromCard("red-land-1");
-
-// gb.Stack.Resolve();
-
 // gb.PlayCard(player1, "p1-red-creature-1");
 // gb.PlayCard(player1, "creature-buff-spell");
 // {
@@ -74,9 +48,3 @@ public partial class Demo
 //     gb.ActivateEffect(player1, "creature-buff-spell", "BuffCreatureOneTurn", new() { creatureCard });
 //     gb.Stack.Resolve();
 // }
-
-// gb.EndTurn();
-// Console.WriteLine("=== Turn 1A [END]");
-// gb.LogCurrentSituation();
-
-// return true;

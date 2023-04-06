@@ -38,7 +38,7 @@ public class InTheHand
     public override void ActivateEffect(string name, List<Entity>? targets)
     {
         var effect = this.card.Effects.FirstOrDefault(e => e.Name == name);
-        
+
         if (effect == null)
         {
             throw new ArgumentException($"Effect with name {name} does not exist on card {this.card.GetId()}");
@@ -52,6 +52,15 @@ public class InTheHand
 
     public override bool OnPlay()
     {
+        this.card.Effects.ForEach(e =>
+        {
+            if (e.Type is PreRevealEffect)
+            {
+                e.Activate();
+            }
+            GameBoard.GetInstance().Stack.Resolve();
+        });
+
         if (this.card.State is InTheHand)
         {
             GameBoard.GetInstance().AddObserver(this.card);

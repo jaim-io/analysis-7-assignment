@@ -27,7 +27,7 @@ public class MainPhase : GameState
             return false;
         }
 
-        Dictionary<Colour, int> dictEnergy = this.EnergyTapped(card);
+        Dictionary<Type, int> dictEnergy = this.EnergyTapped(card);
         foreach (Colour colour in card.Colours)
         {
             if (colour.Cost == 0)
@@ -35,8 +35,8 @@ public class MainPhase : GameState
                 continue;
             }
 
-            if (!dictEnergy.ContainsKey(colour) ||
-               (colour is not Colourless && colour.Cost > dictEnergy[colour]))
+            if (!dictEnergy.ContainsKey(colour.GetType()) ||
+               (colour is not Colourless && colour.Cost > dictEnergy[colour.GetType()]))
             {
                 // not enough energy to perform attack
                 Console.WriteLine($"[{player.GetName()}] Not enough {colour.Name} energy to play {card.GetId()}.");
@@ -44,16 +44,16 @@ public class MainPhase : GameState
             }
             else
             {
-                dictEnergy[colour] -= colour.Cost;
+                dictEnergy[colour.GetType()] -= colour.Cost;
                 Console.WriteLine($"[System] Please turn over {colour.Cost} {colour.Name} land cards.");
             }
         }
 
         // sum the remaining energy in the dictionary
         int energyLeft = 0;
-        foreach (KeyValuePair<Colour, int> colour in dictEnergy)
+        foreach ((Type _, int amount) in dictEnergy)
         {
-            energyLeft += colour.Value;
+            energyLeft += amount;
         }
 
         // check if there is enough energy left to perform the attack regardless of the colour
@@ -106,9 +106,9 @@ public class MainPhase : GameState
     {
         game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-    public override Dictionary<Colour, int> EnergyTapped(Card card)
+    public override Dictionary<Type, int> EnergyTapped(Card card)
     {
-        Dictionary<Colour, int> dictEnergy = new();
+        Dictionary<Type, int> dictEnergy = new();
         game.CurrentPlayer.GetCards().ForEach(c =>
         {
             if (c is LandCard landCard
@@ -116,16 +116,23 @@ public class MainPhase : GameState
                 && landCard.State is not IsTapped
                 && landCard.State is OnTheBoardFaceUp)
             {
-                dictEnergy.Add(landCard.Colours[0], landCard.GetEnergyLevel());
+                if (dictEnergy.ContainsKey(landCard.Colours[0].GetType()))
+                {
+                    dictEnergy[landCard.Colours[0].GetType()] += landCard.GetEnergyLevel();
+                }
+                else
+                {
+                    dictEnergy.Add(landCard.Colours[0].GetType(), landCard.GetEnergyLevel());
+                }
             }
         });
 
         if (card is not LandCard)
         {
-            Console.WriteLine($"Energy available:");
-            foreach (KeyValuePair<Colour, int> colour in dictEnergy)
+            Console.WriteLine($"[System] Energy available for card: {card.GetId()}");
+            foreach ((Type colour, int amount) in dictEnergy)
             {
-                Console.WriteLine("Key: {0}, Value: {1}", colour.Key.Name, colour.Value);
+                Console.WriteLine("\tColour: {0}, Amount: {1}", colour.Name.ToString(), amount);
             }
         }
         return dictEnergy;

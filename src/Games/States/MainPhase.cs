@@ -30,7 +30,7 @@ public class MainPhase : GameState
         Dictionary<Type, int> dictEnergy = this.EnergyTapped(card);
         foreach (Colour colour in card.Colours)
         {
-            if (colour.Cost == 0)
+            if (colour.Cost == 0 || colour is Colourless)
             {
                 continue;
             }

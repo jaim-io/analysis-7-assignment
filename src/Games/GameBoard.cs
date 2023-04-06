@@ -90,10 +90,29 @@ public class GameBoard : Entity, IPlayerObserver
         this.State = new PreperationPhase(this);
 
         var startOfTurnEvent = new StartOfTurnEvent(Turn);
+
         // Deep clone _observers so observers are able to remove themself safely from the _observer list.
         _observers
             .ConvertAll(o => o)
-            .ForEach(o => o.StartOfTurn(startOfTurnEvent));
+            .ForEach(o =>
+            {
+                // LandCards are reset in the preparation phase of it's owner.
+                if (o is LandCard card)
+                {
+                    this.CurrentPlayer.GetCards().ForEach(c =>
+                    {
+                        if (c.GetId() == card.GetId())
+                        {
+                            c.StartOfTurn(startOfTurnEvent);
+                        }
+                    });
+                }
+                else
+                {
+                    o.StartOfTurn(startOfTurnEvent);
+                }
+            });
+
         return true;
     }
 
@@ -179,15 +198,15 @@ public class GameBoard : Entity, IPlayerObserver
         Console.WriteLine($"Player {this.Player2.GetName()}: Health: {this.Player2.GetHealthValue()}");
 
         List<Card> cards_player1 = this.Player1.GetCards();
-        Console.WriteLine($"Player {this.Player1.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player1) + Support.CountCards<OnTheBoardFaceDown>(cards_player1)}/{Support.CountCards<InTheDeck>(cards_player1)}/{Support.CountCards<InTheHand>(cards_player1)}/{Support.CountCards<OnTheDisposedPile>(cards_player1)}");
-        Console.WriteLine($"Player {this.Player1.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player1) + Support.CardIdsHumanFormatted<OnTheBoardFaceDown>(cards_player1));
+        Console.WriteLine($"Player {this.Player1.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player1) + Support.CountCards<OnTheBoardFaceDown>(cards_player1) + Support.CountCards<IsTapped>(cards_player1)}/{Support.CountCards<InTheDeck>(cards_player1)}/{Support.CountCards<InTheHand>(cards_player1)}/{Support.CountCards<OnTheDisposedPile>(cards_player1)}");
+        Console.WriteLine($"Player {this.Player1.GetName()} on the board: " + string.Join(", ", Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player1), Support.CardIdsHumanFormatted<OnTheBoardFaceDown>(cards_player1), Support.CardIdsHumanFormatted<IsTapped>(cards_player1)));
         Console.WriteLine($"Player {this.Player1.GetName()} in deck: " + Support.CardIdsHumanFormatted<InTheDeck>(cards_player1));
         Console.WriteLine($"Player {this.Player1.GetName()} in hand: " + Support.CardIdsHumanFormatted<InTheHand>(cards_player1));
         Console.WriteLine($"Player {this.Player1.GetName()} on the discard-pile: " + Support.CardIdsHumanFormatted<OnTheDisposedPile>(cards_player1));
 
         List<Card> cards_player2 = this.Player2.GetCards();
-        Console.WriteLine($"Player {this.Player2.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player2) + Support.CountCards<OnTheBoardFaceDown>(cards_player2)}/{Support.CountCards<InTheDeck>(cards_player2)}/{Support.CountCards<InTheHand>(cards_player2)}/{Support.CountCards<OnTheDisposedPile>(cards_player2)}");
-        Console.WriteLine($"Player {this.Player2.GetName()} on the board: " + Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player2) + Support.CardIdsHumanFormatted<OnTheBoardFaceDown>(cards_player2));
+        Console.WriteLine($"Player {this.Player2.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player2) + Support.CountCards<OnTheBoardFaceDown>(cards_player2) + Support.CountCards<IsTapped>(cards_player2)}/{Support.CountCards<InTheDeck>(cards_player2)}/{Support.CountCards<InTheHand>(cards_player2)}/{Support.CountCards<OnTheDisposedPile>(cards_player2)}");
+        Console.WriteLine($"Player {this.Player2.GetName()} on the board: " + string.Join(", ", Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player2), Support.CardIdsHumanFormatted<OnTheBoardFaceDown>(cards_player2), Support.CardIdsHumanFormatted<IsTapped>(cards_player2)));
         Console.WriteLine($"Player {this.Player2.GetName()} in deck: " + Support.CardIdsHumanFormatted<InTheDeck>(cards_player2));
         Console.WriteLine($"Player {this.Player2.GetName()} in hand: " + Support.CardIdsHumanFormatted<InTheHand>(cards_player2));
         Console.WriteLine($"Player {this.Player2.GetName()} on the discard-pile: " + Support.CardIdsHumanFormatted<OnTheDisposedPile>(cards_player2));

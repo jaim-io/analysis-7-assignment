@@ -14,31 +14,23 @@ public partial class Demo
         Console.WriteLine("=== Turn 1A [Start]");
         if (!gb.StartTurn()) { return false; }
 
-
         if (!gb.ToDrawingPhase()) { return false; }
-        
+
         gb.ToMainPhase();
 
-        gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SleightOfHand");
-        gb.Stack.Resolve();
-        gb.PlayCard(player1, "HIDDEN-DANGER-CARD");
+        gb.PlayCard(player1, "blue-land-1");
+        gb.PlayCard(player1, "blue-land-2");
 
-        gb.PlayCard(player2, "COUNTER-CARD");
-        gb.ActivateEffect(player2, "COUNTER-CARD", "Counter");
-
-        gb.PlayCard(player1, "COUNTER-CARD");
-        gb.ActivateEffect(player1, "COUNTER-CARD", "Counter");
         gb.TapFromCard("red-land-1");
+        gb.TapFromCard("red-land-2");
+        gb.TapFromCard("red-land-3");
+        gb.TapFromCard("red-land-4");
+        gb.TapFromCard("blue-land-1");
+        gb.TapFromCard("blue-land-2");
 
+        gb.ActivateEffect(player1, "hidden-danger", "SleightOfHand");
         gb.Stack.Resolve();
-
-        gb.PlayCard(player1, "p1-red-creature-1");
-        gb.PlayCard(player1, "BUFF-CREATURE-CARD");
-        {
-            var (creatureCard, _) = Support.FindCard(gb.Player1.GetCards(), "p1-red-creature-1");
-            gb.ActivateEffect(player1, "BUFF-CREATURE-CARD", "BuffCreatureOneTurn", new() { creatureCard });
-            gb.Stack.Resolve();
-        }
+        gb.PlayCard(player1, "hidden-danger");
 
         gb.EndTurn();
         Console.WriteLine("=== Turn 1A [END]");
@@ -46,37 +38,45 @@ public partial class Demo
 
         return true;
     }
-
-    public static bool Temp()
-    {
-        var gb = GameBoard.GetInstance();
-        var player1 = gb.Player1.Id;
-        var player2 = gb.Player2.Id;
-
-        /* Setup starting situtation:
-            - Arnold: 
-                10 lives
-                7 cards in hand
-                4 red lands -> 2 land are in used state
-            - Bryce: 
-                10 lives
-                7 cards in hand
-                3 blue lands 
-                2 red lands
-                red creature 2-2
-        */
-
-
-        if (!gb.StartTurn()) { return false; } // => restore the 2 lands of Arnold and draw card
-        // Arnold should have 8 cards
-
-        gb.ToMainPhase();
-        // Plays 2 lands (colour ??)
-        // Get 6 energy of which 4 red
-        // Play hidden danger
-        gb.EndTurn();
-        gb.LogCurrentSituation();
-
-        return true;
-    }
 }
+
+
+
+// var gb = GameBoard.GetInstance();
+// var player1 = gb.Player1.Id;
+// var player2 = gb.Player2.Id;
+
+// Console.WriteLine("=== Turn 1A [Start]");
+// if (!gb.StartTurn()) { return false; }
+
+
+// if (!gb.ToDrawingPhase()) { return false; }
+
+// gb.ToMainPhase();
+
+// gb.ActivateEffect(player1, "hidden-danger", "SleightOfHand");
+// gb.Stack.Resolve();
+// gb.PlayCard(player1, "hidden-danger");
+
+// gb.PlayCard(player2, "counter-spell");
+// gb.ActivateEffect(player2, "counter-spell", "Counter");
+
+// gb.PlayCard(player1, "counter-spell");
+// gb.ActivateEffect(player1, "counter-spell", "Counter");
+// gb.TapFromCard("red-land-1");
+
+// gb.Stack.Resolve();
+
+// gb.PlayCard(player1, "p1-red-creature-1");
+// gb.PlayCard(player1, "creature-buff-spell");
+// {
+//     var (creatureCard, _) = Support.FindCard(gb.Player1.GetCards(), "p1-red-creature-1");
+//     gb.ActivateEffect(player1, "creature-buff-spell", "BuffCreatureOneTurn", new() { creatureCard });
+//     gb.Stack.Resolve();
+// }
+
+// gb.EndTurn();
+// Console.WriteLine("=== Turn 1A [END]");
+// gb.LogCurrentSituation();
+
+// return true;

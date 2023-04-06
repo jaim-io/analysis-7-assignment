@@ -9,7 +9,7 @@ public partial class Demo
     {
         var player = new Player("Bryce", 10);
 
-        var counterCard = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
+        var counterCard = CardFactory.CreateSpellCard("counter-spell", new() { ColourFactory.CreateRed() });
         {
             var counterEffect = EffectFactory.CreateCounterEffect();
             counterCard.BindEffect(counterEffect);

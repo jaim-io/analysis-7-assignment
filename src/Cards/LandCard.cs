@@ -11,6 +11,10 @@ public abstract class LandCard
     public LandCard(string cardId, List<Colour> colours)
         : base(cardId, colours)
     {
+        if (colours.Count != 1)
+        {
+            throw new ArgumentException("Land cards can only have one colour.");
+        }
     }
 
     public override int GetEnergyLevel()

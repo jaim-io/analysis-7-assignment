@@ -55,7 +55,7 @@ public class MainPhase : GameState
         if (attackCard is not null)
         {
             attackCard.GoAttacking();
-            if (this.EnergyTapped(attackCard.Colours) >= attackCard.GetEnergyCost())
+            if (this.EnergyTapped(attackCard) >= attackCard.GetEnergyCost())
             {
                 // perform attack   
                 attackCard.PeformAttack();
@@ -68,12 +68,12 @@ public class MainPhase : GameState
     {
         game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-    public override int EnergyTapped(List<Colour> color)
+    public override int EnergyTapped(Card attackingCard)
     {
         int iSumEnergy = 0;
         game.CurrentPlayer.GetCards().ForEach(c => {
             if (c is LandCard landCard 
-                && color.Any(c => landCard.Colours.Contains(c)) 
+                && (attackingCard.Colours.Any(c => landCard.Colours.Contains(c) || attackingCard.Colours.Count == 0)) 
                 && landCard.State is not IsTapped 
                 && landCard.State is OnTheBoardFaceUp)
             {

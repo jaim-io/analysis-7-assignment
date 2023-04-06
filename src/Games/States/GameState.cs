@@ -1,3 +1,4 @@
+using TheCardGame.Cards;
 using TheCardGame.Cards.Colours;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
@@ -31,5 +32,5 @@ public abstract class GameState
     public virtual void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null) { }
     public virtual bool PeformAttack(string cardId, List<string> opponentDefenseCardIds) { return false; }
     public virtual void TapFromCard(string cardId) { }
-    public virtual int EnergyTapped(List<Colour> colours) { return 0; }
+    public virtual int EnergyTapped(Card attackingCard) { return 0; }
 }

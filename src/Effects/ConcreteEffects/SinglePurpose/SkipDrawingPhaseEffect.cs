@@ -44,7 +44,7 @@ public class SkipDrawingPhaseEffect : Effect
             {
                 if (entity is Player player)
                 {
-                    player.Constraints.RemoveAll(c => c is SkipDrawing);
+                    player.Constraints.RemoveWhere(c => c is SkipDrawing);
                 }
             });
             this.Dispose();

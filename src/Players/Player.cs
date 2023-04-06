@@ -13,7 +13,7 @@ public class Player : Entity
     private int _healthValue;
     private string _name = string.Empty;
     public Guid Id { get; init; }
-    public List<Constraint> Constraints { get; private set; }
+    public HashSet<Constraint> Constraints { get; private set; }
 
     private List<IPlayerObserver> _observers = new List<IPlayerObserver>();
 

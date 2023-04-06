@@ -101,10 +101,6 @@ public class GameBoard : Entity, IPlayerObserver
     {
         this.State.ToDrawingPhase();
 
-        if (this.Turn == 1)
-        {
-            this.DrawInitialCards();
-        }
         return this.State.TakeCard();
     }
 
@@ -198,6 +194,7 @@ public class GameBoard : Entity, IPlayerObserver
 
         Console.WriteLine("==== END Current situation\n");
     }
+
     public Player GetPlayerById(Guid playerId)
     {
         return playerId == this.Player1.Id
@@ -205,6 +202,17 @@ public class GameBoard : Entity, IPlayerObserver
             : playerId == this.Player2.Id
             ? Player2
             : throw new ArgumentException($"Invalid playerId. Value: {playerId}");
+    }
+
+    public void DrawInitialCards()
+    {
+        for (int cnt = 0; cnt < 7; cnt++)
+        {
+            this.Player1.DrawCard();
+            this.Player2.DrawCard();
+        }
+
+        this.LogCurrentSituation();
     }
 
     private void SwapPlayer()
@@ -219,19 +227,5 @@ public class GameBoard : Entity, IPlayerObserver
             this.CurrentPlayer = this.Player1;
             this.OpponentPlayer = this.Player2;
         }
-    }
-
-    private void DrawInitialCards()
-    {
-        for (int cnt = 0; cnt < 6; cnt++)
-        {
-            this.Player1.DrawCard();
-        }
-        for (int cnt = 0; cnt < 6; cnt++)
-        {
-            this.Player2.DrawCard();
-        }
-
-        this.LogCurrentSituation();
     }
 }

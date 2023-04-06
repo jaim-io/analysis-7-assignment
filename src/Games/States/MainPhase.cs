@@ -30,19 +30,19 @@ public class MainPhase : GameState
         Dictionary<Colour, int> dictEnergy = this.EnergyTapped(card);
         foreach (Colour colour in card.Colours)
         {
-            if (colour.Cost == 0) 
+            if (colour.Cost == 0)
             {
                 continue;
             }
 
-            if (!dictEnergy.ContainsKey(colour) || 
+            if (!dictEnergy.ContainsKey(colour) ||
                (colour is not Colourless && colour.Cost > dictEnergy[colour]))
             {
                 // not enough energy to perform attack
                 Console.WriteLine($"[{player.GetName()}] Not enough {colour.Name} energy to play {card.GetId()}.");
                 return false;
             }
-            else 
+            else
             {
                 dictEnergy[colour] -= colour.Cost;
                 Console.WriteLine($"[System] Please turn over {colour.Cost} {colour.Name} land cards.");
@@ -69,7 +69,7 @@ public class MainPhase : GameState
         }
 
         player.PlayCard(card);
-        
+
         return true;
     }
     public override void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null)
@@ -106,20 +106,21 @@ public class MainPhase : GameState
     {
         game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();
     }
-    public override Dictionary<Colour, int> EnergyTapped(Card attackingCard)
+    public override Dictionary<Colour, int> EnergyTapped(Card card)
     {
         Dictionary<Colour, int> dictEnergy = new();
-        game.CurrentPlayer.GetCards().ForEach(c => {
-            if (c is LandCard landCard 
-                && (attackingCard.Colours.Any(c => landCard.Colours.Contains(c)) || attackingCard.Colours.Count == 0) 
-                && landCard.State is not IsTapped 
+        game.CurrentPlayer.GetCards().ForEach(c =>
+        {
+            if (c is LandCard landCard
+                && (card.Colours.Any(cc => landCard.Colours.Any(lc => cc.GetType() == lc.GetType())) || card.Colours.Any(c => c is Colourless))
+                && landCard.State is not IsTapped
                 && landCard.State is OnTheBoardFaceUp)
             {
                 dictEnergy[landCard.Colours[0]] += landCard.GetEnergyLevel();
             }
         });
-        
-        if (attackingCard is not LandCard)
+
+        if (card is not LandCard)
         {
             Console.WriteLine($"Energy available:");
             foreach (KeyValuePair<Colour, int> colour in dictEnergy)

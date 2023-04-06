@@ -18,9 +18,6 @@ public partial class Demo
         if (!gb.ToDrawingPhase()) { return false; }
         
         gb.ToMainPhase();
-        gb.PlayCard(player1, "p1-red-land-1");
-        gb.PlayCard(player1, "p1-red-land-2");
-        gb.PlayCard(player1, "p1-red-land-3");
 
         gb.ActivateEffect(player1, "HIDDEN-DANGER-CARD", "SleightOfHand");
         gb.Stack.Resolve();

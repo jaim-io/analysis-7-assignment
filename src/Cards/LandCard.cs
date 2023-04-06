@@ -6,7 +6,7 @@ public abstract class LandCard
     : Card
 {
     /* Provides the energy to play the other cards */
-    private int _energyLevel = 0;
+    private int _energyLevel = 1;
 
     public LandCard(string cardId, List<Colour> colours)
         : base(cardId, colours)

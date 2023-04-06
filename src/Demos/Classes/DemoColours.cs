@@ -5,7 +5,7 @@ namespace TheCardGame.Demos;
 public class Red : Colour
 {
     public Red(int cost)
-        : base(nameof(Red))
+        : base(nameof(Red), cost)
     {
     }
 }
@@ -13,7 +13,7 @@ public class Red : Colour
 public class Blue : Colour
 {
     public Blue(int cost)
-        : base(nameof(Blue))
+        : base(nameof(Blue), cost)
     {
     }
 }
@@ -21,7 +21,7 @@ public class Blue : Colour
 public class Colourless : Colour
 {
     public Colourless(int cost)
-        : base(nameof(Colourless))
+        : base(nameof(Colourless), cost)
     {
     }
 }

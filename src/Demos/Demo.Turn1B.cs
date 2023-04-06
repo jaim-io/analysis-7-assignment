@@ -29,10 +29,10 @@ public partial class Demo
         {
             // Bryce is able to play the card and is prompted to turn the land with the given colours   
             Console.WriteLine("Bryce was able to play Known Game");
-            gb.TapFromCard("blue-land-1");
-            gb.TapFromCard("red-land-1");
-            gb.TapFromCard("red-land-2");
-            gb.TapFromCard("red-land-3");
+            gb.TapFromCard(player2, "blue-land-1");
+            gb.TapFromCard(player2, "red-land-1");
+            gb.TapFromCard(player2, "red-land-2");
+            gb.TapFromCard(player2, "red-land-3");
         }
 
         gb.EndTurn();

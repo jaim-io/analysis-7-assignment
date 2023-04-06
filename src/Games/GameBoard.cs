@@ -96,21 +96,7 @@ public class GameBoard : Entity, IPlayerObserver
             .ConvertAll(o => o)
             .ForEach(o =>
             {
-                // LandCards are reset in the preparation phase of it's owner.
-                if (o is LandCard card)
-                {
-                    this.CurrentPlayer.GetCards().ForEach(c =>
-                    {
-                        if (c.GetId() == card.GetId())
-                        {
-                            c.StartOfTurn(startOfTurnEvent);
-                        }
-                    });
-                }
-                else
-                {
-                    o.StartOfTurn(startOfTurnEvent);
-                }
+                o.StartOfTurn(startOfTurnEvent);
             });
 
         return true;
@@ -171,9 +157,9 @@ public class GameBoard : Entity, IPlayerObserver
 
     /* Tap Energry from a land-card currently on the board 
     Returns the energy-level tapped.*/
-    public void TapFromCard(string cardId)
+    public void TapFromCard(Guid playerId, string cardId)
     {
-        this.State.TapFromCard(cardId);
+        this.State.TapFromCard(playerId, cardId);
     }
 
     public void PlayerDied(PlayerDiedEvent pde)

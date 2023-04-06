@@ -21,5 +21,6 @@ Before
 After
 114: `&& (card.Colours.Any(cc => landCard.Colours.Any(lc => cc.GetType() == lc.GetType())) || card.Colours.Any(c => c is Colourless))`
 
-Gives error on 119
-`An unhandled exception of type 'System.Collections.Generic.KeyNotFoundException' occurred in System.Private.CoreLib.dll: 'The given key 'TheCardGame.Demos.Red' was not present in the dictionary.'`
+Previous errors are fixed.
+
+TODO: Fix energy printing

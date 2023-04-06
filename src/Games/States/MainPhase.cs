@@ -116,7 +116,7 @@ public class MainPhase : GameState
                 && landCard.State is not IsTapped
                 && landCard.State is OnTheBoardFaceUp)
             {
-                dictEnergy[landCard.Colours[0]] += landCard.GetEnergyLevel();
+                dictEnergy.Add(landCard.Colours[0], landCard.GetEnergyLevel());
             }
         });
 

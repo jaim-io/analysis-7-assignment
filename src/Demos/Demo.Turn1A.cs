@@ -28,6 +28,7 @@ public partial class Demo
 
         gb.PlayCard(player1, "COUNTER-CARD");
         gb.ActivateEffect(player1, "COUNTER-CARD", "Counter");
+        gb.TapFromCard("red-land-1");
 
         gb.Stack.Resolve();
 

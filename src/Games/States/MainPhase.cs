@@ -45,7 +45,7 @@ public class MainPhase : GameState
             else
             {
                 dictEnergy[colour.GetType()] -= colour.Cost;
-                Console.WriteLine($"[System] Please turn over {colour.Cost} {colour.Name} land cards.");
+                Console.WriteLine($"[System] Please turn over {colour.Cost} {colour.Name} land {(colour.Cost == 1 ? "card" : "cards")}.");
             }
         }
 
@@ -65,7 +65,7 @@ public class MainPhase : GameState
         }
         else if (colourless is not null)
         {
-            Console.WriteLine($"[System] Please turn over {colourless.Cost} {colourless.Name} land cards.");
+            Console.WriteLine($"[System] Please turn over {colourless.Cost} {colourless.Name} land {(colourless.Cost == 1 ? "card" : "cards")}.");
         }
 
         player.PlayCard(card);

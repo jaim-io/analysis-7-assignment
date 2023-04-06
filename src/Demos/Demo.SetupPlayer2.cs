@@ -7,7 +7,7 @@ public partial class Demo
 {
     public static Player SetupPlayer2()
     {
-        var player = new Player("player2", 10);
+        var player = new Player("Bryce", 10);
 
         var counterCard = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
         {

@@ -8,7 +8,6 @@ var gb = GameBoard.GetInstance();
     var player2 = Demo.SetupPlayer2();
 
     gb.SetPlayers(player1, player2, player1);
-    gb.DrawInitialCards();
 }
 
 Console.WriteLine("==== Start of demo\n");

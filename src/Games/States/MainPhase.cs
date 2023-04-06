@@ -73,7 +73,7 @@ public class MainPhase : GameState
         int iSumEnergy = 0;
         game.CurrentPlayer.GetCards().ForEach(c => {
             if (c is LandCard landCard 
-                && (attackingCard.Colours.Any(c => landCard.Colours.Contains(c) || attackingCard.Colours.Count == 0)) 
+                && (attackingCard.Colours.Any(c => landCard.Colours.Contains(c)) || attackingCard.Colours.Count == 0) 
                 && landCard.State is not IsTapped 
                 && landCard.State is OnTheBoardFaceUp)
             {

@@ -14,13 +14,18 @@ public partial class Demo
         var counterSpell = CardFactory.CreateSpellCard("COUNTER-CARD", new() { ColourFactory.CreateRed() });
         {
             var counterEffect = EffectFactory.CreateCounterEffect();
-            counterSpell.BindEffect(counterEffect);
+            var disposeEffect = EffectFactory.CreateDisposeEffect();
+            
+            counterSpell
+                .BindEffect(counterEffect)
+                .BindEffect(disposeEffect);
         }
 
         var hiddenDanger = CardFactory.CreateSpellCard("HIDDEN-DANGER-CARD", new() { ColourFactory.CreateRed() });
         {
             var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
             var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect(1);
+            var disposeEffect = EffectFactory.CreateDisposeEffect();
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
                 name: "DealDamageToAllCards",
                 description: string.Empty,
@@ -36,12 +41,14 @@ public partial class Demo
             hiddenDanger
                 .BindEffect(sleightOfHandEffect)
                 .BindEffect(skipDrawingPhaseEffect)
-                .BindEffect(dealDamageEffect);
+                .BindEffect(dealDamageEffect)
+                .BindEffect(disposeEffect);
         }
 
         var knownGame = CardFactory.CreateSpellCard("KNOWN-GAME-CARD", new() { ColourFactory.CreateRed() });
         {
             var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
+            var disposeEffect = EffectFactory.CreateDisposeEffect();
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
                 name: "DealDamageToAllAttackingCards",
                 description: string.Empty,
@@ -56,7 +63,8 @@ public partial class Demo
 
             knownGame
                 .BindEffect(sleightOfHandEffect)
-                .BindEffect(dealDamageEffect);
+                .BindEffect(dealDamageEffect)
+                .BindEffect(disposeEffect);
         }
 
         var buffCreatureCard = CardFactory.CreateSpellCard("BUFF-CREATURE-CARD", new() { ColourFactory.CreateRed() });

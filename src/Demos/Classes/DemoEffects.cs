@@ -51,3 +51,11 @@ public class DemoSkipDrawingPhaseEffect : SkipDrawingPhaseEffect
     {
     }
 }
+
+public class DemoDisposeEffect : DisposeEffect
+{
+    public DemoDisposeEffect()
+        : base()
+    {
+    }
+}

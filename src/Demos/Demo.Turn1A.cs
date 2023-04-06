@@ -11,6 +11,7 @@ public partial class Demo
         var player1 = gb.Player1.Id;
         var player2 = gb.Player2.Id;
 
+        Console.WriteLine("=== Turn 1A [Start]");
         if (!gb.StartTurn()) { return false; }
 
 
@@ -40,6 +41,7 @@ public partial class Demo
         }
 
         gb.EndTurn();
+        Console.WriteLine("=== Turn 1A [END]");
         gb.LogCurrentSituation();
 
         return true;

@@ -14,7 +14,7 @@ public class PreperationPhase : GameState
     {
         this.game.State = new DrawingPhase(this.game);
     }
-    
+
     public override void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null)
     {
         var player = GameBoard.GetInstance().GetPlayerById(playerId);

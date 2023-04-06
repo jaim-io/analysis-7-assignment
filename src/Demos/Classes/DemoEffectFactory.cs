@@ -40,6 +40,11 @@ public class DemoEffectFactory : EffectFactory
             getPreDeterminedTargets);
     }
 
+    public override DisposeEffect CreateDisposeEffect()
+    {
+        return new DemoDisposeEffect();
+    }
+
     public override SkipDrawingPhaseEffect CreateSkipDrawingPhaseEffect(uint amountOfTurns)
     {
         return new DemoSkipDrawingPhaseEffect(amountOfTurns);

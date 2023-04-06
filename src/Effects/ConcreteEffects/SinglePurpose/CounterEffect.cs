@@ -19,7 +19,6 @@ public abstract class CounterEffect : Effect
     {
         GameBoard.GetInstance().Stack.Skip(1);
         this.Dispose();
-        this.Owner!.Dispose();
     }
 }
 

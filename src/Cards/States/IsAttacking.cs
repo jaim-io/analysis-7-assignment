@@ -44,6 +44,11 @@ public class IsAttacking
         return false;
     }
 
+    public override void GoDefending()
+    {
+        this.card.State = new IsDefending(this);
+    }
+
     public override void OnEndTurn()
     {
         this.card.State = new OnTheBoardFaceUp(this);

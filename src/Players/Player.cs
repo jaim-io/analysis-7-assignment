@@ -106,12 +106,30 @@ public class Player : Entity
         return null;
     }
 
+    public Card? DiscardRandomCard()
+    {
+        if (this.Cards.Count == 0)
+        {
+            return null;
+        }
+
+        Card card;
+        do
+        {
+            var index = new Random().Next(0, this.Cards.Count);
+            card = this.Cards[index];
+        } while (card.State is not InTheHand);
+
+        this.Cards.Remove(card);
+        return card;
+    }
+
     public void TrimCards(int maxCards)
     {
         int cnt = Support.CountCards<InTheHand>(this.Cards);
         if (cnt <= maxCards)
         {
-            Console.WriteLine($"{this.GetName()} trimmed 0 cards into discard pile.");
+            Console.WriteLine($"{this.GetName()} trimmed 0 cards into discard pile.\n");
             return;
         }
 

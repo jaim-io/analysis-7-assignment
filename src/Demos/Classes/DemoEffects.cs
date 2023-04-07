@@ -11,7 +11,8 @@ public class DemoCounterEffect : CounterEffect
     }
 }
 
-public class DemoSleightOfHandEffect : SleightOfHandEffect
+public class DemoSleightOfHandEffect<T> : SleightOfHandEffect<T>
+    where T : GameState
 {
     public DemoSleightOfHandEffect(uint amountOfTurns)
         : base(amountOfTurns)
@@ -55,6 +56,14 @@ public class DemoSkipDrawingPhaseEffect : SkipDrawingPhaseEffect
 public class DemoDisposeEffect : DisposeEffect
 {
     public DemoDisposeEffect()
+        : base()
+    {
+    }
+}
+
+public class DemoDiscardRandomCardEffect : DiscardRandomCardEffect
+{
+    public DemoDiscardRandomCardEffect()
         : base()
     {
     }

@@ -39,9 +39,14 @@ public class IsDefending
 
             GameBoard.GetInstance().RemoveObserver(this.card);
             this.card.RemoveAllObservers();
-            
+
             this.card.State = new OnTheDisposedPile(this);
         }
         return (true, attackValueLeft);
+    }
+
+    public override void GoAttacking()
+    {
+        this.card.State = new IsAttacking(this);
     }
 }

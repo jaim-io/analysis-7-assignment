@@ -40,6 +40,11 @@ public class DemoEffectFactory : EffectFactory
             getPreDeterminedTargets);
     }
 
+    public override DiscardRandomCardEffect CreateDiscardRandomCardEffect()
+    {
+        return new DemoDiscardRandomCardEffect();
+    }
+
     public override DisposeEffect CreateDisposeEffect()
     {
         return new DemoDisposeEffect();
@@ -50,8 +55,8 @@ public class DemoEffectFactory : EffectFactory
         return new DemoSkipDrawingPhaseEffect(amountOfTurns);
     }
 
-    public override SleightOfHandEffect CreateSleightOfHandEffect(uint amountOfTurns)
+    public override SleightOfHandEffect<T> CreateSleightOfHandEffect<T>(uint amountOfTurns)
     {
-        return new DemoSleightOfHandEffect(amountOfTurns);
+        return new DemoSleightOfHandEffect<T>(amountOfTurns);
     }
 }

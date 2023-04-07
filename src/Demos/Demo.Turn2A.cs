@@ -39,7 +39,6 @@ public partial class Demo
         if (gb.PlayCard(player1, "red-creature-buff-spell"))
         {
             // Arnold is able to play the card and is prompted to turn the land with the given colours
-            Console.WriteLine("Arnold was able to play red-creature-buff-spell");
             gb.TapFromCard("red-land-3");
             gb.TapFromCard("red-land-4");
             gb.TapFromCard("red-land-5");

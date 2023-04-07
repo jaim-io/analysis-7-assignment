@@ -28,19 +28,19 @@ public class DrawingPhase : GameState
 
         if (skipDrawing)
         {
-            Console.WriteLine($"{currentPlayer.GetName()} skipped their drawing phase.");
+            Console.WriteLine($"[{currentPlayer.GetName()}] skipped their drawing phase.");
             return true;
         }
 
         var card = this.game.CurrentPlayer.DrawCard();
         if (card == null)
         {
-            Console.WriteLine($"{currentPlayer.GetName()} could not take card.");
+            Console.WriteLine($"[{currentPlayer.GetName()}] could not take card.");
             return false;
         }
         else
         {
-            Console.WriteLine($"{currentPlayer.GetName()} took card {card.GetId()} from deck into hand.");
+            Console.WriteLine($"[{currentPlayer.GetName()}] took card {card.GetId()} from deck into hand.");
             return true;
         }
     }

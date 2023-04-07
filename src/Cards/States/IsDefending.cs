@@ -26,7 +26,7 @@ public class IsDefending
         int defenseValue = this.card.GetDefenseValue();
         int attackValueLeft = iAttackValue - defenseValue;
         int defenseValueLeft = this.card.SubtractDefenseValue(iAttackValue);
-        Console.WriteLine($"Card '{this.card.GetId()}' with defense-value {defenseValue} absorbed attack-value {iAttackValue}. Attack value left: {attackValueLeft}");
+        Console.WriteLine($"[Defense]-[{this.card.GetId()}] With defense-value {defenseValue}, absorbed attack-value {iAttackValue}. Attack-value left: {attackValueLeft}.");
         if (defenseValueLeft <= 0)
         {
             var disposedEvent = new CardDisposedEvent(this.card);

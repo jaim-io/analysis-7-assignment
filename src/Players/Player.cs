@@ -129,7 +129,7 @@ public class Player : Entity
         int cnt = Support.CountCards<InTheHand>(this.Cards);
         if (cnt <= maxCards)
         {
-            Console.WriteLine($"{this.GetName()} trimmed 0 cards into discard pile.\n");
+            Console.WriteLine($"[{this.GetName()}] trimmed 0 cards into discard pile.\n");
             return;
         }
 

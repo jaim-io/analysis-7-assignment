@@ -45,7 +45,7 @@ public class MainPhase : GameState
             if (!dictEnergy.ContainsKey(colour.GetType()) ||
                (colour is not Colourless && colour.Cost > dictEnergy[colour.GetType()]))
             {
-                // not enough energy to perform attack
+                // not enough energy to perform play the card
                 Console.WriteLine($"[{player.GetName()}] Not enough {colour.Name} energy to play {card.GetId()}.");
                 return false;
             }
@@ -63,7 +63,7 @@ public class MainPhase : GameState
             energyLeft += amount;
         }
 
-        // check if there is enough energy left to perform the attack regardless of the colour
+        // check if there is enough energy left to play the card regardless of the colour
         Colour? colourless = card.Colours.Find(c => c is Colourless);
         if (colourless?.Cost > energyLeft)
         {
@@ -72,9 +72,10 @@ public class MainPhase : GameState
         }
         else if (colourless is not null)
         {
-            Console.WriteLine($"[System] Please turn over {colourless.Cost} {colourless.Name} land {(colourless.Cost == 1 ? "card" : "cards")}.");
+            Console.WriteLine($"[System] Please turn over {colourless.Cost} land {(colourless.Cost == 1 ? "card" : "cards")} of any colour ('Colourless').");
         }
 
+        Console.WriteLine($"[{player.GetName()}] Has enough matching lands on the board to play {card.GetId()} and plays {card.GetId()}");
         player.PlayCard(card);
 
         return true;

@@ -17,7 +17,7 @@ public class IsAttacking
 
     public override bool PeformAttack()
     {
-        Console.WriteLine($"{this.card.GetId()} Peforms attack.");
+        Console.WriteLine($"[Attack]-[{this.card.GetId()}] Peforms attack.");
 
         if (this.card is CreatureCard creature)
         {
@@ -36,6 +36,7 @@ public class IsAttacking
 
             if (!defended)
             {
+                Console.WriteLine($"[{gb.OpponentPlayer.GetName()}] Took {attackValue} damage, their life decreased from {gb.OpponentPlayer.GetHealthValue()} to {gb.OpponentPlayer.GetHealthValue() - attackValue}.");
                 gb.OpponentPlayer.DecreaseHealthValue(attackValue);
             }
 

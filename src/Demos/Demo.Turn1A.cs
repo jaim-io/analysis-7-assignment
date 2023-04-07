@@ -24,7 +24,6 @@ public partial class Demo
         if (gb.PlayCard(player1, "hidden-danger")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
         {
             // Arnold is able to play the card and is prompted to turn the land with the given colours
-            Console.WriteLine("Arnold was able to play Hidden Danger");
             gb.TapFromCard("red-land-1");
             gb.TapFromCard("red-land-2");
             gb.TapFromCard("red-land-3");

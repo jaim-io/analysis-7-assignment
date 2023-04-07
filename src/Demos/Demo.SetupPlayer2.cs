@@ -20,7 +20,7 @@ public partial class Demo
 
         var knownGame = CardFactory.CreateSpellCard("known-game", new() { ColourFactory.CreateColourless(4) });
         {
-            var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
+            var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect<MainPhase>(1);
             var disposeEffect = EffectFactory.CreateDisposeEffect();
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
                 name: "DealDamageToAllAttackingCards",
@@ -45,12 +45,17 @@ public partial class Demo
                 counterCard,
                 knownGame,
                 CardFactory.CreateLandCard("red-land-3", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("p2-red-land-1", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("p2-red-land-2", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("p2-blue-land-1", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("p2-blue-land-2", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("p2-blue-land-3", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateCreatureCard("p2-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
+                CardFactory.CreateSpellCard("random-1", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("random-2", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("random-3", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("random-4", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("random-5", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateCreatureCard("random-6", new() { ColourFactory.CreateRed(1) }, 2, 2),
+                CardFactory.CreateLandCard("red-land-1", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("red-land-2", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("blue-land-1", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("blue-land-2", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("blue-land-3", new() { ColourFactory.CreateBlue() }),
             });
 
         return player;

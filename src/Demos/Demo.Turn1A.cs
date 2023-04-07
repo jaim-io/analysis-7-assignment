@@ -18,8 +18,8 @@ public partial class Demo
 
         gb.ToMainPhase();
 
-        gb.PlayCard(player1, "blue-land-1");
-        gb.PlayCard(player1, "blue-land-2");
+        gb.PlayCard(player1, "red-land-6");
+        gb.PlayCard(player1, "red-land-7");
 
         if (gb.PlayCard(player1, "hidden-danger")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
         {
@@ -29,8 +29,8 @@ public partial class Demo
             gb.TapFromCard("red-land-2");
             gb.TapFromCard("red-land-3");
             gb.TapFromCard("red-land-4");
-            gb.TapFromCard("blue-land-1");
-            gb.TapFromCard("blue-land-2");
+            gb.TapFromCard("red-land-6");
+            gb.TapFromCard("red-land-7");
         }
 
         gb.EndTurn();
@@ -40,11 +40,3 @@ public partial class Demo
         return true;
     }
 }
-
-// gb.PlayCard(player1, "p1-red-creature-1");
-// gb.PlayCard(player1, "creature-buff-spell");
-// {
-//     var (creatureCard, _) = Support.FindCard(gb.Player1.GetCards(), "p1-red-creature-1");
-//     gb.ActivateEffect(player1, "creature-buff-spell", "BuffCreatureOneTurn", new() { creatureCard });
-//     gb.Stack.Resolve();
-// }

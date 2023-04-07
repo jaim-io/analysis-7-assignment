@@ -23,7 +23,7 @@ public partial class Demo
 
         var hiddenDanger = CardFactory.CreateSpellCard("hidden-danger", new() { ColourFactory.CreateRed(4), ColourFactory.CreateColourless(2) });
         {
-            var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect(1);
+            var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect<PreperationPhase>(1);
             var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect(1);
             var disposeEffect = EffectFactory.CreateDisposeEffect();
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
@@ -45,10 +45,20 @@ public partial class Demo
                 .BindEffect(disposeEffect);
         }
 
-        var buffCreatureCard = CardFactory.CreateSpellCard("creature-buff-spell", new() { ColourFactory.CreateRed() });
+        var buffCreatureCard = CardFactory.CreateSpellCard("red-creature-buff-spell", new() { ColourFactory.CreateRed(5) });
         {
             var buffCreatureEffect = EffectFactory.CreateBuffCreatureEffect("BuffCreatureOneTurn", string.Empty, 5, 3, 1);
-            buffCreatureCard.BindEffect(buffCreatureEffect);
+            var disposeEffect = EffectFactory.CreateDisposeEffect();
+            buffCreatureCard
+                .BindEffect(buffCreatureEffect)
+                .BindEffect(disposeEffect);
+        }
+
+        var redCreatureCard = CardFactory.CreateCreatureCard("red-creature-1", new() { ColourFactory.CreateRed(2) }, 2, 2);
+        {
+            var discardRandomCardEffect = EffectFactory.CreateDiscardRandomCardEffect();
+            redCreatureCard
+                .BindEffect(discardRandomCardEffect);
         }
 
         player.SetCards(
@@ -56,15 +66,22 @@ public partial class Demo
                 counterSpell,
                 hiddenDanger,
                 buffCreatureCard,
-                CardFactory.CreateCreatureCard("p1-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
-                CardFactory.CreateLandCard("blue-land-1", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("blue-land-2", new() { ColourFactory.CreateRed() }),
+                redCreatureCard,
+                CardFactory.CreateLandCard("red-land-6", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("red-land-7", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("blue-land-3", new() { ColourFactory.CreateBlue() }), // 7 cards at the start of 1A
                 CardFactory.CreateLandCard("blue-land-4", new() { ColourFactory.CreateBlue() }), // 8th card drawn at drawing phase of turn 1A
                 CardFactory.CreateLandCard("red-land-1", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("red-land-2", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("red-land-3", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateLandCard("red-land-4", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("red-land-5", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateSpellCard("random-1", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("random-2", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("random-3", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("random-4", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("random-5", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateCreatureCard("random-6", new() { ColourFactory.CreateRed(1) }, 2, 2),
             });
 
         return player;

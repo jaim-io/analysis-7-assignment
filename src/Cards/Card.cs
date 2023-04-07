@@ -66,7 +66,7 @@ public abstract class Card : Entity, IGameBoardObserver
     public virtual int GetDefenseValue() { throw new NotImplementedException(); }
     public virtual void ResetDefenceValue() { throw new NotImplementedException(); }
     public virtual void ModifyDefenceValue(int offset) { throw new NotImplementedException(); }
-    
+
     public virtual int SubtractDefenseValue(int value) { throw new NotImplementedException(); }
 
     public virtual int GetEnergyLevel() { throw new NotImplementedException(); }
@@ -115,9 +115,9 @@ public abstract class Card : Entity, IGameBoardObserver
 
 
     public void ActivateEffect(string name, List<Entity>? targets = null) => this.State.ActivateEffect(name, targets);
-
-    public void StartOfTurn(StartOfTurnEvent eventInfo) => this.State.OnStartTurn();
-    public void EndOfTurn(EndOfTurnEvent eventInfo) => this.State.OnEndTurn();
+    public void MainPhase(MainPhaseEvent eventInfo) { }
+    public void PreparationPhase(PreparationPhaseEvent eventInfo) => this.State.OnStartTurn();
+    public void EndPhase(EndPhaseEvent eventInfo) => this.State.OnEndTurn();
 
     public void TurnFaceUp() => this.State.TurnFaceUp();
 }

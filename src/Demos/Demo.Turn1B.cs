@@ -15,6 +15,8 @@ public partial class Demo
 
         Console.WriteLine("=== Turn 1B [Start]");
         if (!gb.StartTurn()) { return false; }
+
+        // |-> Hidden Danger is turned from face down to face up
         gb.ActivateEffect(player1, "hidden-danger", "Dispose");
         gb.ActivateEffect(player1, "hidden-danger", "SkipDrawingPhase", new() { gb.Player2 });
         gb.ActivateEffect(player1, "hidden-danger", "DealDamageToAllCards");

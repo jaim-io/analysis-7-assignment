@@ -42,7 +42,7 @@ public class BuffCreatureEffect : Effect
         });
     }
 
-    public override void EndOfTurn(EndOfTurnEvent eventInfo)
+    public override void EndPhase(EndPhaseEvent eventInfo)
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {
@@ -57,6 +57,7 @@ public class BuffCreatureEffect : Effect
                 }
             });
             this.Dispose();
+            this.Owner!.Dispose();
         }
     }
 

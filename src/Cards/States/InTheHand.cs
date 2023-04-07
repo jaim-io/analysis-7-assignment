@@ -56,9 +56,8 @@ public class InTheHand
         {
             if (e.Type is PreRevealEffect)
             {
-                e.Activate();
+                e.ActivateWithoutStack();
             }
-            GameBoard.GetInstance().Stack.Resolve();
         });
 
         if (this.card.State is InTheHand)

@@ -18,6 +18,8 @@ public class Active : EffectState
         {
             this.effect.Revert();
         }
+
+        this.effect.Owner!.RemoveObserver(this.effect);
         this.effect.State = new Used(this);
     }
 }

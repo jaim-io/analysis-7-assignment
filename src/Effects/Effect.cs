@@ -45,11 +45,18 @@ public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoar
         this._userInvokedTargets = targets ?? new();
         this.State.Activate();
     }
+
+    public void ActivateWithoutStack()
+    {
+        this.State.ActivateWithoutStack();
+    }
+
     public void Dispose() => this.State.Dispose();
 
     public virtual void Revert() { }
     public virtual void PlayerDied(PlayerDiedEvent eventInfo) { }
     public virtual void CardDisposed(CardDisposedEvent eventInfo) { }
-    public virtual void StartOfTurn(StartOfTurnEvent eventInfo) { }
-    public virtual void EndOfTurn(EndOfTurnEvent eventInfo) { }
+    public virtual void PreparationPhase(PreparationPhaseEvent eventInfo) { }
+    public virtual void MainPhase(MainPhaseEvent eventInfo) { }
+    public virtual void EndPhase(EndPhaseEvent eventInfo) { }
 }

@@ -19,7 +19,7 @@ public class GameBoard : Entity, IPlayerObserver
     public uint Turn { get; private set; }
     private bool _gameEnded;
     public TheStack Stack { get; init; }
-    private List<IGameBoardObserver> _observers = new();
+    public List<IGameBoardObserver> Observers { get; private set; } = new();
 
     private GameBoard()
     {
@@ -43,8 +43,8 @@ public class GameBoard : Entity, IPlayerObserver
     }
 
     public static void StartNew() => _instance = new();
-    public void AddObserver(IGameBoardObserver observer) => this._observers.Add(observer);
-    public void RemoveObserver(IGameBoardObserver observer) => this._observers.Remove(observer);
+    public void AddObserver(IGameBoardObserver observer) => this.Observers.Add(observer);
+    public void RemoveObserver(IGameBoardObserver observer) => this.Observers.Remove(observer);
     public void SetPlayers(Player player1, Player player2, Player currentTurnPlayer)
     {
         this.Player1 = player1;
@@ -89,10 +89,10 @@ public class GameBoard : Entity, IPlayerObserver
 
         this.State = new PreperationPhase(this);
 
-        var startOfTurnEvent = new StartOfTurnEvent(Turn);
+        var prepPhaseEvent = new PreparationPhaseEvent(Turn);
 
         // Deep clone _observers so observers are able to remove themself safely from the _observer list.
-        _observers
+        Observers
             .ConvertAll(o => o)
             .ForEach(o =>
             {
@@ -103,13 +103,13 @@ public class GameBoard : Entity, IPlayerObserver
                     {
                         if (c.GetId() == card.GetId())
                         {
-                            c.StartOfTurn(startOfTurnEvent);
+                            c.PreparationPhase(prepPhaseEvent);
                         }
                     });
                 }
                 else
                 {
-                    o.StartOfTurn(startOfTurnEvent);
+                    o.PreparationPhase(prepPhaseEvent);
                 }
             });
 
@@ -126,11 +126,6 @@ public class GameBoard : Entity, IPlayerObserver
     public void EndTurn()
     {
         this.State.ToEndPhase();
-        var endOfTurnEvent = new EndOfTurnEvent(Turn);
-        // Deep clone _observers so observers are able to remove themself safely from the _observer list.
-        _observers
-            .ConvertAll(o => o)
-            .ForEach(o => o.EndOfTurn(endOfTurnEvent));
     }
 
     public void PrepareNewTurn()
@@ -164,10 +159,12 @@ public class GameBoard : Entity, IPlayerObserver
         this.State.ActivateEffect(playerId, cardId, effectName, targets);
     }
 
-    public bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
+    public bool PeformAttack(string cardId, List<string>? opponentDefenseCardIds = null)
     {
-        return this.State.PeformAttack(cardId, opponentDefenseCardIds);
+        return this.State.PeformAttack(cardId, opponentDefenseCardIds ?? new());
     }
+
+    public void SetCardToAttacking(string cardId) => this.State.SetCardToAttacking(cardId);
 
     /* Tap Energry from a land-card currently on the board 
     Returns the energy-level tapped.*/

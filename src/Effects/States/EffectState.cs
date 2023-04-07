@@ -13,6 +13,7 @@ public abstract class EffectState
         this.effect = state.effect;
     }
     public virtual void Activate() { }
+    public virtual void ActivateWithoutStack() { }
     public virtual void Trigger() { }
     public virtual void Dispose() { }
 }

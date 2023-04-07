@@ -4,6 +4,7 @@ namespace TheCardGame.Games;
 
 public interface IGameBoardObserver
 {
-    void StartOfTurn(StartOfTurnEvent eventInfo);
-    void EndOfTurn(EndOfTurnEvent eventInfo);
+    void PreparationPhase(PreparationPhaseEvent eventInfo);
+    void MainPhase(MainPhaseEvent eventInfo);
+    void EndPhase(EndPhaseEvent eventInfo);
 }

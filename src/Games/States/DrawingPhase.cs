@@ -1,4 +1,5 @@
 using TheCardGame.Games;
+using TheCardGame.Games.Events;
 using TheCardGame.Players;
 using TheCardGame.Players.Constraints;
 
@@ -12,6 +13,12 @@ public class DrawingPhase : GameState
     public override void ToMainPhase()
     {
         this.game.State = new MainPhase(this.game);
+
+        var mainPhaseEvent = new MainPhaseEvent(this.game.Turn);
+        // Deep clone _observers so observers are able to remove themself safely from the _observer list.
+        this.game.Observers
+            .ConvertAll(o => o)
+            .ForEach(o => o.MainPhase(mainPhaseEvent));
     }
 
     public override bool TakeCard()

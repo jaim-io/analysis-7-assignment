@@ -3,6 +3,7 @@ using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
+using TheCardGame.Games.Events;
 using TheCardGame.Utils;
 
 public class MainPhase : GameState
@@ -15,6 +16,12 @@ public class MainPhase : GameState
     public override void ToEndPhase()
     {
         this.game.State = new EndingPhase(this.game);
+
+        var endPhaseEvent = new EndPhaseEvent(this.game.Turn);
+        // Deep clone _observers so observers are able to remove themself safely from the _observer list.
+        this.game.Observers
+            .ConvertAll(o => o)
+            .ForEach(o => o.EndPhase(endPhaseEvent));
     }
 
     public override bool PlayCard(Guid playerId, string cardId)
@@ -93,15 +100,27 @@ public class MainPhase : GameState
         }
 
         (Card card, int iPos) = Support.FindCard(game.CurrentPlayer.GetCards(), cardId);
-        CreatureCard? attackCard = card as CreatureCard;
-        if (attackCard is not null)
+        if (card is CreatureCard attackCard)
         {
-            attackCard.GoAttacking();
+            if (card.State is not IsAttacking)
+            {
+                return false;
+            }
+
             attackCard.PeformAttack();
             return true;
         }
         return false;
     }
+
+    public override void SetCardToAttacking(string cardId)
+    {
+        (Card card, int _) = Support.FindCard(game.CurrentPlayer.GetCards(), cardId);
+        CreatureCard? creatureCard = card as CreatureCard;
+        creatureCard?.GoAttacking();
+    }
+
+
     public override void TapFromCard(string cardId)
     {
         game.CurrentPlayer.GetCards().Find(c => c.GetId() == cardId)?.TapEnergy();

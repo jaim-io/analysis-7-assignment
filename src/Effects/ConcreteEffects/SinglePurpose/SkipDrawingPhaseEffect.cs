@@ -36,7 +36,7 @@ public class SkipDrawingPhaseEffect : Effect
         });
     }
 
-    public override void EndOfTurn(EndOfTurnEvent eventInfo)
+    public override void EndPhase(EndPhaseEvent eventInfo)
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {

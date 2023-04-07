@@ -7,10 +7,12 @@ using TheCardGame.Games.Events;
 
 namespace TheCardGame.Effects.ConcreteEffects.SinglePurpose;
 
-public abstract class SleightOfHandEffect : Effect
+public abstract class SleightOfHandEffect<T> : Effect
+    where T : GameState
 {
     private uint _startingTurn;
     private uint _amountOfTurns;
+    private Type _gameStateType;
     protected SleightOfHandEffect(
         uint amountOfTurns)
         : base(
@@ -21,6 +23,10 @@ public abstract class SleightOfHandEffect : Effect
             null)
     {
         this._amountOfTurns = amountOfTurns;
+        this._gameStateType =
+            typeof(T) == typeof(GameState)
+            ? throw new Exception("SleightOfHandEffect<T> cannot be used with GameState as T.")
+            : typeof(T);
     }
 
     public override void Trigger()
@@ -31,7 +37,23 @@ public abstract class SleightOfHandEffect : Effect
         Console.WriteLine($"[Sleight of Hand] turned {this.Owner!.GetId()} face down.");
     }
 
-    public override void StartOfTurn(StartOfTurnEvent eventInfo)
+    public override void PreparationPhase(PreparationPhaseEvent eventInfo)
+    {
+        if (this._gameStateType == typeof(PreperationPhase))
+        {
+            this.TurnCardFaceUp();
+        }
+    }
+
+    public override void MainPhase(MainPhaseEvent eventInfo)
+    {
+        if (this._gameStateType == typeof(MainPhase))
+        {
+            this.TurnCardFaceUp();
+        }
+    }
+
+    private void TurnCardFaceUp()
     {
         if (GameBoard.GetInstance().Turn >= this._startingTurn + this._amountOfTurns)
         {

@@ -1,4 +1,4 @@
 namespace TheCardGame.Games.Events;
 
-public record StartOfTurnEvent(
+public record PreparationPhaseEvent(
     uint TurnNumber);

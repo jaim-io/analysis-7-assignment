@@ -1,4 +1,4 @@
 namespace TheCardGame.Games.Events;
 
-public record EndOfTurnEvent(
+public record EndPhaseEvent(
     uint TurnNumber);

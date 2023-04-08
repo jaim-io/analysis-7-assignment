@@ -10,6 +10,7 @@ public class PreperationPhase : GameState
     public PreperationPhase(GameBoard game)
         : base(game)
     {
+        Console.WriteLine($"[GameState] changed to PreperationPhase");
     }
 
     public override void ToDrawingPhase()

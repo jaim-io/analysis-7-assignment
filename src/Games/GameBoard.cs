@@ -135,21 +135,6 @@ public class GameBoard : IPlayerObserver
         this.SwapPlayer();
     }
 
-    /* returns the current cards on the board for the specififed player */
-    public List<Card> GetCardsOnBoard(Player player)
-    {
-        List<Card> cards = new List<Card>();
-
-        if (player.GetName() == this.OpponentPlayer.GetName())
-        {
-            return Support.GetCardsCanBePlayed(this.OpponentPlayer.GetCards());
-        }
-        else
-        {
-            return Support.GetCardsCanBePlayed(this.CurrentPlayer.GetCards());
-        }
-    }
-
     public bool PlayCard(Guid playerId, string cardId)
     {
         return this.State.PlayCard(playerId, cardId);

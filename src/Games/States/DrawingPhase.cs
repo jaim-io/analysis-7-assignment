@@ -10,6 +10,7 @@ public class DrawingPhase : GameState
     public DrawingPhase(GameBoard game)
         : base(game)
     {
+        Console.WriteLine($"[GameState] changed to DrawingPhase");
     }
 
     public override void ToMainPhase()

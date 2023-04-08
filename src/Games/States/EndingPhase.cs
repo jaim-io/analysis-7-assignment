@@ -7,6 +7,7 @@ public class EndingPhase : GameState
     public EndingPhase(GameBoard game)
         : base(game)
     {
+        Console.WriteLine($"[GameState] changed to EndingPhase");
     }
 
     public override void ToPrepPhase()

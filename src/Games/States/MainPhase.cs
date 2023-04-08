@@ -13,6 +13,7 @@ public class MainPhase : GameState
     public MainPhase(GameBoard game)
         : base(game)
     {
+        Console.WriteLine($"[GameState] changed to MainPhase");
     }
 
     public override void ToEndPhase()

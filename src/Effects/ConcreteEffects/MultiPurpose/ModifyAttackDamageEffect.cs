@@ -32,6 +32,7 @@ public class ModifyAttackDamageEffect : Effect
     {
         Console.WriteLine($"[ModifyAttackDamage] has been activated for the current player. >>(In the demo this halves creature damage)<<");
 
+        GameBoard.GetInstance().AddObserver(this);
         GameBoard.GetInstance().CurrentPlayer.GetCards().ForEach(card =>
         {
             if (card is CreatureCard creature && _creatureTypes.Contains(creature.State.GetType()))

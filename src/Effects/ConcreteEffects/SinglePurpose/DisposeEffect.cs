@@ -9,9 +9,10 @@ public class DisposeEffect : Effect
     {
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
         this.Owner!.Dispose();
         this.Dispose();
+        Console.WriteLine($"[Dispose] {this.Owner!.GetId()} has been disposed.");
     }
 }

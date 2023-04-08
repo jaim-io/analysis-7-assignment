@@ -28,8 +28,10 @@ public class ModifyAttackDamageEffect : Effect
         this._creatureTypes = creatureStates;
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
+        Console.WriteLine($"[ModifyAttackDamage] has been activated for the current player. >>(In the demo this halves creature damage)<<");
+
         GameBoard.GetInstance().CurrentPlayer.GetCards().ForEach(card =>
         {
             if (card is CreatureCard creature && _creatureTypes.Contains(creature.State.GetType()))
@@ -41,6 +43,8 @@ public class ModifyAttackDamageEffect : Effect
 
     public override void PreparationPhase(PreparationPhaseEvent eventInfo)
     {
+        Console.WriteLine($"[ModifyAttackDamage] has been activated for the current player. >>(In the demo this halves creature damage)<<");
+
         GameBoard.GetInstance().CurrentPlayer.GetCards().ForEach(card =>
         {
             if (card is CreatureCard creature && _creatureTypes.Contains(creature.State.GetType()))
@@ -52,6 +56,8 @@ public class ModifyAttackDamageEffect : Effect
 
     public override void EndPhase(EndPhaseEvent eventInfo)
     {
+        Console.WriteLine($"[ModifyAttackDamage] has been reset for the current player. >>(In the demo this halves creature damage)<<");
+
         GameBoard.GetInstance().CurrentPlayer.GetCards().ForEach(card =>
         {
             if (card is CreatureCard creature && _creatureTypes.Contains(creature.State.GetType()))

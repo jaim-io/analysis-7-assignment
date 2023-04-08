@@ -30,7 +30,7 @@ public abstract class SleightOfHandEffect<T> : Effect
             : typeof(T);
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
         this._startingTurn = GameBoard.GetInstance().Turn;
         GameBoard.GetInstance().AddObserver(this);

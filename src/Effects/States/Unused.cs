@@ -23,7 +23,7 @@ public class Unused : EffectState
     public override void ActivateWithoutStack()
     {
         this.effect.State = new Active(this);
-        this.effect.Trigger();
+        this.effect.Apply();
     }
 
     public override void Dispose()

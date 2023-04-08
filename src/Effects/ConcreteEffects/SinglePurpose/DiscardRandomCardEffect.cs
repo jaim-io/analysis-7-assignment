@@ -15,7 +15,7 @@ public class DiscardRandomCardEffect : Effect
     {
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
         var randomCard = GameBoard.GetInstance().OpponentPlayer.DiscardRandomCard();
         if (randomCard == null)

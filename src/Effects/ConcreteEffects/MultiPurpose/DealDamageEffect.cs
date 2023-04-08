@@ -19,7 +19,7 @@ public class DealDamageEffect : Effect
         this.Damage = damage;
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
         var preDeterminedTargets = this._getPreDeterminedTargets();
         var targets = this._userInvokedTargets.Concat(preDeterminedTargets);

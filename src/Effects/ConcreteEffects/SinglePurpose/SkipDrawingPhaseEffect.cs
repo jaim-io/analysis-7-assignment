@@ -21,7 +21,8 @@ public class SkipDrawingPhaseEffect : Effect
         this._amountOfTurns = amountOfTurns - 1;
     }
 
-    public override void Trigger()
+    
+    public override void Apply()
     {
         this._startingTurn = GameBoard.GetInstance().Turn;
 

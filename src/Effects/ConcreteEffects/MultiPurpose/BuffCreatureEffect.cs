@@ -26,7 +26,7 @@ public class BuffCreatureEffect : Effect
         this._amountOfTurns = amountOfTurns - 1;
     }
 
-    public override void Trigger()
+    public override void Apply()
     {
         GameBoard.GetInstance().AddObserver(this);
         this._startingTurn = GameBoard.GetInstance().Turn;
@@ -36,8 +36,13 @@ public class BuffCreatureEffect : Effect
             if (entity is CreatureCard creature)
             {
                 creature.AddObserver(this);
+
+                var (preBuffAttack, preBuffDefense) = (creature.GetAttackValue(), creature.GetDefenseValue());
                 creature.ModifyAttackValue((x) => x + this._attackOffset);
                 creature.ModifyDefenceValue((x) => x + this._defenseOffset);
+                var (postBuffAttack, postBuffDefense) = (creature.GetAttackValue(), creature.GetDefenseValue());
+
+                Console.WriteLine($"[CreatureBuff] {creature.GetId()} has been buffed from {preBuffAttack}-{preBuffDefense} to {postBuffAttack}-{postBuffDefense}");
             }
         });
     }
@@ -54,6 +59,8 @@ public class BuffCreatureEffect : Effect
                     creature.RemoveObserver(this);
                     creature.ResetAttackValue();
                     creature.ResetDefenceValue();
+                    var (defaultAttack, defaultDefense) = (creature.GetAttackValue(), creature.GetDefenseValue());
+                    Console.WriteLine($"[CreatureBuff] {creature.GetId()} has been reset to {defaultAttack}-{defaultDefense}");
                 }
             });
             this.Dispose();
@@ -71,6 +78,8 @@ public class BuffCreatureEffect : Effect
                 creature.RemoveObserver(this);
                 creature.ResetAttackValue();
                 creature.ResetDefenceValue();
+                var (defaultAttack, defaultDefense) = (creature.GetAttackValue(), creature.GetDefenseValue());
+                Console.WriteLine($"[CreatureBuff] {creature.GetId()} has been reset to {defaultAttack}-{defaultDefense}");
             }
         });
         this.Dispose();

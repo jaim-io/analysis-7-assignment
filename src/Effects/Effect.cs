@@ -38,7 +38,8 @@ public abstract class Effect : ICardObserver, IGameBoardObserver
         this._getPreDeterminedTargets = getPreDeterminedTargets ?? (() => new List<Entity>());
     }
 
-    public abstract void Trigger();
+    public void Trigger() => this.State.Trigger();
+    public abstract void Apply();
 
     public void Activate(List<Entity>? targets = null)
     {

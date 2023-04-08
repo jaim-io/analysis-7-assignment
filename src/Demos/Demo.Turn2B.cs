@@ -27,7 +27,7 @@ public partial class Demo
             gb.TapFromCard("blue-land-1");
 
             gb.ActivateEffect(player2, "artefact-1", "DelayedDispose");
-            gb.ActivateEffect(player2, "artefact-1", "SkipDrawPhase");
+            gb.ActivateEffect(player2, "artefact-1", "SkipDrawingPhase", new() { gb.Player1 });
             gb.ActivateEffect(player2, "artefact-1", "AllCreaturesDealHalfDamage");
             gb.Stack.Resolve();
         }
@@ -35,7 +35,6 @@ public partial class Demo
         if (gb.PlayCard(player2, "red-damage-spell-1"))
         {
             gb.TapFromCard("red-land-2");
-            gb.TapFromCard("red-land-3");
 
             var (creature, _) = Support.FindCard(gb.Player1.GetCards(), "red-creature-1");
             gb.ActivateEffect(player2, "red-damage-spell-1", "Dispose");

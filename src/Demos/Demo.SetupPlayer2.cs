@@ -63,7 +63,7 @@ public partial class Demo
                 .BindEffect(delayedDisposeEffect);
         }
 
-        var redDamageSpell = CardFactory.CreateSpellCard("red-damage-spell-1", new() { ColourFactory.CreateRed(2) });
+        var redDamageSpell = CardFactory.CreateSpellCard("red-damage-spell-1", new() { ColourFactory.CreateRed(1) });
         {
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
                 name: "DealDamage",

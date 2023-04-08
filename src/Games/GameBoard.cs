@@ -193,8 +193,8 @@ public class GameBoard : Entity, IPlayerObserver
         Console.WriteLine("\n==== Current situation");
 
         Console.WriteLine($"Current turn-player: {this.CurrentPlayer.GetName()}, Turn: {this.Turn}");
+        Console.WriteLine("------------------------------------");
         Console.WriteLine($"Player {this.Player1.GetName()}: Health: {this.Player1.GetHealthValue()}");
-        Console.WriteLine($"Player {this.Player2.GetName()}: Health: {this.Player2.GetHealthValue()}");
 
         List<Card> cards_player1 = this.Player1.GetCards();
         Console.WriteLine($"Player {this.Player1.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player1) + Support.CountCards<OnTheBoardFaceDown>(cards_player1) + Support.CountCards<IsTapped>(cards_player1)}/{Support.CountCards<InTheDeck>(cards_player1)}/{Support.CountCards<InTheHand>(cards_player1)}/{Support.CountCards<OnTheDisposedPile>(cards_player1)}");
@@ -210,6 +210,7 @@ public class GameBoard : Entity, IPlayerObserver
         Console.WriteLine("------------------------------------");
 
         List<Card> cards_player2 = this.Player2.GetCards();
+        Console.WriteLine($"Player {this.Player2.GetName()}: Health: {this.Player2.GetHealthValue()}");
         Console.WriteLine($"Player {this.Player2.GetName()}: (ontheboard/indeck/inhand/indiscard-pile) {Support.CountCards<OnTheBoardFaceUp>(cards_player2) + Support.CountCards<OnTheBoardFaceDown>(cards_player2) + Support.CountCards<IsTapped>(cards_player2)}/{Support.CountCards<InTheDeck>(cards_player2)}/{Support.CountCards<InTheHand>(cards_player2)}/{Support.CountCards<OnTheDisposedPile>(cards_player2)}");
         Console.WriteLine($"Player {this.Player2.GetName()} on the board: {{");
         Console.WriteLine($"\t Face-Up: " + Support.CardIdsHumanFormatted<OnTheBoardFaceUp>(cards_player2));

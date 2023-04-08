@@ -53,9 +53,8 @@ public partial class Demo
                     typeof(IsTapped),
                     typeof(IsAttacking),
                     typeof(IsDefending),
-                    typeof(InTheHand)
-                }
-            );
+                    typeof(InTheHand),
+                });
             var delayedDisposeEffect = EffectFactory.CreateDelayedDisposeEffect<PreperationPhase>(player.Id);
 
             artefact
@@ -64,11 +63,25 @@ public partial class Demo
                 .BindEffect(delayedDisposeEffect);
         }
 
+        var redDamageSpell = CardFactory.CreateSpellCard("red-damage-spell-1", new() { ColourFactory.CreateRed(2) });
+        {
+            var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
+                name: "DealDamage",
+                description: string.Empty,
+                damage: 3);
+            var disposeEffect = EffectFactory.CreateDisposeEffect();
+
+            redDamageSpell
+                .BindEffect(dealDamageEffect)
+                .BindEffect(disposeEffect);
+        }
+
         player.SetCards(
             cards: new() {
                 counterCard,
                 knownGame,
                 artefact,
+                redDamageSpell,
                 CardFactory.CreateLandCard("red-land-3", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateSpellCard("random-1", new() { ColourFactory.CreateRed(1) }),
                 CardFactory.CreateSpellCard("random-2", new() { ColourFactory.CreateRed(1) }),

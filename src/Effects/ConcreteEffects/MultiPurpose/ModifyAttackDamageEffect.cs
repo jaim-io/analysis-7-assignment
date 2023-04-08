@@ -10,7 +10,6 @@ namespace TheCardGame.Effects.ConcreteEffects.MultiPurpose;
 
 public class ModifyAttackDamageEffect : Effect
 {
-
     private List<Type> _creatureTypes;
     private Func<int, int> _attackModifier;
 

@@ -50,8 +50,8 @@ public abstract class CreatureCard
     public override int GetAttackValue() => this._attackValue;
     public override int GetDefenseValue() => this._defenseValue;
 
-    public override void ModifyAttackValue(Func<int,int> modifier) => this._attackValue = modifier(this._attackValue);
-    public override void ModifyDefenceValue(Func<int,int> modifier) => this._defenseValue = modifier(this._defenseValue);
+    public override void ModifyAttackValue(Func<int, int> modifier) => this._attackValue = modifier(this._attackValue);
+    public override void ModifyDefenceValue(Func<int, int> modifier) => this._defenseValue = modifier(this._defenseValue);
 
     public override void ResetAttackValue() => this._attackValue = this._actualAttackValue;
     public override void ResetDefenceValue() => this._defenseValue = this._actualDefenseValue;

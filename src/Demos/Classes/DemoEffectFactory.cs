@@ -31,7 +31,7 @@ public class DemoEffectFactory : EffectFactory
         string name,
         string description,
         uint damage,
-        Func<List<Entity>>? getPreDeterminedTargets)
+        Func<List<Entity>>? getPreDeterminedTargets = null)
     {
         return new DemoDealDamageEffect(
             name,

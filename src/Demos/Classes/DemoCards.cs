@@ -38,3 +38,16 @@ public class DemoCreatureCard
     {
     }
 }
+
+
+public class DemoArtefactCard
+    : ArtefactCard
+{
+    public DemoArtefactCard(
+        string cardId,
+        int cost,
+        List<Effect>? effects = null) 
+        : base(cardId, cost, effects)
+    {
+    }
+}

@@ -13,7 +13,7 @@ public abstract class LandCard
     {
         if (colours.Count != 1)
         {
-            throw new ArgumentException("Land cards can only have one colour.");
+            throw new ArgumentException("Land cards should have one colour, no more, no less.");
         }
     }
 

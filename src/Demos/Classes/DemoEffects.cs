@@ -1,6 +1,8 @@
 using TheCardGame.Common.Models;
 using TheCardGame.Effects.ConcreteEffects.MultiPurpose;
 using TheCardGame.Effects.ConcreteEffects.SinglePurpose;
+using TheCardGame.Effects.Types;
+using TheCardGame.Games.States;
 
 namespace TheCardGame.Demos;
 
@@ -65,6 +67,26 @@ public class DemoDiscardRandomCardEffect : DiscardRandomCardEffect
 {
     public DemoDiscardRandomCardEffect()
         : base()
+    {
+    }
+}
+
+public class DemoModifyAttackDamageEffect : ModifyAttackDamageEffect
+{
+    public DemoModifyAttackDamageEffect(
+        string name,
+        Func<int, int> attackModifier,
+        List<Type> creatureStates) 
+        : base(name, attackModifier, creatureStates)
+    {
+    }
+}
+
+public class DemoDelayedDisposeEffect<T> : DelayedDisposeEffect<T>
+    where T : GameState
+{
+    public DemoDelayedDisposeEffect(Guid playerId)
+        : base(playerId)
     {
     }
 }

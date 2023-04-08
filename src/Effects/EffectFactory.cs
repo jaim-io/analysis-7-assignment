@@ -1,6 +1,7 @@
 using TheCardGame.Common.Models;
 using TheCardGame.Effects.ConcreteEffects.MultiPurpose;
 using TheCardGame.Effects.ConcreteEffects.SinglePurpose;
+using TheCardGame.Games.States;
 
 namespace TheCardGame.Effects;
 
@@ -14,4 +15,7 @@ public abstract class EffectFactory
     public abstract SkipDrawingPhaseEffect CreateSkipDrawingPhaseEffect(uint amountOfTurns);
     public abstract DisposeEffect CreateDisposeEffect();
     public abstract DiscardRandomCardEffect CreateDiscardRandomCardEffect();
+    public abstract ModifyAttackDamageEffect CreateModifyAttackDamageEffect(string name, Func<int, int> attackModifier, List<Type> creatureStates);
+    public abstract DelayedDisposeEffect<T> CreateDelayedDisposeEffect<T>(Guid playerId)
+        where T : GameState;
 }

@@ -40,6 +40,11 @@ public class DemoEffectFactory : EffectFactory
             getPreDeterminedTargets);
     }
 
+    public override DelayedDisposeEffect<T> CreateDelayedDisposeEffect<T>(Guid playerId)
+    {
+        return new DemoDelayedDisposeEffect<T>(playerId);
+    }
+
     public override DiscardRandomCardEffect CreateDiscardRandomCardEffect()
     {
         return new DemoDiscardRandomCardEffect();
@@ -48,6 +53,11 @@ public class DemoEffectFactory : EffectFactory
     public override DisposeEffect CreateDisposeEffect()
     {
         return new DemoDisposeEffect();
+    }
+
+    public override ModifyAttackDamageEffect CreateModifyAttackDamageEffect(string name, Func<int, int> attackModifier, List<Type> creatureStates)
+    {
+        return new ModifyAttackDamageEffect(name, attackModifier, creatureStates);
     }
 
     public override SkipDrawingPhaseEffect CreateSkipDrawingPhaseEffect(uint amountOfTurns)

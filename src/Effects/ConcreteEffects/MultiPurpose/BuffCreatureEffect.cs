@@ -36,8 +36,8 @@ public class BuffCreatureEffect : Effect
             if (entity is CreatureCard creature)
             {
                 creature.AddObserver(this);
-                creature.ModifyAttackValue(this._attackOffset);
-                creature.ModifyDefenceValue(this._defenseOffset);
+                creature.ModifyAttackValue((x) => x + this._attackOffset);
+                creature.ModifyDefenceValue((x) => x + this._defenseOffset);
             }
         });
     }

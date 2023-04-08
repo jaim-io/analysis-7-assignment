@@ -61,11 +61,11 @@ public abstract class Card : Entity, IGameBoardObserver
 
     public virtual int GetAttackValue() { throw new NotImplementedException(); }
     public virtual void ResetAttackValue() { throw new NotImplementedException(); }
-    public virtual void ModifyAttackValue(int offset) { throw new NotImplementedException(); }
+    public virtual void ModifyAttackValue(Func<int, int> modifier) { throw new NotImplementedException(); }
 
     public virtual int GetDefenseValue() { throw new NotImplementedException(); }
     public virtual void ResetDefenceValue() { throw new NotImplementedException(); }
-    public virtual void ModifyDefenceValue(int offset) { throw new NotImplementedException(); }
+    public virtual void ModifyDefenceValue(Func<int, int> modifier) { throw new NotImplementedException(); }
 
     public virtual int SubtractDefenseValue(int value) { throw new NotImplementedException(); }
 

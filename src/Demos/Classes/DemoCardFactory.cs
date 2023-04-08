@@ -21,4 +21,7 @@ public class DemoCardFactory : CardFactory
         int attackValue,
         int defenseValue,
         List<Effect>? effects = null) => new DemoCreatureCard(cardId, colours, attackValue, defenseValue, effects);
+
+    public override ArtefactCard CreateArtefactCard(string cardId, int cost, List<Effect>? effects = null)
+        => new DemoArtefactCard(cardId, cost, effects);
 }

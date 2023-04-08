@@ -20,9 +20,9 @@ public partial class Demo
 
         gb.ToMainPhase();
 
-
         if (gb.PlayCard(player2, "artefact-1"))
         {
+            // Bryce is able to play the card and is prompted to turn the lands with the specified colours   
             gb.TapFromCard("red-land-1");
             gb.TapFromCard("blue-land-1");
 
@@ -34,6 +34,7 @@ public partial class Demo
 
         if (gb.PlayCard(player2, "red-damage-spell-1"))
         {
+            // Bryce is able to play the card and is prompted to turn the land with the specified colour   
             gb.TapFromCard("red-land-2");
 
             var (creature, _) = Support.FindCard(gb.Player1.GetCards(), "red-creature-1");

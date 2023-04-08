@@ -1,5 +1,4 @@
-﻿using TheCardGame.Cards.Colours;
-using TheCardGame.Demos;
+﻿using TheCardGame.Demos;
 using TheCardGame.Games;
 
 var gb = GameBoard.GetInstance();

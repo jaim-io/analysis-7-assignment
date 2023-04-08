@@ -9,7 +9,7 @@ using TheCardGame.Utils;
 
 namespace TheCardGame.Games;
 
-public class GameBoard : Entity, IPlayerObserver
+public class GameBoard : IPlayerObserver
 {
     private static GameBoard? _instance;
     public Player CurrentPlayer { get; private set; }

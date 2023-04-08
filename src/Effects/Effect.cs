@@ -10,7 +10,7 @@ using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 
-public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoardObserver
+public abstract class Effect : ICardObserver, IGameBoardObserver
 {
     protected List<Entity> _userInvokedTargets = new();
     protected Func<List<Entity>> _getPreDeterminedTargets;
@@ -54,7 +54,6 @@ public abstract class Effect : Entity, IPlayerObserver, ICardObserver, IGameBoar
     public void Dispose() => this.State.Dispose();
 
     public virtual void Revert() { }
-    public virtual void PlayerDied(PlayerDiedEvent eventInfo) { }
     public virtual void CardDisposed(CardDisposedEvent eventInfo) { }
     public virtual void PreparationPhase(PreparationPhaseEvent eventInfo) { }
     public virtual void MainPhase(MainPhaseEvent eventInfo) { }

@@ -38,7 +38,7 @@ public partial class Demo
         gb.ActivateEffect(player2, "known-game", "DealDamageToAllAttackingCards");
         if (gb.PlayCard(player1, "red-creature-buff-spell"))
         {
-            // Arnold is able to play the card and is prompted to turn the land with the given colours
+            // Arnold is able to play the card and is prompted to turn the lands with the specified colours
             gb.TapFromCard("red-land-3");
             gb.TapFromCard("red-land-4");
             gb.TapFromCard("red-land-5");

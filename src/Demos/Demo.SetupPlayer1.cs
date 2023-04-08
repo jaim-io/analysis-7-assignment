@@ -1,6 +1,7 @@
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
+using TheCardGame.Games.States;
 using TheCardGame.Players;
 
 namespace TheCardGame.Demos;

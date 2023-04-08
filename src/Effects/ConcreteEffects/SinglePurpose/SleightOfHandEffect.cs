@@ -4,6 +4,7 @@ using TheCardGame.Effects.States;
 using TheCardGame.Effects.Types;
 using TheCardGame.Games;
 using TheCardGame.Games.Events;
+using TheCardGame.Games.States;
 
 namespace TheCardGame.Effects.ConcreteEffects.SinglePurpose;
 

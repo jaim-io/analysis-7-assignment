@@ -2,6 +2,7 @@ using TheCardGame.Cards.Colours;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
+using TheCardGame.Games.States;
 using TheCardGame.Players;
 
 namespace TheCardGame.Demos;
@@ -40,10 +41,34 @@ public partial class Demo
                 .BindEffect(disposeEffect);
         }
 
+        var artefact = CardFactory.CreateArtefactCard("artefact-1", 2);
+        {
+            var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect(1);
+            var allCreaturesDealHalfDamageEffect = EffectFactory.CreateModifyAttackDamageEffect(
+                name: "AllCreaturesDealHalfDamage",
+                attackModifier: (attack) => attack / 2,
+                creatureStates: new() {
+                    typeof(OnTheBoardFaceUp),
+                    typeof(OnTheBoardFaceDown),
+                    typeof(IsTapped),
+                    typeof(IsAttacking),
+                    typeof(IsDefending),
+                    typeof(InTheHand)
+                }
+            );
+            var delayedDisposeEffect = EffectFactory.CreateDelayedDisposeEffect<PreperationPhase>(player.Id);
+
+            artefact
+                .BindEffect(skipDrawingPhaseEffect)
+                .BindEffect(allCreaturesDealHalfDamageEffect)
+                .BindEffect(delayedDisposeEffect);
+        }
+
         player.SetCards(
             cards: new() {
                 counterCard,
                 knownGame,
+                artefact,
                 CardFactory.CreateLandCard("red-land-3", new() { ColourFactory.CreateRed() }),
                 CardFactory.CreateSpellCard("random-1", new() { ColourFactory.CreateRed(1) }),
                 CardFactory.CreateSpellCard("random-2", new() { ColourFactory.CreateRed(1) }),

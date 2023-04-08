@@ -2,6 +2,8 @@ using TheCardGame.Cards;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;
 
+namespace TheCardGame.Games.States;
+
 public abstract class GameState
 {
     protected GameBoard game;

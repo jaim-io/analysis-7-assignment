@@ -3,6 +3,8 @@ using TheCardGame.Common.Models;
 using TheCardGame.Games;
 using TheCardGame.Utils;
 
+namespace TheCardGame.Games.States;
+
 public class PreperationPhase : GameState
 {
     public PreperationPhase(GameBoard game)

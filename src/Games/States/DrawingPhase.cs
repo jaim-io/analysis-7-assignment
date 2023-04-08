@@ -3,6 +3,8 @@ using TheCardGame.Games.Events;
 using TheCardGame.Players;
 using TheCardGame.Players.Constraints;
 
+namespace TheCardGame.Games.States;
+
 public class DrawingPhase : GameState
 {
     public DrawingPhase(GameBoard game)
@@ -14,7 +16,7 @@ public class DrawingPhase : GameState
     {
         this.game.State = new MainPhase(this.game);
 
-        var mainPhaseEvent = new MainPhaseEvent(this.game.Turn);
+        var mainPhaseEvent = new MainPhaseEvent(this.game.Turn, this.game.CurrentPlayer.Id);
         // Deep clone _observers so observers are able to remove themself safely from the _observer list.
         this.game.Observers
             .ConvertAll(o => o)

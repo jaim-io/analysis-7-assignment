@@ -6,6 +6,8 @@ using TheCardGame.Games;
 using TheCardGame.Games.Events;
 using TheCardGame.Utils;
 
+namespace TheCardGame.Games.States;
+
 public class MainPhase : GameState
 {
     public MainPhase(GameBoard game)
@@ -17,7 +19,7 @@ public class MainPhase : GameState
     {
         this.game.State = new EndingPhase(this.game);
 
-        var endPhaseEvent = new EndPhaseEvent(this.game.Turn);
+        var endPhaseEvent = new EndPhaseEvent(this.game.Turn, this.game.CurrentPlayer.Id);
         // Deep clone _observers so observers are able to remove themself safely from the _observer list.
         this.game.Observers
             .ConvertAll(o => o)

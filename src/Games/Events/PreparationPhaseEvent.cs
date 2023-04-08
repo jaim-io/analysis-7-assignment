@@ -1,4 +1,5 @@
 namespace TheCardGame.Games.Events;
 
 public record PreparationPhaseEvent(
-    uint TurnNumber);
+    uint TurnNumber,
+    Guid PlayerId);

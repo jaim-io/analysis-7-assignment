@@ -2,6 +2,7 @@ using TheCardGame.Cards;
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games.Events;
+using TheCardGame.Games.States;
 using TheCardGame.Players;
 using TheCardGame.Players.Events;
 using TheCardGame.Utils;
@@ -89,7 +90,7 @@ public class GameBoard : Entity, IPlayerObserver
 
         this.State = new PreperationPhase(this);
 
-        var prepPhaseEvent = new PreparationPhaseEvent(Turn);
+        var prepPhaseEvent = new PreparationPhaseEvent(Turn, this.CurrentPlayer.Id);
 
         // Deep clone _observers so observers are able to remove themself safely from the _observer list.
         Observers

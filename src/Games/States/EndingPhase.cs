@@ -1,5 +1,7 @@
 using TheCardGame.Games;
 
+namespace TheCardGame.Games.States;
+
 public class EndingPhase : GameState
 {
     public EndingPhase(GameBoard game)

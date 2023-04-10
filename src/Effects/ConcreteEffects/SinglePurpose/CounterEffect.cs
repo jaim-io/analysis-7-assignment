@@ -10,7 +10,6 @@ public abstract class CounterEffect : Effect
             new OnRevealEffect(), 
             "Counter", 
             "Counters an effect the opponent triggered.", 
-            null, 
             null)
     {
     }

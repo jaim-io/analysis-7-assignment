@@ -5,7 +5,7 @@ namespace TheCardGame.Effects.ConcreteEffects.SinglePurpose;
 public class DisposeEffect : Effect
 {
     public DisposeEffect()
-        : base(new OnRevealEffect(), "Dispose", "Disposes the owner of this effect (card)", null, null)
+        : base(new OnRevealEffect(), "Dispose", "Disposes the owner of this effect (card)", null)
     {
     }
 

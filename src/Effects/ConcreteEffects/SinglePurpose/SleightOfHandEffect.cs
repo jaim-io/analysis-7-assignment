@@ -20,7 +20,6 @@ public abstract class SleightOfHandEffect<T> : Effect
             new PreRevealEffect(),
             "SleightOfHand",
             $"This effect will place the owner of the effect (the card) face down on the board, and will turn the owner face up after {amountOfTurns} {(amountOfTurns > 1 ? "Turns" : "Turn")}",
-            null,
             null)
     {
         this._amountOfTurns = amountOfTurns;

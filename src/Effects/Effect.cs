@@ -16,7 +16,6 @@ public abstract class Effect : ICardObserver, IGameBoardObserver
     protected Func<List<Entity>> _getPreDeterminedTargets;
     public Card? Owner { get; set; } = null;
     public Guid Id { get; init; }
-    public Func<bool>? Duration { get; init; }
     public string Name { get; init; }
     public string Description { get; init; }
     public EffectType Type { get; init; }
@@ -26,15 +25,13 @@ public abstract class Effect : ICardObserver, IGameBoardObserver
         EffectType type,
         string name,
         string description,
-        Func<List<Entity>>? getPreDeterminedTargets = null,
-        Func<bool>? duration = null)
+        Func<List<Entity>>? getPreDeterminedTargets = null)
     {
         Id = Guid.NewGuid();
         Type = type;
         Name = name;
         Description = description;
         State = new Unused(this);
-        Duration = duration;
         this._getPreDeterminedTargets = getPreDeterminedTargets ?? (() => new List<Entity>());
     }
 
@@ -54,7 +51,6 @@ public abstract class Effect : ICardObserver, IGameBoardObserver
 
     public void Dispose() => this.State.Dispose();
 
-    public virtual void Revert() { }
     public virtual void CardDisposed(CardDisposedEvent eventInfo) { }
     public virtual void PreparationPhase(PreparationPhaseEvent eventInfo) { }
     public virtual void MainPhase(MainPhaseEvent eventInfo) { }

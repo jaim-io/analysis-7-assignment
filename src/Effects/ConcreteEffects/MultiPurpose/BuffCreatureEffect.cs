@@ -19,7 +19,7 @@ public class BuffCreatureEffect : Effect
         int attackOffset,
         int defenseOffset,
         uint amountOfTurns)
-        : base(new OnRevealEffect(), name, description, null, null)
+        : base(new OnRevealEffect(), name, description, null)
     {
         this._attackOffset = attackOffset;
         this._defenseOffset = defenseOffset;

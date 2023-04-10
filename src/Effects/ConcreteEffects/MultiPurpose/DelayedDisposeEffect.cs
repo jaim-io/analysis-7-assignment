@@ -11,7 +11,7 @@ public class DelayedDisposeEffect<T> : Effect
     private readonly Guid _playerId;
     private readonly Type _gameStateType;
     public DelayedDisposeEffect(Guid playerId)
-        : base(new OnRevealEffect(), "DelayedDispose", "Disposes the owner of this effect (card) on the given phase <T>", null, null)
+        : base(new OnRevealEffect(), "DelayedDispose", "Disposes the owner of this effect (card) on the given phase <T>", null)
     {
         this._playerId = playerId;
         this._gameStateType = typeof(T) == typeof(GameState)

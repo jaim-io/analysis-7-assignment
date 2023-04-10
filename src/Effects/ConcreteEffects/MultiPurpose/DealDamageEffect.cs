@@ -14,7 +14,7 @@ public class DealDamageEffect : Effect
         string description,
         uint damage,
         Func<List<Entity>>? getPreDeterminedTargets = null)
-        : base(new OnRevealEffect(), name, description, getPreDeterminedTargets, null)
+        : base(new OnRevealEffect(), name, description, getPreDeterminedTargets)
     {
         this.Damage = damage;
     }

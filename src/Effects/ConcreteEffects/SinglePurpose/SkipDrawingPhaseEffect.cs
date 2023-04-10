@@ -15,7 +15,6 @@ public class SkipDrawingPhaseEffect : Effect
             new OnRevealEffect(),
             "SkipDrawingPhase",
             $"This effect will skip the drawing phase of the opponent for {amountOfTurns} {(amountOfTurns > 1 ? "Turns" : "Turn")}",
-            null,
             null)
     {
         this._amountOfTurns = amountOfTurns - 1;

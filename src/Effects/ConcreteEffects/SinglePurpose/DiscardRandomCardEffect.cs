@@ -10,7 +10,6 @@ public class DiscardRandomCardEffect : Effect
             new OnRevealEffect(),
             "DiscardRandomCard",
             "Discard a random card from the opponents hand.",
-            null,
             null)
     {
     }

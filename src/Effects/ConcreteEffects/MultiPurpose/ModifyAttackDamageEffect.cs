@@ -21,7 +21,6 @@ public class ModifyAttackDamageEffect : Effect
             new OnRevealEffect(),
             name,
             "Modifies the attack damage for all creatures, matching the provided creature states.",
-            null,
             null)
     {
         this._attackModifier = attackModifier;

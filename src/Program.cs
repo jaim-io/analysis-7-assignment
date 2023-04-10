@@ -1,4 +1,7 @@
-﻿using TheCardGame.Demos;
+﻿// Jamey Schaap 0950044
+// Vincent de Gans 1003196
+
+using TheCardGame.Demos;
 using TheCardGame.Games;
 
 var gb = GameBoard.GetInstance();

@@ -1,4 +1,6 @@
-using TheCardGame.Cards.Colours;
+// Jamey Schaap 0950044
+// Vincent de Gans 1003196
+
 using TheCardGame.Cards.States;
 using TheCardGame.Common.Models;
 using TheCardGame.Games;

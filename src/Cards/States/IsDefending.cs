@@ -6,8 +6,8 @@ namespace TheCardGame.Cards.States;
 public class IsDefending
     : CardState
 {
-    public IsDefending(CardState state)
-        : base(state.Card)
+    public IsDefending(Card card)
+        : base(card)
     {
     }
 
@@ -18,7 +18,7 @@ public class IsDefending
 
     public override void OnEndTurn()
     {
-        this.card.State = new OnTheBoardFaceUp(this);
+        this.card.State = new OnTheBoardFaceUp(this.card);
     }
 
     public override (bool, int) AbsorbAttack(int iAttackValue)
@@ -40,13 +40,13 @@ public class IsDefending
             GameBoard.GetInstance().RemoveObserver(this.card);
             this.card.RemoveAllObservers();
 
-            this.card.State = new OnTheDisposedPile(this);
+            this.card.State = new OnTheDisposedPile(this.card);
         }
         return (true, attackValueLeft);
     }
 
     public override void GoAttacking()
     {
-        this.card.State = new IsAttacking(this);
+        this.card.State = new IsAttacking(this.card);
     }
 }

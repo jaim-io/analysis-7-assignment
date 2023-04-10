@@ -3,8 +3,8 @@ namespace TheCardGame.Cards.States;
 public class OnTheDisposedPile
     : CardState
 {
-    public OnTheDisposedPile(CardState state)
-        : base(state.Card)
+    public OnTheDisposedPile(Card card)
+        : base(card)
     {
     }
 

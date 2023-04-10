@@ -5,8 +5,8 @@ namespace TheCardGame.Cards.States;
 public class IsAttacking
     : CardState
 {
-    public IsAttacking(CardState state)
-        : base(state.Card)
+    public IsAttacking(Card card)
+        : base(card)
     {
     }
 
@@ -47,11 +47,11 @@ public class IsAttacking
 
     public override void GoDefending()
     {
-        this.card.State = new IsDefending(this);
+        this.card.State = new IsDefending(this.card);
     }
 
     public override void OnEndTurn()
     {
-        this.card.State = new OnTheBoardFaceUp(this);
+        this.card.State = new OnTheBoardFaceUp(this.card);
     }
 }

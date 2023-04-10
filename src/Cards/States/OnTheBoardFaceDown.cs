@@ -7,14 +7,14 @@ namespace TheCardGame.Cards.States;
 public class OnTheBoardFaceDown
     : CardState
 {
-    public OnTheBoardFaceDown(CardState state)
-        : base(state.Card)
+    public OnTheBoardFaceDown(Card card)
+        : base(card)
     {
     }
 
     public override void TurnFaceUp()
     {
-        this.card.State = new OnTheBoardFaceUp(this);
+        this.card.State = new OnTheBoardFaceUp(this.card);
     }
 
     public override bool Dispose()
@@ -30,7 +30,7 @@ public class OnTheBoardFaceDown
         GameBoard.GetInstance().RemoveObserver(this.card);
         this.card.RemoveAllObservers();
 
-        this.card.State = new OnTheDisposedPile(this);
+        this.card.State = new OnTheDisposedPile(this.card);
 
         return true;
     }

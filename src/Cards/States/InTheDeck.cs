@@ -3,11 +3,6 @@ namespace TheCardGame.Cards.States;
 public class InTheDeck
     : CardState
 {
-    public InTheDeck(CardState state)
-        : base(state.Card)
-    {
-    }
-
     public InTheDeck(Card card)
         : base(card)
     {
@@ -25,7 +20,7 @@ public class InTheDeck
 
     public override bool OnDraw()
     {
-        this.card.State = new InTheHand(this);
+        this.card.State = new InTheHand(this.card);
         return true;
     }
 }

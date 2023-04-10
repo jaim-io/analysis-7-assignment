@@ -8,25 +8,25 @@ namespace TheCardGame.Cards.States;
 public class OnTheBoardFaceUp
     : CardState
 {
-    public OnTheBoardFaceUp(CardState state)
-        : base(state.Card)
+    public OnTheBoardFaceUp(Card card)
+        : base(card)
     {
     }
 
     public override void TapEnergy()
     {
         Console.WriteLine($"[System] {this.card.GetId()} has been turned.");
-        this.card.State = new IsTapped(this);
+        this.card.State = new IsTapped(this.card);
     }
 
     public override void GoDefending()
     {
-        this.card.State = new IsDefending(this);
+        this.card.State = new IsDefending(this.card);
     }
 
     public override void GoAttacking()
     {
-        this.card.State = new IsAttacking(this);
+        this.card.State = new IsAttacking(this.card);
     }
 
     public override int GivesEnergyLevel()
@@ -47,7 +47,7 @@ public class OnTheBoardFaceUp
         GameBoard.GetInstance().RemoveObserver(this.card);
         this.card.RemoveAllObservers();
 
-        this.card.State = new OnTheDisposedPile(this);
+        this.card.State = new OnTheDisposedPile(this.card);
 
         return true;
     }

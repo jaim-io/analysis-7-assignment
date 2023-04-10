@@ -8,8 +8,8 @@ namespace TheCardGame.Cards.States;
 public class InTheHand
     : CardState
 {
-    public InTheHand(CardState state)
-        : base(state.Card)
+    public InTheHand(Card card)
+        : base(card)
     {
     }
 
@@ -30,7 +30,7 @@ public class InTheHand
         {
             obs.CardDisposed(disposedEvent);
         }
-        this.card.State = new OnTheDisposedPile(this);
+        this.card.State = new OnTheDisposedPile(this.card);
         return true;
     }
 
@@ -63,7 +63,7 @@ public class InTheHand
         if (this.card.State is InTheHand)
         {
             GameBoard.GetInstance().AddObserver(this.card);
-            this.card.State = new OnTheBoardFaceUp(this);
+            this.card.State = new OnTheBoardFaceUp(this.card);
         }
         return true;
     }

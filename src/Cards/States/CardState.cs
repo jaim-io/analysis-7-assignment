@@ -11,12 +11,6 @@ public abstract class CardState
         this.card = card;
     }
 
-    public Card Card
-    {
-        get { return this.card; }
-        set { this.card = value; }
-    }
-
     public virtual bool OnDraw() { return false; }
     public virtual void OnEndTurn() { }
     public virtual void OnStartTurn() { }

@@ -3,8 +3,8 @@ namespace TheCardGame.Cards.States;
 public class IsTapped
     : CardState
 {
-    public IsTapped(CardState state) 
-        : base(state.Card)
+    public IsTapped(Card card) 
+        : base(card)
     {
     }
 
@@ -15,6 +15,6 @@ public class IsTapped
 
     public override void OnStartTurn()
     {
-        this.card.State = new OnTheBoardFaceUp(this);
+        this.card.State = new OnTheBoardFaceUp(this.card);
     }
 }

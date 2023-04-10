@@ -38,19 +38,6 @@ public static class Support
         return string.Join<string>(", ", cardIds);
     }
 
-    public static List<Card> GetCardsCanBePlayed(List<Card> cards)
-    {
-        List<Card> cardsPlayable = new List<Card>();
-        foreach (Card card in cards)
-        {
-            if (card.State.CanBePlayed())
-            {
-                cardsPlayable.Add(card);
-            }
-        }
-        return cardsPlayable;
-    }
-
     /* returns the specified card. Raise CardNotFoundException if card is not there. */
     public static (Card, int) FindCard(List<Card> sourceList, string cardId)
     {

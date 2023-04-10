@@ -34,7 +34,7 @@ public abstract class SleightOfHandEffect<T> : Effect
     {
         this._startingTurn = GameBoard.GetInstance().Turn;
         GameBoard.GetInstance().AddObserver(this);
-        this.Owner!.State = new OnTheBoardFaceDown(Owner.State);
+        this.Owner!.State = new OnTheBoardFaceDown(Owner);
         Console.WriteLine($"[Sleight of Hand] turned {this.Owner!.GetId()} face down.");
     }
 

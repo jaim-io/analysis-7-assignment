@@ -9,7 +9,6 @@ namespace TheCardGame.Cards;
 
 public abstract class Card : Entity, IGameBoardObserver
 {
-    private int _energyCost = 0; // The amount of energy required to play this card.   
     private string _cardId; /* The unique id of this card in the game. */
     private List<ICardObserver> _observers = new();
     public IReadOnlyList<ICardObserver> Observers => _observers;
@@ -49,16 +48,6 @@ public abstract class Card : Entity, IGameBoardObserver
         return this._cardId;
     }
 
-    public int GetEnergyCost()
-    {
-        return this._energyCost;
-    }
-
-    public void SetEnergyCost(int energyCost)
-    {
-        this._energyCost = energyCost;
-    }
-
     public virtual int GetAttackValue() { throw new NotImplementedException(); }
     public virtual void ResetAttackValue() { throw new NotImplementedException(); }
     public virtual void ModifyAttackValue(Func<int, int> modifier) { throw new NotImplementedException(); }
@@ -74,11 +63,6 @@ public abstract class Card : Entity, IGameBoardObserver
     public virtual bool Dispose()
     {
         return this.State.Dispose();
-    }
-
-    public virtual void OnEndTurn()
-    {
-        this.State.OnEndTurn();
     }
 
     public bool OnDraw()

@@ -2,7 +2,7 @@ namespace TheCardGame.Cards.Colours;
 
 public abstract class ColourFactory
 {
-    public abstract Colour CreateRed(int cost = 0);
-    public abstract Colour CreateBlue(int cost = 0);
-    public abstract Colour CreateColourless(int cost = 0);
+    public abstract Red CreateRed(int cost = 0);
+    public abstract Blue CreateBlue(int cost = 0);
+    public abstract Colourless CreateColourless(int cost = 0);
 }

@@ -78,7 +78,14 @@ public class MainPhase : GameState
             Console.WriteLine($"[System] Please turn over {colourless.Cost} land {(colourless.Cost == 1 ? "card" : "cards")} of any colour ('Colourless').");
         }
 
-        Console.WriteLine($"[{player.GetName()}] Has enough matching lands on the board to play {card.GetId()} and plays {card.GetId()}");
+        if (card is not LandCard)
+        {
+            Console.WriteLine($"[{player.GetName()}] Has enough matching lands on the board to play {card.GetId()} and plays {card.GetId()}");
+        }
+        else
+        {
+            Console.WriteLine($"[{player.GetName()}] Plays {card.GetId()}");
+        }
         player.PlayCard(card);
 
         return true;

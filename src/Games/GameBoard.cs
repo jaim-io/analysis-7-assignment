@@ -68,16 +68,6 @@ public class GameBoard : IPlayerObserver
         this.Player2.AddObserver(this);
     }
 
-    public bool TakeCard()
-    {
-        return this.State.TakeCard();
-    }
-
-    public bool DrawCard(string cardId)
-    {
-        return this.State.DrawCard(cardId);
-    }
-
     public void ToMainPhase() => this.State.ToMainPhase();
     public bool StartTurn()
     {

@@ -1,6 +1,6 @@
 # Todo
 
-## Artefacts
-
-Implement artefacts
-
+- [x] Code
+- [x] Class Diagram
+- [ ] Sequence Diagram
+- [ ] State machine Diagram

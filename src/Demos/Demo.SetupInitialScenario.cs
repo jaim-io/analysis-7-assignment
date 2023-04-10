@@ -11,6 +11,7 @@ public partial class Demo
     {
         var gb = GameBoard.GetInstance();
 
+        Console.WriteLine("=== Initial setup [Start]");
         // Arnold
         {
             var redLand1 = gb.Player1.DrawCard("p1-red-land-1");
@@ -46,5 +47,6 @@ public partial class Demo
         }
 
         gb.DrawInitialCards();
+        Console.WriteLine("=== Initial setup [End]");
     }
 }

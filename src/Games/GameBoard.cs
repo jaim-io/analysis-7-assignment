@@ -12,13 +12,13 @@ namespace TheCardGame.Games;
 public class GameBoard : IPlayerObserver
 {
     private static GameBoard? _instance;
+    private bool _gameEnded;
     public Player CurrentPlayer { get; private set; }
     public Player OpponentPlayer { get; private set; }
     public Player Player1 { get; private set; }
     public Player Player2 { get; private set; }
     public GameState State { get; set; }
     public uint Turn { get; private set; }
-    private bool _gameEnded;
     public TheStack Stack { get; init; }
     public List<IGameBoardObserver> Observers { get; private set; } = new();
 

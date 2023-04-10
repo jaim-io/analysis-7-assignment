@@ -13,13 +13,13 @@ public partial class Demo
     {
         var player = new Player("Bryce", 10);
 
-        var counterCard = CardFactory.CreateSpellCard("counter-spell", new() { ColourFactory.CreateRed() });
+        var counterCard = CardFactory.CreateSpellCard("p2-counter-spell", new() { ColourFactory.CreateRed() });
         {
             var counterEffect = EffectFactory.CreateCounterEffect();
             counterCard.BindEffect(counterEffect);
         }
 
-        var knownGame = CardFactory.CreateSpellCard("known-game", new() { ColourFactory.CreateColourless(4) });
+        var knownGame = CardFactory.CreateSpellCard("p2-known-game", new() { ColourFactory.CreateColourless(4) });
         {
             var sleightOfHandEffect = EffectFactory.CreateSleightOfHandEffect<MainPhase>(1);
             var disposeEffect = EffectFactory.CreateDisposeEffect();
@@ -41,7 +41,7 @@ public partial class Demo
                 .BindEffect(disposeEffect);
         }
 
-        var artefact = CardFactory.CreateArtefactCard("artefact-1", 2);
+        var artefact = CardFactory.CreateArtefactCard("p2-artefact-1", 2);
         {
             var skipDrawingPhaseEffect = EffectFactory.CreateSkipDrawingPhaseEffect(1);
             var allCreaturesDealHalfDamageEffect = EffectFactory.CreateModifyAttackDamageEffect(
@@ -63,7 +63,7 @@ public partial class Demo
                 .BindEffect(delayedDisposeEffect);
         }
 
-        var redDamageSpell = CardFactory.CreateSpellCard("red-damage-spell-1", new() { ColourFactory.CreateRed(1) });
+        var redDamageSpell = CardFactory.CreateSpellCard("p2-red-damage-spell-1", new() { ColourFactory.CreateRed(1) });
         {
             var dealDamageEffect = EffectFactory.CreateDealDamageEffect(
                 name: "DealDamage",
@@ -82,24 +82,24 @@ public partial class Demo
                 knownGame,
                 artefact,
                 redDamageSpell,
-                CardFactory.CreateLandCard("red-land-3", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateSpellCard("random-1", new() { ColourFactory.CreateRed(1) }),
-                CardFactory.CreateSpellCard("random-2", new() { ColourFactory.CreateRed(1) }),
-                CardFactory.CreateSpellCard("random-3", new() { ColourFactory.CreateBlue(1) }),
-                CardFactory.CreateSpellCard("random-4", new() { ColourFactory.CreateBlue(1) }),
-                CardFactory.CreateSpellCard("random-5", new() { ColourFactory.CreateBlue(1) }),
-                CardFactory.CreateCreatureCard("random-6", new() { ColourFactory.CreateRed(1) }, 2, 2),
-                CardFactory.CreateLandCard("red-land-1", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("red-land-2", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("blue-land-1", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("blue-land-2", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("blue-land-3", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("red-land-1", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("red-land-2", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("blue-land-1", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("blue-land-2", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("blue-land-3", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateCreatureCard("red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
+                CardFactory.CreateLandCard("p2-red-land-3", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateSpellCard("p2-random-1", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-2", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-3", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("p2-random-4", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateSpellCard("p2-random-5", new() { ColourFactory.CreateBlue(1) }),
+                CardFactory.CreateCreatureCard("p2-random-6", new() { ColourFactory.CreateRed(1) }, 2, 2),
+                CardFactory.CreateLandCard("p2-red-land-1", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-red-land-2", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-blue-land-1", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-2", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-3", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-red-land-1", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-red-land-2", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-blue-land-1", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-2", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-3", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateCreatureCard("p2-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
             });
 
         return player;

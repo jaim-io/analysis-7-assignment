@@ -16,23 +16,23 @@ public partial class Demo
         if (!gb.StartTurn()) { return false; }
 
         // |-> Hidden Danger is turned from face down to face up
-        gb.ActivateEffect(player1, "hidden-danger", "Dispose");
-        gb.ActivateEffect(player1, "hidden-danger", "SkipDrawingPhase", new() { gb.Player2 });
-        gb.ActivateEffect(player1, "hidden-danger", "DealDamageToAllCards");
+        gb.ActivateEffect(player1, "p1-hidden-danger", "Dispose");
+        gb.ActivateEffect(player1, "p1-hidden-danger", "SkipDrawingPhase", new() { gb.Player2 });
+        gb.ActivateEffect(player1, "p1-hidden-danger", "DealDamageToAllCards");
         gb.Stack.Resolve(); // Stack is resolved Last In First Out (LIFO)
 
         if (!gb.ToDrawingPhase()) { return false; }
         gb.ToMainPhase();
 
-        gb.PlayCard(player2, "red-land-3");
+        gb.PlayCard(player2, "p2-red-land-3");
 
-        if (gb.PlayCard(player2, "known-game")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
+        if (gb.PlayCard(player2, "p2-known-game")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
         {
             // Bryce is able to play the card and is prompted to turn the land with the specified colours   
-            gb.TapFromCard("blue-land-1");
-            gb.TapFromCard("red-land-1");
-            gb.TapFromCard("red-land-2");
-            gb.TapFromCard("red-land-3");
+            gb.TapFromCard("p2-blue-land-1");
+            gb.TapFromCard("p2-red-land-1");
+            gb.TapFromCard("p2-red-land-2");
+            gb.TapFromCard("p2-red-land-3");
         }
 
         gb.EndTurn();

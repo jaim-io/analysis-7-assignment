@@ -18,18 +18,18 @@ public partial class Demo
 
         gb.ToMainPhase();
 
-        gb.PlayCard(player1, "red-land-6");
-        gb.PlayCard(player1, "red-land-7");
+        gb.PlayCard(player1, "p1-red-land-6");
+        gb.PlayCard(player1, "p1-red-land-7");
 
-        if (gb.PlayCard(player1, "hidden-danger")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
+        if (gb.PlayCard(player1, "p1-hidden-danger")) // Sleight of Hand is activated automatically as it's an pre-reveal effect
         {
             // Arnold is able to play the card and is prompted to turn the land with the specified colours
-            gb.TapFromCard("red-land-1");
-            gb.TapFromCard("red-land-2");
-            gb.TapFromCard("red-land-3");
-            gb.TapFromCard("red-land-4");
-            gb.TapFromCard("red-land-6");
-            gb.TapFromCard("red-land-7");
+            gb.TapFromCard("p1-red-land-1");
+            gb.TapFromCard("p1-red-land-2");
+            gb.TapFromCard("p1-red-land-3");
+            gb.TapFromCard("p1-red-land-4");
+            gb.TapFromCard("p1-red-land-6");
+            gb.TapFromCard("p1-red-land-7");
         }
 
         gb.EndTurn();

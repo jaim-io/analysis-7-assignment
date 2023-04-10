@@ -5,8 +5,6 @@ using TheCardGame.Effects.States;
 using TheCardGame.Effects.Types;
 using TheCardGame.Games;
 using TheCardGame.Games.Events;
-using TheCardGame.Players;
-using TheCardGame.Players.Events;
 
 namespace TheCardGame.Effects;
 

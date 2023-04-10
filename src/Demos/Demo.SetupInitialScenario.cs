@@ -12,10 +12,10 @@ public partial class Demo
 
         // Arnold
         {
-            var redLand1 = gb.Player1.DrawCard("red-land-1");
-            var redLand2 = gb.Player1.DrawCard("red-land-2");
-            var redLand3 = gb.Player1.DrawCard("red-land-3");
-            var redLand4 = gb.Player1.DrawCard("red-land-4");
+            var redLand1 = gb.Player1.DrawCard("p1-red-land-1");
+            var redLand2 = gb.Player1.DrawCard("p1-red-land-2");
+            var redLand3 = gb.Player1.DrawCard("p1-red-land-3");
+            var redLand4 = gb.Player1.DrawCard("p1-red-land-4");
 
             gb.Player1.PlayCard(redLand1!);
             gb.Player1.PlayCard(redLand2!);
@@ -29,12 +29,12 @@ public partial class Demo
 
         // Bryce
         {
-            var redLand1 = gb.Player2.DrawCard("red-land-1");
-            var redLand2 = gb.Player2.DrawCard("red-land-2");
-            var blueLand1 = gb.Player2.DrawCard("blue-land-1");
-            var blueLand2 = gb.Player2.DrawCard("blue-land-2");
-            var blueLand3 = gb.Player2.DrawCard("blue-land-3");
-            var redCreature1 = gb.Player2.DrawCard("red-creature-1");
+            var redLand1 = gb.Player2.DrawCard("p2-red-land-1");
+            var redLand2 = gb.Player2.DrawCard("p2-red-land-2");
+            var blueLand1 = gb.Player2.DrawCard("p2-blue-land-1");
+            var blueLand2 = gb.Player2.DrawCard("p2-blue-land-2");
+            var blueLand3 = gb.Player2.DrawCard("p2-blue-land-3");
+            var redCreature1 = gb.Player2.DrawCard("p2-red-creature-1");
 
             gb.Player2.PlayCard(redLand1!);
             gb.Player2.PlayCard(redLand2!);

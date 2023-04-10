@@ -119,8 +119,8 @@ public class Player : Entity
             var index = new Random().Next(0, this.Cards.Count);
             card = this.Cards[index];
 
-            // For demo purpose, the discarded card is hard-coded to be "random-1"
-            (card, int _) = Support.FindCard(this.Cards, "random-1");
+            // For demo purpose, the discarded card is hard-coded to be "p2-random-1"
+            (card, int _) = Support.FindCard(this.Cards, "p2-random-1");
         } while (card.State is not InTheHand);
 
         this.Cards.Remove(card);

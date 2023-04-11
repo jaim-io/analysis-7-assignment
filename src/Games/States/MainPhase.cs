@@ -95,7 +95,7 @@ public class MainPhase : GameState
     }
     public override void ActivateEffect(Guid playerId, string cardId, string effectName, List<Entity>? targets = null)
     {
-        var player = GameBoard.GetInstance().GetPlayerById(playerId);
+        var player = this.game.GetPlayerById(playerId);
 
         (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
         card?.ActivateEffect(effectName, targets);

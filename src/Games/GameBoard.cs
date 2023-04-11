@@ -140,7 +140,7 @@ public class GameBoard : IPlayerObserver
 
     public bool PeformAttack(string cardId, List<string>? opponentDefenseCardIds = null)
     {
-        return this.State.PeformAttack(cardId, opponentDefenseCardIds ?? new());
+        return this.State.PerformAttack(cardId, opponentDefenseCardIds ?? new());
     }
 
     public void SetCardToAttacking(string cardId) => this.State.SetCardToAttacking(cardId);

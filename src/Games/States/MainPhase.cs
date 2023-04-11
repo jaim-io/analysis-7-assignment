@@ -100,7 +100,7 @@ public class MainPhase : GameState
         (Card card, int _) = Support.FindCard(player.GetCards(), cardId);
         card?.ActivateEffect(effectName, targets);
     }
-    public override bool PeformAttack(string cardId, List<string> opponentDefenseCardIds)
+    public override bool PerformAttack(string cardId, List<string> opponentDefenseCardIds)
     {
         foreach (Card oCard in game.OpponentPlayer.GetCards())
         {

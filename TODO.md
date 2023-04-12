@@ -2,5 +2,5 @@
 
 - [x] Code
 - [x] Class Diagram
-- [ ] Sequence Diagram
-- [ ] State machine Diagram
+- [x] Sequence Diagram
+- [x] State machine Diagram

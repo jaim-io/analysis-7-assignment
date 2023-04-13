@@ -38,7 +38,7 @@ public partial class Demo
         if (gb.PlayCard(player2, "p2-red-damage-spell-1"))
         {
             // Bryce is able to play the card and is prompted to turn the land with the specified colour   
-            gb.TapFromCard("red-land-2");
+            gb.TapFromCard("p2-red-land-2");
 
             var (creature, _) = Support.FindCard(gb.Player1.GetCards(), "p1-red-creature-1");
             gb.ActivateEffect(player2, "p2-red-damage-spell-1", "Dispose");

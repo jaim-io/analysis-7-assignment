@@ -96,11 +96,11 @@ public partial class Demo
                 CardFactory.CreateLandCard("p2-blue-land-1", new() { ColourFactory.CreateBlue() }),
                 CardFactory.CreateLandCard("p2-blue-land-2", new() { ColourFactory.CreateBlue() }),
                 CardFactory.CreateLandCard("p2-blue-land-3", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("p2-red-land-1", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("p2-red-land-2", new() { ColourFactory.CreateRed() }),
-                CardFactory.CreateLandCard("p2-blue-land-1", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("p2-blue-land-2", new() { ColourFactory.CreateBlue() }),
-                CardFactory.CreateLandCard("p2-blue-land-3", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-red-land-4", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-red-land-5", new() { ColourFactory.CreateRed() }),
+                CardFactory.CreateLandCard("p2-blue-land-4", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-5", new() { ColourFactory.CreateBlue() }),
+                CardFactory.CreateLandCard("p2-blue-land-6", new() { ColourFactory.CreateBlue() }),
                 CardFactory.CreateCreatureCard("p2-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
             });
 

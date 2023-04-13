@@ -102,6 +102,15 @@ public partial class Demo
                 CardFactory.CreateLandCard("p2-blue-land-5", new() { ColourFactory.CreateBlue() }),
                 CardFactory.CreateLandCard("p2-blue-land-6", new() { ColourFactory.CreateBlue() }),
                 CardFactory.CreateCreatureCard("p2-red-creature-1", new() { ColourFactory.CreateRed() }, 2, 2),
+                CardFactory.CreateSpellCard("p2-random-7", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-8", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-9", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-10", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-11", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-12", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-13", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-14", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p2-random-15", new() { ColourFactory.CreateRed(1) }),
             });
 
         return player;

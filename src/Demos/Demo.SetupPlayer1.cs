@@ -85,6 +85,17 @@ public partial class Demo
                 CardFactory.CreateSpellCard("p1-random-4", new() { ColourFactory.CreateBlue(1) }),
                 CardFactory.CreateSpellCard("p1-random-5", new() { ColourFactory.CreateBlue(1) }),
                 CardFactory.CreateCreatureCard("p1-random-6", new() { ColourFactory.CreateRed(1) }, 2, 2),
+                CardFactory.CreateSpellCard("p1-random-7", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-8", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-9", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-10", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-11", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-12", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-13", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-14", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-15", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-16", new() { ColourFactory.CreateRed(1) }),
+                CardFactory.CreateSpellCard("p1-random-17", new() { ColourFactory.CreateRed(1) }),
             });
 
         return player;

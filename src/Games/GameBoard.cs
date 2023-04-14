@@ -218,8 +218,6 @@ public class GameBoard : IPlayerObserver
             this.Player1.DrawCard();
             this.Player2.DrawCard();
         }
-
-        this.LogCurrentSituation();
     }
 
     private void SwapPlayer()

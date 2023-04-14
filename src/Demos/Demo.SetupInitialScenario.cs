@@ -48,5 +48,7 @@ public partial class Demo
 
         gb.DrawInitialCards();
         Console.WriteLine("=== Initial setup [End]");
+
+        gb.LogCurrentSituation();
     }
 }
